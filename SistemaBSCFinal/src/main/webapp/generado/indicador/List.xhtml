@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListIndicadorTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="IndicadorListForm">
+                <p:panel header="#{bundle.ListIndicadorTitle}">
+                    <p:dataTable id="datalist" value="#{indicadorController.items}" var="item"
+                                 selectionMode="single" selection="#{indicadorController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.idIndicador}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListIndicadorTitle_idIndicador}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idIndicador}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListIndicadorTitle_aclaracion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.aclaracion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListIndicadorTitle_conceptualizacion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.conceptualizacion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListIndicadorTitle_nombreIndicador}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombreIndicador}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListIndicadorTitle_unidades}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.unidades}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListIndicadorTitle_formula}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.formula}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListIndicadorTitle_periodicidad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.periodicidad}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListIndicadorTitle_estadoActual}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.estadoActual}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListIndicadorTitle_bajoMinimo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.bajoMinimo}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListIndicadorTitle_bajoMaximo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.bajoMaximo}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListIndicadorTitle_medioMinimo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.medioMinimo}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListIndicadorTitle_medioMaximo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.medioMaximo}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListIndicadorTitle_altoMinimo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.altoMinimo}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListIndicadorTitle_altoMaximo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.altoMaximo}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListIndicadorTitle_idObjetivoEstrategico}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idObjetivoEstrategico}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{indicadorController.prepareCreate}" update=":IndicadorCreateForm" oncomplete="PF('IndicadorCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":IndicadorViewForm" oncomplete="PF('IndicadorViewDialog').show()" disabled="#{empty indicadorController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":IndicadorEditForm" oncomplete="PF('IndicadorEditDialog').show()" disabled="#{empty indicadorController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{indicadorController.destroy}" update=":growl,datalist" disabled="#{empty indicadorController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

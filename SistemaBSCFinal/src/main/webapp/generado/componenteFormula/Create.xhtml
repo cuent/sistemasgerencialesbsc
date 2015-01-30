@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ComponenteFormulaCreateDlg" widgetVar="ComponenteFormulaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateComponenteFormulaTitle}">
+            <h:form id="ComponenteFormulaCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{componenteFormulaController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateComponenteFormulaLabel_idComponenteFormula}" for="idComponenteFormula" />
+                        <p:inputText id="idComponenteFormula" value="#{componenteFormulaController.selected.idComponenteFormula}" title="#{bundle.CreateComponenteFormulaTitle_idComponenteFormula}" required="true" requiredMessage="#{bundle.CreateComponenteFormulaRequiredMessage_idComponenteFormula}"/>
+                        <p:outputLabel value="#{bundle.CreateComponenteFormulaLabel_formula}" for="formula" />
+                        <p:inputText id="formula" value="#{componenteFormulaController.selected.formula}" title="#{bundle.CreateComponenteFormulaTitle_formula}" />
+                        <p:outputLabel value="#{bundle.CreateComponenteFormulaLabel_unidad}" for="unidad" />
+                        <p:inputText id="unidad" value="#{componenteFormulaController.selected.unidad}" title="#{bundle.CreateComponenteFormulaTitle_unidad}" />
+                        <p:outputLabel value="#{bundle.CreateComponenteFormulaLabel_idIndicador}" for="idIndicador" />
+                        <p:selectOneMenu id="idIndicador" value="#{componenteFormulaController.selected.idIndicador}" required="true" requiredMessage="#{bundle.EditComponenteFormulaRequiredMessage_idIndicador}">
+                            <f:selectItems value="#{indicadorController.itemsAvailableSelectOne}"
+                                           var="idIndicadorItem"
+                                           itemValue="#{idIndicadorItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{componenteFormulaController.create}" value="#{bundle.Save}" update="display,:ComponenteFormulaListForm:datalist,:growl" oncomplete="handleSubmit(args,'ComponenteFormulaCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ComponenteFormulaCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

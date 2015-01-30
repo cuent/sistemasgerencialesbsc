@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<f:view xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"        
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+    <html>
+        <h:head>
+            <title>Runners sport  A Ecommerce Category Flat a Bootstarp  Website Template | Home :: w3layouts</title>
+            <h:outputStylesheet name="css/jsfcrud.css"/>
+
+            <h:outputStylesheet library="css" name="style.css"/>
+            <h:outputStylesheet library="css" name="bootstrap.css"/>
+            <h:outputStylesheet  name="http://fonts.googleapis.com/css?family=Montserrat:400,700"/>
+            <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+            <h:outputStylesheet library="js" name="jquery.min.js"/>
+            <h:outputScript library="js" name="jquery.min.js"/> 
+            <h:outputScript library="js" name="easing.js"/> 
+            <h:outputStylesheet library="css" name="flexslider.css"/>
+            <h:outputStylesheet library="css" name="megamenu.css"/>
+            <h:outputStylesheet library="css" name="form.css"/>
+            <h:outputStylesheet library="css" name="form.css"/>
+            <h:outputScript library="js" name="megamenu.js"/> 
+
+
+            <script>$(document).ready(function () {
+                    $(".megamenu").megamenu();
+                });</script>
+            <h:outputScript library="js" name="menu_jquery.js"/> 
+            <h:outputScript library="js" name="jquery.easydropdown.js"/> 
+            <h:outputScript library="js" name="jquery.etalage.min.js"/> 
+
+            <script>
+                jQuery(document).ready(function ($) {
+
+                    $('#etalage').etalage({
+                        thumb_image_width: 300,
+                        thumb_image_height: 400,
+                        source_image_width: 800,
+                        source_image_height: 1000,
+                        show_hint: true,
+                        click_callback: function (image_anchor, instance_id) {
+                            alert('Callback example:\nYou clicked on an image with the anchor: "' + image_anchor + '"\n(in Etalage instance: "' + instance_id + '")');
+                        }
+                    });
+
+                });
+            </script>
+
+        </h:head>
+        <h:body>
+            <!-- header -->
+            <div class="header">
+                <div class="top_bg">
+                    <div class="container">
+                        <div class="header_top">
+                            <div class="logo">
+
+                                <a href="index.html"><img src="resources/img/golden.jpg" alt=""/></a>
+                            </div>
+                            <div class="top_right">
+                                <div class="login" id="loginContainer"><a href="#" id="loginButton"><span>Login</span></a>
+                                    <div id="loginBox">                
+                                        <form id="loginForm">
+                                            <fieldset id="body">
+                                                <fieldset>
+                                                    <label for="email">Usuario</label>
+                                                    <input type="text" name="email" id="email"/>
+                                                </fieldset>
+                                                <fieldset>
+                                                    <label for="password">ContraseÃ±a</label>
+                                                    <input type="password" name="password" id="password"/>
+                                                </fieldset>
+                                                <input type="submit" id="login" value="Sign in"/>
+                                                <label for="checkbox"><input type="checkbox" id="checkbox"/> <i>Recuerdame</i></label>
+                                            </fieldset>
+                                            <span id="contraseÃ±a"><a href="#">Recordar ContraseÃ±a</a></span>
+                                        </form>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="head-bann">
+                <div class="container">
+                    <div class="head-nav">
+                        <span class="menu"> </span>
+                        <ul class="megamenu skyblue">
+                            <li><a class="color1" href="index.html">Home</a></li>
+                            <li><a class="color4" href="#">Empresa</a></li>				
+                            <li><a class="color5" href="#">Informacion</a></li>
+                            <li><a class="color6" href="#">Ubicacion</a></li>
+                            <li><a class="color7" href="brands.html">Contactos</a></li>
+                            <div class="clearfix"> </div>
+                        </ul> 
+                    </div>
+                </div>	
+            </div>
+            <!-- script-for-nav -->
+            <script>
+                $("span.menu").click(function () {
+                    $(".head-nav ul").slideToggle(300, function () {
+                        // Animation complete.
+                    });
+                });
+            </script>
+            <!-- script-for-nav -->
+            <div class="banner">
+                <div class="container">
+                    <div class="col-md-6">
+                    </div>
+                    <div class="col-md-6 banner-info">
+                        <h1>Big Title Here</h1>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sed malesuada sapien. Nulla aliquam orci nec massa hendrerit tincidunt. Donec in sollicitudin lacus. Curabitur et faucibus nulla. Maecenas sit amet semper libero, in iaculis felis. Aliquam erat volutpat. Donec sollicitudin turpis eget tortor tincidunt euismod.</p>
+                        <a class="show-more" href="#">SHOW ME MORE</a>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+        </h:body>
+    </html>
+</f:view>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ResponsableObjetivoViewDlg" widgetVar="ResponsableObjetivoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewResponsableObjetivoTitle}">
+            <h:form id="ResponsableObjetivoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{responsableObjetivoController.selected != null}">
+                        <h:outputText value="#{bundle.ViewResponsableObjetivoLabel_responsableObjetivoPK_idResponsable}"/>
+                        <h:outputText value="#{responsableObjetivoController.selected.responsableObjetivoPK.idResponsable}" title="#{bundle.ViewResponsableObjetivoTitle_responsableObjetivoPK_idResponsable}"/>
+                        <h:outputText value="#{bundle.ViewResponsableObjetivoLabel_objetivoEstrategico}"/>
+                        <h:outputText value="#{responsableObjetivoController.selected.objetivoEstrategico}" title="#{bundle.ViewResponsableObjetivoTitle_objetivoEstrategico}"/>
+                        <h:outputText value="#{bundle.ViewResponsableObjetivoLabel_usuario}"/>
+                        <h:outputText value="#{responsableObjetivoController.selected.usuario}" title="#{bundle.ViewResponsableObjetivoTitle_usuario}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ResponsableObjetivoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

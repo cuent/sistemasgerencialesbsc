@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ResponsableActividadCreateDlg" widgetVar="ResponsableActividadCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateResponsableActividadTitle}">
+            <h:form id="ResponsableActividadCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{responsableActividadController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateResponsableActividadLabel_responsableActividadPK_idResponsableActividad}" for="responsableActividadPK_idResponsableActividad" />
+                        <p:inputText id="responsableActividadPK_idResponsableActividad" value="#{responsableActividadController.selected.responsableActividadPK.idResponsableActividad}" title="#{bundle.CreateResponsableActividadTitle_responsableActividadPK_idResponsableActividad}" required="true" requiredMessage="#{bundle.CreateResponsableActividadRequiredMessage_responsableActividadPK_idResponsableActividad}"/>
+                        <p:outputLabel value="#{bundle.CreateResponsableActividadLabel_responsableActividadPK_idActividad}" for="responsableActividadPK_idActividad" />
+                        <p:inputText id="responsableActividadPK_idActividad" value="#{responsableActividadController.selected.responsableActividadPK.idActividad}" title="#{bundle.CreateResponsableActividadTitle_responsableActividadPK_idActividad}" required="true" requiredMessage="#{bundle.CreateResponsableActividadRequiredMessage_responsableActividadPK_idActividad}"/>
+                        <p:outputLabel value="#{bundle.CreateResponsableActividadLabel_actividades}" for="actividades" />
+                        <p:selectOneMenu id="actividades" value="#{responsableActividadController.selected.actividades}" required="true" requiredMessage="#{bundle.EditResponsableActividadRequiredMessage_actividades}">
+                            <f:selectItems value="#{actividadesController.itemsAvailableSelectOne}"
+                                           var="actividadesItem"
+                                           itemValue="#{actividadesItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateResponsableActividadLabel_usuario}" for="usuario" />
+                        <p:selectOneMenu id="usuario" value="#{responsableActividadController.selected.usuario}" required="true" requiredMessage="#{bundle.EditResponsableActividadRequiredMessage_usuario}">
+                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                           var="usuarioItem"
+                                           itemValue="#{usuarioItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{responsableActividadController.create}" value="#{bundle.Save}" update="display,:ResponsableActividadListForm:datalist,:growl" oncomplete="handleSubmit(args,'ResponsableActividadCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ResponsableActividadCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

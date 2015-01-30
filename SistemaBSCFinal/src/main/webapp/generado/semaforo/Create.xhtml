@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SemaforoCreateDlg" widgetVar="SemaforoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateSemaforoTitle}">
+            <h:form id="SemaforoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{semaforoController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateSemaforoLabel_idIndicador}" for="idIndicador" />
+                        <p:inputText id="idIndicador" value="#{semaforoController.selected.idIndicador}" title="#{bundle.CreateSemaforoTitle_idIndicador}" required="true" requiredMessage="#{bundle.CreateSemaforoRequiredMessage_idIndicador}"/>
+                        <p:outputLabel value="#{bundle.CreateSemaforoLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{semaforoController.selected.descripcion}" title="#{bundle.CreateSemaforoTitle_descripcion}" />
+                        <p:outputLabel value="#{bundle.CreateSemaforoLabel_valorActual}" for="valorActual" />
+                        <p:inputText id="valorActual" value="#{semaforoController.selected.valorActual}" title="#{bundle.CreateSemaforoTitle_valorActual}" />
+                        <p:outputLabel value="#{bundle.CreateSemaforoLabel_idObjetivoEstrategico}" for="idObjetivoEstrategico" />
+                        <p:selectOneMenu id="idObjetivoEstrategico" value="#{semaforoController.selected.idObjetivoEstrategico}" required="true" requiredMessage="#{bundle.EditSemaforoRequiredMessage_idObjetivoEstrategico}">
+                            <f:selectItems value="#{objetivoEstrategicoController.itemsAvailableSelectOne}"
+                                           var="idObjetivoEstrategicoItem"
+                                           itemValue="#{idObjetivoEstrategicoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{semaforoController.create}" value="#{bundle.Save}" update="display,:SemaforoListForm:datalist,:growl" oncomplete="handleSubmit(args,'SemaforoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="SemaforoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
