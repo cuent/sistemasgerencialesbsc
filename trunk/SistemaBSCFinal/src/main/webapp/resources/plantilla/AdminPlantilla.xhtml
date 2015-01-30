@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet library="css" name="style.css"/>
+        <h:outputStylesheet library="css" name="bootstrap.css"/>
+        <h:outputStylesheet  name="http://fonts.googleapis.com/css?family=Montserrat:400,700"/>
+        <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+        <h:outputStylesheet library="js" name="jquery.min.js"/>
+        <h:outputScript library="js" name="jquery.min.js"/> 
+        <h:outputScript library="js" name="easing.js"/> 
+        <h:outputStylesheet library="css" name="flexslider.css"/>
+        <h:outputStylesheet library="css" name="megamenu.css"/>
+        <h:outputStylesheet library="css" name="form.css"/>
+        <h:outputStylesheet library="css" name="estilo.css"/>
+        <h:outputStylesheet library="css" name="form.css"/>
+        <h:outputScript library="js" name="megamenu.js"/> 
+        <script>$(document).ready(function () {
+                $(".megamenu").megamenu();
+            });</script>
+        <h:outputScript library="js" name="menu_jquery.js"/> 
+        <h:outputScript library="js" name="jquery.easydropdown.js"/> 
+        <h:outputScript library="js" name="jquery.etalage.min.js"/> 
+        <title>Facelets Template</title>
+    </h:head>
+
+    <h:body>
+
+        <div id="top">
+
+        </div>
+        <div class="infoLogueado">
+        
+            <div style="float: left;">
+                <p:graphicImage value="http://smartergp-app.com/Images/menu/2.png" width="50" height="50"/>
+            </div>
+            <div style="float: left;">
+            Administrador
+            </div>
+            <div style="clear:both;">
+                <h:panelGrid border="0" columns="2" cellspacing="20px" cellpadding="20px">
+                    <p:commandLink value="Menu"/>
+                  <p:commandLink value="Salir"/>
+                </h:panelGrid>
+            </div>
+        </div>
+        <div>
+            <div id="left">
+                <p:panel header="Menu" style="border: 0px;">
+                    <h:form>
+                        <p:menu style="width: 280px; margin-left: 0px; border: 0px;"  >
+                            <p:submenu label="Ajax">
+                                <p:menuitem value="Save" actionListener="#{menuView.save}"  icon="ui-icon-disk" />
+                                <p:menuitem value="Update" actionListener="#{menuView.update}"  icon="ui-icon-arrowrefresh-1-w"/>
+                            </p:submenu>
+                            <p:submenu label="Non-Ajax">
+                                <p:menuitem value="Delete" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-close"/>
+                            </p:submenu>
+                            <p:submenu label="Navigations">
+                                <p:menuitem value="External" url="http://www.primefaces.org" icon="ui-icon-home"/>
+                                <p:menuitem value="Internal"  icon="ui-icon-star"/>
+                            </p:submenu>
+                        </p:menu>
+                    </h:form>
+                </p:panel>
+                <p:panel header="Calendario" style="border: 0px;">
+                    <p:calendar id="inline" value="#{calendarView.date1}" mode="inline" style="width: 100px; margin-left: 0px;" />
+                </p:panel>
+            </div>
+
+
+
+
+            <div id="content">
+                <ui:insert name="content">Content</ui:insert>
+            </div>
+        </div>
+
+
+    </h:body>
+
+</html>

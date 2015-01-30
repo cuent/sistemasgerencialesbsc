@@ -1,0 +1,51 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 30-ene-2015, 13:23:09
+    Author     : pablito
+*/
+#top{
+    width: 80%;
+    height: 100px;
+    float: left;
+
+}
+.infoLogueado{
+    float: left;
+    width:19%;
+    height: 100px;
+     border-radius: 0px 0px 16px 0px;
+    -moz-border-radius: 0px 0px 16px 0px;
+    -webkit-border-radius: 0px 0px 16px 0px;
+    border: 0px solid black;
+    background-color: white;
+
+}
+
+#left{
+    clear:both;
+    float: left;
+    width: 22%;
+    padding-top: 10px;
+
+    height: 400px;
+
+
+}
+#content{
+
+    float: left;
+    margin-left: 23%;
+    width: 76%;
+    margin-top: -390px;
+  background-color: white;
+    height: 600px;
+    border-radius: 16px 16px 16px 16px;
+    -moz-border-radius: 16px 16px 16px 16px;
+    -webkit-border-radius: 16px 16px 16px 16px;
+    border: 0px solid #000000;
+
+}

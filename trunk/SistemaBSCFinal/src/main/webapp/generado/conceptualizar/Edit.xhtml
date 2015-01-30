@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ConceptualizarEditDlg" widgetVar="ConceptualizarEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditConceptualizarTitle}">
+            <h:form id="ConceptualizarEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{conceptualizarController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditConceptualizarLabel_idConceptualizar}" for="idConceptualizar" />
+                        <p:inputText id="idConceptualizar" value="#{conceptualizarController.selected.idConceptualizar}" title="#{bundle.EditConceptualizarTitle_idConceptualizar}" required="true" requiredMessage="#{bundle.EditConceptualizarRequiredMessage_idConceptualizar}"/>
+                        <p:outputLabel value="#{bundle.EditConceptualizarLabel_definir}" for="definir" />
+                        <p:inputText id="definir" value="#{conceptualizarController.selected.definir}" title="#{bundle.EditConceptualizarTitle_definir}" required="true" requiredMessage="#{bundle.EditConceptualizarRequiredMessage_definir}"/>
+                        <p:outputLabel value="#{bundle.EditConceptualizarLabel_aclarar}" for="aclarar" />
+                        <p:inputText id="aclarar" value="#{conceptualizarController.selected.aclarar}" title="#{bundle.EditConceptualizarTitle_aclarar}" required="true" requiredMessage="#{bundle.EditConceptualizarRequiredMessage_aclarar}"/>
+                        <p:outputLabel value="#{bundle.EditConceptualizarLabel_conceptualizar}" for="conceptualizar" />
+                        <p:inputText id="conceptualizar" value="#{conceptualizarController.selected.conceptualizar}" title="#{bundle.EditConceptualizarTitle_conceptualizar}" required="true" requiredMessage="#{bundle.EditConceptualizarRequiredMessage_conceptualizar}"/>
+                        <p:outputLabel value="#{bundle.EditConceptualizarLabel_fechaModificacion}" for="fechaModificacion" />
+                        <p:calendar id="fechaModificacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{conceptualizarController.selected.fechaModificacion}" title="#{bundle.EditConceptualizarTitle_fechaModificacion}" required="true" requiredMessage="#{bundle.EditConceptualizarRequiredMessage_fechaModificacion}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditConceptualizarLabel_idObjetivoEstrategico}" for="idObjetivoEstrategico" />
+                        <p:selectOneMenu id="idObjetivoEstrategico" value="#{conceptualizarController.selected.idObjetivoEstrategico}" required="true" requiredMessage="#{bundle.EditConceptualizarRequiredMessage_idObjetivoEstrategico}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{objetivoEstrategicoController.itemsAvailableSelectOne}"
+                                           var="idObjetivoEstrategicoItem"
+                                           itemValue="#{idObjetivoEstrategicoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{conceptualizarController.update}" value="#{bundle.Save}" update="display,:ConceptualizarListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ConceptualizarEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ConceptualizarEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ValoresEditDlg" widgetVar="ValoresEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditValoresTitle}">
+            <h:form id="ValoresEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{valoresController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditValoresLabel_idValores}" for="idValores" />
+                        <p:inputText id="idValores" value="#{valoresController.selected.idValores}" title="#{bundle.EditValoresTitle_idValores}" required="true" requiredMessage="#{bundle.EditValoresRequiredMessage_idValores}"/>
+                        <p:outputLabel value="#{bundle.EditValoresLabel_fecha}" for="fecha" />
+                        <p:calendar id="fecha" pattern="MM/dd/yyyy HH:mm:ss" value="#{valoresController.selected.fecha}" title="#{bundle.EditValoresTitle_fecha}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditValoresLabel_valorTotal}" for="valorTotal" />
+                        <p:inputText id="valorTotal" value="#{valoresController.selected.valorTotal}" title="#{bundle.EditValoresTitle_valorTotal}" />
+                        <p:outputLabel value="#{bundle.EditValoresLabel_idIndicador}" for="idIndicador" />
+                        <p:selectOneMenu id="idIndicador" value="#{valoresController.selected.idIndicador}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{indicadorController.itemsAvailableSelectOne}"
+                                           var="idIndicadorItem"
+                                           itemValue="#{idIndicadorItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{valoresController.update}" value="#{bundle.Save}" update="display,:ValoresListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ValoresEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ValoresEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

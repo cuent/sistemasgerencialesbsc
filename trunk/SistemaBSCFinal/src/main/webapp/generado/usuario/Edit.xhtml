@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UsuarioEditDlg" widgetVar="UsuarioEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditUsuarioTitle}">
+            <h:form id="UsuarioEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{usuarioController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditUsuarioLabel_idUsuario}" for="idUsuario" />
+                        <p:inputText id="idUsuario" value="#{usuarioController.selected.idUsuario}" title="#{bundle.EditUsuarioTitle_idUsuario}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_idUsuario}"/>
+                        <p:outputLabel value="#{bundle.EditUsuarioLabel_nombres}" for="nombres" />
+                        <p:inputText id="nombres" value="#{usuarioController.selected.nombres}" title="#{bundle.EditUsuarioTitle_nombres}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_nombres}"/>
+                        <p:outputLabel value="#{bundle.EditUsuarioLabel_apellidos}" for="apellidos" />
+                        <p:inputText id="apellidos" value="#{usuarioController.selected.apellidos}" title="#{bundle.EditUsuarioTitle_apellidos}" />
+                        <p:outputLabel value="#{bundle.EditUsuarioLabel_contrasena}" for="contrasena" />
+                        <p:inputText id="contrasena" value="#{usuarioController.selected.contrasena}" title="#{bundle.EditUsuarioTitle_contrasena}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_contrasena}"/>
+                        <p:outputLabel value="#{bundle.EditUsuarioLabel_email}" for="email" />
+                        <p:inputText id="email" value="#{usuarioController.selected.email}" title="#{bundle.EditUsuarioTitle_email}" />
+                        <p:outputLabel value="#{bundle.EditUsuarioLabel_tipoUsuario}" for="tipoUsuario" />
+                        <p:inputText id="tipoUsuario" value="#{usuarioController.selected.tipoUsuario}" title="#{bundle.EditUsuarioTitle_tipoUsuario}" />
+                        <p:outputLabel value="#{bundle.EditUsuarioLabel_cargo}" for="cargo" />
+                        <p:inputText id="cargo" value="#{usuarioController.selected.cargo}" title="#{bundle.EditUsuarioTitle_cargo}" />
+                        <p:outputLabel value="#{bundle.EditUsuarioLabel_idAdministrador}" for="idAdministrador" />
+                        <p:selectOneMenu id="idAdministrador" value="#{usuarioController.selected.idAdministrador}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                           var="idAdministradorItem"
+                                           itemValue="#{idAdministradorItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{usuarioController.update}" value="#{bundle.Save}" update="display,:UsuarioListForm:datalist,:growl" oncomplete="handleSubmit(args, 'UsuarioEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="UsuarioEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
