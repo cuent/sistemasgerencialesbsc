@@ -8,7 +8,7 @@ package ucuenca.edu.sg.facade;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import ucuenca.edu.sg.sistemabscfinal.Indicador;
+import ucuenca.edu.sg.modelo.Indicador;
 
 /**
  *

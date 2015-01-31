@@ -1,6 +1,6 @@
 package ucuenca.edu.sg.controller;
 
-import ucuenca.edu.sg.sistemabscfinal.ResponsableObjetivo;
+import ucuenca.edu.sg.modelo.ResponsableObjetivo;
 import ucuenca.edu.sg.controller.util.JsfUtil;
 import ucuenca.edu.sg.controller.util.JsfUtil.PersistAction;
 import ucuenca.edu.sg.facade.ResponsableObjetivoFacade;
@@ -45,7 +45,7 @@ public class ResponsableObjetivoController implements Serializable {
     }
 
     protected void initializeEmbeddableKey() {
-        selected.setResponsableObjetivoPK(new ucuenca.edu.sg.sistemabscfinal.ResponsableObjetivoPK());
+        selected.setResponsableObjetivoPK(new ucuenca.edu.sg.modelo.ResponsableObjetivoPK());
     }
 
     private ResponsableObjetivoFacade getFacade() {
@@ -112,7 +112,7 @@ public class ResponsableObjetivoController implements Serializable {
         }
     }
 
-    public ResponsableObjetivo getResponsableObjetivo(ucuenca.edu.sg.sistemabscfinal.ResponsableObjetivoPK id) {
+    public ResponsableObjetivo getResponsableObjetivo(ucuenca.edu.sg.modelo.ResponsableObjetivoPK id) {
         return getFacade().find(id);
     }
 
@@ -140,17 +140,17 @@ public class ResponsableObjetivoController implements Serializable {
             return controller.getResponsableObjetivo(getKey(value));
         }
 
-        ucuenca.edu.sg.sistemabscfinal.ResponsableObjetivoPK getKey(String value) {
-            ucuenca.edu.sg.sistemabscfinal.ResponsableObjetivoPK key;
+        ucuenca.edu.sg.modelo.ResponsableObjetivoPK getKey(String value) {
+            ucuenca.edu.sg.modelo.ResponsableObjetivoPK key;
             String values[] = value.split(SEPARATOR_ESCAPED);
-            key = new ucuenca.edu.sg.sistemabscfinal.ResponsableObjetivoPK();
+            key = new ucuenca.edu.sg.modelo.ResponsableObjetivoPK();
             key.setIdResponsable(Integer.parseInt(values[0]));
             key.setIdObjetivoEstrategico(Integer.parseInt(values[1]));
             key.setIdUsuario(Integer.parseInt(values[2]));
             return key;
         }
 
-        String getStringKey(ucuenca.edu.sg.sistemabscfinal.ResponsableObjetivoPK value) {
+        String getStringKey(ucuenca.edu.sg.modelo.ResponsableObjetivoPK value) {
             StringBuilder sb = new StringBuilder();
             sb.append(value.getIdResponsable());
             sb.append(SEPARATOR);

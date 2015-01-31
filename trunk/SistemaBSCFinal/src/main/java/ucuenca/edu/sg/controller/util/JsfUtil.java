@@ -1,8 +1,11 @@
 package ucuenca.edu.sg.controller.util;
 
+import java.util.Iterator;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
+import javax.faces.component.UISelectItem;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.model.SelectItem;
@@ -41,7 +44,46 @@ public class JsfUtil {
             addErrorMessage(message);
         }
     }
+public static Throwable getRootCause(Throwable cause) {
+        if (cause != null) {
+            Throwable source = cause.getCause();
+            if (source != null) {
+                return getRootCause(source);
+            } else {
+                return cause;
+            }
+        }
+        return null;
+    }
+ public static String getComponentMessages(String clientComponent, String defaultMessage) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        UIComponent component = UIComponent.getCurrentComponent(fc).findComponent(clientComponent);
+        if (component instanceof UIInput) {
+            UIInput inputComponent = (UIInput) component;
+            if (inputComponent.isValid()) {
+                return defaultMessage;
+            } else {
+                Iterator<FacesMessage> iter = fc.getMessages(inputComponent.getClientId());
+                if (iter.hasNext()) {
+                    return iter.next().getDetail();
+                }
+            }
+        }
+        return "";
+    }
 
+    public static boolean isDummySelectItem(UIComponent component, String value) {
+        for (UIComponent children : component.getChildren()) {
+            if (children instanceof UISelectItem) {
+                UISelectItem item = (UISelectItem) children;
+                if (item.getItemValue() == null && item.getItemLabel().equals(value)) {
+                    return true;
+                }
+                break;
+            }
+        }
+        return false;
+    }
     public static void addErrorMessage(String msg) {
         FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg);
         FacesContext.getCurrentInstance().addMessage(null, facesMsg);

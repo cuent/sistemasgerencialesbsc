@@ -1,6 +1,6 @@
 package ucuenca.edu.sg.controller;
 
-import ucuenca.edu.sg.sistemabscfinal.Valores;
+import ucuenca.edu.sg.modelo.Valores;
 import ucuenca.edu.sg.controller.util.JsfUtil;
 import ucuenca.edu.sg.controller.util.JsfUtil.PersistAction;
 import ucuenca.edu.sg.facade.ValoresFacade;
