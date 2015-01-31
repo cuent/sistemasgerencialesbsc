@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+
+
+        <h:form id="EstrategiaGlobalListForm">
+
+            <p:dataTable id="datalist" value="#{estrategiaGlobalController.items}" var="item"
+                         selectionMode="single" selection="#{estrategiaGlobalController.selected}"
+                         paginator="true"
+                         paginatorPosition="bottom"
+                         rowKey="#{item.idEstrategiaGlobal}"
+                         rows="20"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         >
+                <p:ajax event="rowSelect"   update="editButton deleteButton"/>
+                <p:ajax event="rowUnselect" update="editButton deleteButton"/>
+                <p:column width="45">
+                    <f:facet name="header">
+                        <h:outputText value="ID"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idEstrategiaGlobal}"/>
+                </p:column>
+                <p:column width="530">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListEstrategiaGlobalTitle_estrategia}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.estrategia}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Aciones"/>
+                    </f:facet>
+                    <p:commandButton id="editButton" value="Editar" icon="ui-icon-pencil" onclick="PF('EstrategiaGlobalEditDialog').show()"/>
+                    <p:commandButton id="deleteButton" value="Eliminar" icon="ui-icon-trash" />
+                </p:column>
+            </p:dataTable>
+        </h:form>
+        <p:dialog header="Edicion de Estrategias Globales">
+            <p:dialog id="EstrategiaGlobalEditDlg" widgetVar="EstrategiaGlobalEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditEstrategiaGlobalTitle}">
+                <h:form id="EstrategiaGlobalEditForm">
+                    <h:panelGroup id="display">
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="#{bundle.EditEstrategiaGlobalLabel_idEstrategiaGlobal}" for="idEstrategiaGlobal" />
+                            <p:inputText id="idEstrategiaGlobal" value="#{estrategiaGlobalController.selected.idEstrategiaGlobal}" title="#{bundle.EditEstrategiaGlobalTitle_idEstrategiaGlobal}" required="true" requiredMessage="#{bundle.EditEstrategiaGlobalRequiredMessage_idEstrategiaGlobal}"/>
+                            <p:outputLabel value="#{bundle.EditEstrategiaGlobalLabel_estrategia}" for="estrategia" />
+                            <p:inputText id="estrategia" value="#{estrategiaGlobalController.selected.estrategia}" title="#{bundle.EditEstrategiaGlobalTitle_estrategia}" required="true" requiredMessage="#{bundle.EditEstrategiaGlobalRequiredMessage_estrategia}"/>
+                        </p:panelGrid>
+                        <p:commandButton actionListener="#{estrategiaGlobalController.update}" value="#{bundle.Save}" update="display"/>
+                        <p:commandButton value="#{bundle.Cancel}" onclick="EstrategiaGlobalEditDialog.hide()"/>
+                    </h:panelGroup>
+                </h:form>
+            </p:dialog>
+        </p:dialog>
+    </ui:composition>
+
+</html>
