@@ -11,7 +11,7 @@
 
 
         <h:form id="EstrategiaGlobalListForm">
-
+           
             <p:dataTable id="datalist" value="#{estrategiaGlobalController.items}" var="item"
                          selectionMode="single" selection="#{estrategiaGlobalController.selected}"
                          paginator="true"
@@ -38,23 +38,23 @@
                     <f:facet name="header">
                         <h:outputText value="Aciones"/>
                     </f:facet>
-                    <p:commandButton id="editButton" value="Editar" icon="ui-icon-pencil" onclick="PF('EstrategiaGlobalEditDialog').show()"/>
-                    <p:commandButton id="deleteButton" value="Eliminar" icon="ui-icon-trash" />
+                    <p:commandButton id="editButton" value="Editar" update=":EstrategiaGlobalEditForm" icon="ui-icon-pencil" onclick="PF('EstrategiaGlobalEditDialog').show()"/>
+                    <p:commandButton id="deleteButton" actionListener="#{estrategiaGlobalController.destroy}" update="datalist" value="Eliminar" icon="ui-icon-trash" />
                 </p:column>
             </p:dataTable>
         </h:form>
         <p:dialog header="Edicion de Estrategias Globales">
             <p:dialog id="EstrategiaGlobalEditDlg" widgetVar="EstrategiaGlobalEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditEstrategiaGlobalTitle}">
                 <h:form id="EstrategiaGlobalEditForm">
-                    <h:panelGroup id="display">
-                        <p:panelGrid columns="2">
-                            <p:outputLabel value="#{bundle.EditEstrategiaGlobalLabel_idEstrategiaGlobal}" for="idEstrategiaGlobal" />
-                            <p:inputText id="idEstrategiaGlobal" value="#{estrategiaGlobalController.selected.idEstrategiaGlobal}" title="#{bundle.EditEstrategiaGlobalTitle_idEstrategiaGlobal}" required="true" requiredMessage="#{bundle.EditEstrategiaGlobalRequiredMessage_idEstrategiaGlobal}"/>
-                            <p:outputLabel value="#{bundle.EditEstrategiaGlobalLabel_estrategia}" for="estrategia" />
-                            <p:inputText id="estrategia" value="#{estrategiaGlobalController.selected.estrategia}" title="#{bundle.EditEstrategiaGlobalTitle_estrategia}" required="true" requiredMessage="#{bundle.EditEstrategiaGlobalRequiredMessage_estrategia}"/>
-                        </p:panelGrid>
-                        <p:commandButton actionListener="#{estrategiaGlobalController.update}" value="#{bundle.Save}" update="display"/>
-                        <p:commandButton value="#{bundle.Cancel}" onclick="EstrategiaGlobalEditDialog.hide()"/>
+                    <h:panelGroup id="display" style="margin-bottom:20px; ">
+                        <h:panelGrid columns="2" border="0">
+                            <p:outputLabel value="ID:" for="idEstrategiaGlobal" />
+                            <p:inputText id="idEstrategiaGlobal" value="#{estrategiaGlobalController.selected.idEstrategiaGlobal}" disabled="true" title="#{bundle.EditEstrategiaGlobalTitle_idEstrategiaGlobal}" required="true" requiredMessage="#{bundle.EditEstrategiaGlobalRequiredMessage_idEstrategiaGlobal}"/>
+                            <p:outputLabel value="ESTRETEGIA:" for="estrategia" />
+                            <p:inputTextarea id="estrategia" value="#{estrategiaGlobalController.selected.estrategia}" cols="50" rows="6" required="true" requiredMessage="#{bundle.CreateEstrategiaGlobalRequiredMessage_estrategia}"/>
+                        </h:panelGrid>
+                        <p:commandButton actionListener="#{estrategiaGlobalController.update}" update="display,:EstrategiaGlobalListForm:datalist" value="ACTUALIZAR" onclick="EstrategiaGlobalEditDialog.hide()"/>
+                        <p:commandButton value="CANCELAR" onclick="EstrategiaGlobalEditDialog.hide()"/>
                     </h:panelGroup>
                 </h:form>
             </p:dialog>
