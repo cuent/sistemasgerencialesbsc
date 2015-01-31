@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GerarquiaViewDlg" widgetVar="GerarquiaViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewGerarquiaTitle}">
+            <h:form id="GerarquiaViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{gerarquiaController.selected != null}">
+                        <h:outputText value="#{bundle.ViewGerarquiaLabel_idGerarquia}"/>
+                        <h:outputText value="#{gerarquiaController.selected.idGerarquia}" title="#{bundle.ViewGerarquiaTitle_idGerarquia}"/>
+                        <h:outputText value="#{bundle.ViewGerarquiaLabel_predecesora}"/>
+                        <h:outputText value="#{gerarquiaController.selected.predecesora}" title="#{bundle.ViewGerarquiaTitle_predecesora}"/>
+                        <h:outputText value="#{bundle.ViewGerarquiaLabel_sucesora}"/>
+                        <h:outputText value="#{gerarquiaController.selected.sucesora}" title="#{bundle.ViewGerarquiaTitle_sucesora}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="GerarquiaViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -19,6 +19,7 @@ import ucuenca.edu.sg.modelo.ResponsableActividad;
  *
  * @author ESTUDIANTE 1-06
  */
+
 @ManagedBean
 public class ResponsableActividadConverter implements javax.faces.convert.Converter{
     @EJB

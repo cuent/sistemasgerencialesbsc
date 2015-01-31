@@ -11,8 +11,6 @@ import javax.annotation.ManagedBean;
 import javax.ejb.EJB;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import ucuenca.edu.sg.controller.ComponenteFormulaController;
-import ucuenca.edu.sg.facade.CabeceraValorFacade;
 import ucuenca.edu.sg.facade.ComponenteFormulaFacade;
 import ucuenca.edu.sg.modelo.ComponenteFormula;
 

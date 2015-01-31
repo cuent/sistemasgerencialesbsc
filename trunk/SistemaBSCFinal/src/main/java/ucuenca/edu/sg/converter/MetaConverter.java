@@ -11,7 +11,6 @@ import javax.annotation.ManagedBean;
 import javax.ejb.EJB;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import ucuenca.edu.sg.controller.MetaController;
 import ucuenca.edu.sg.facade.MetaFacade;
 import ucuenca.edu.sg.modelo.Meta;
 
