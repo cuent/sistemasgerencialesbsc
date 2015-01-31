@@ -6,7 +6,7 @@
 package ucuenca.edu.sg.modelo;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author pablito
+ * @author mivkys
  */
 @Entity
 @Table(catalog = "balanced_scorecard", schema = "")
@@ -89,14 +89,14 @@ public class Indicador implements Serializable {
     @Column(name = "ALTO_MAXIMO", precision = 22)
     private Double altoMaximo;
     @OneToMany(mappedBy = "idIndicador")
-    private Set<CabeceraValor> cabeceraValorSet;
+    private List<CabeceraValor> cabeceraValorList;
     @JoinColumn(name = "ID_OBJETIVO_ESTRATEGICO", referencedColumnName = "ID_OBJETIVO_ESTRATEGICO", nullable = false)
     @ManyToOne(optional = false)
     private ObjetivoEstrategico idObjetivoEstrategico;
     @OneToMany(mappedBy = "idIndicador")
-    private Set<Valores> valoresSet;
+    private List<Valores> valoresList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idIndicador")
-    private Set<ComponenteFormula> componenteFormulaSet;
+    private List<ComponenteFormula> componenteFormulaList;
 
     public Indicador() {
     }
@@ -218,12 +218,12 @@ public class Indicador implements Serializable {
     }
 
     @XmlTransient
-    public Set<CabeceraValor> getCabeceraValorSet() {
-        return cabeceraValorSet;
+    public List<CabeceraValor> getCabeceraValorList() {
+        return cabeceraValorList;
     }
 
-    public void setCabeceraValorSet(Set<CabeceraValor> cabeceraValorSet) {
-        this.cabeceraValorSet = cabeceraValorSet;
+    public void setCabeceraValorList(List<CabeceraValor> cabeceraValorList) {
+        this.cabeceraValorList = cabeceraValorList;
     }
 
     public ObjetivoEstrategico getIdObjetivoEstrategico() {
@@ -235,21 +235,21 @@ public class Indicador implements Serializable {
     }
 
     @XmlTransient
-    public Set<Valores> getValoresSet() {
-        return valoresSet;
+    public List<Valores> getValoresList() {
+        return valoresList;
     }
 
-    public void setValoresSet(Set<Valores> valoresSet) {
-        this.valoresSet = valoresSet;
+    public void setValoresList(List<Valores> valoresList) {
+        this.valoresList = valoresList;
     }
 
     @XmlTransient
-    public Set<ComponenteFormula> getComponenteFormulaSet() {
-        return componenteFormulaSet;
+    public List<ComponenteFormula> getComponenteFormulaList() {
+        return componenteFormulaList;
     }
 
-    public void setComponenteFormulaSet(Set<ComponenteFormula> componenteFormulaSet) {
-        this.componenteFormulaSet = componenteFormulaSet;
+    public void setComponenteFormulaList(List<ComponenteFormula> componenteFormulaList) {
+        this.componenteFormulaList = componenteFormulaList;
     }
 
     @Override
@@ -274,7 +274,7 @@ public class Indicador implements Serializable {
 
     @Override
     public String toString() {
-        return "ucuenca.edu.sg.sistemabscfinal.Indicador[ idIndicador=" + idIndicador + " ]";
+        return "ucuenca.edu.sg.modelo.Indicador[ idIndicador=" + idIndicador + " ]";
     }
     
 }

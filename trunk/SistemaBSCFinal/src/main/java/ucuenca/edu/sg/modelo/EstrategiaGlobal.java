@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author pablito
+ * @author mivkys
  */
 @Entity
 @Table(name = "estrategia_global", catalog = "balanced_scorecard", schema = "")
@@ -93,7 +93,7 @@ public class EstrategiaGlobal implements Serializable {
 
     @Override
     public String toString() {
-        return "ucuenca.edu.sg.sistemabscfinal.EstrategiaGlobal[ idEstrategiaGlobal=" + idEstrategiaGlobal + " ]";
+        return "ucuenca.edu.sg.modelo.EstrategiaGlobal[ idEstrategiaGlobal=" + idEstrategiaGlobal + " ]";
     }
     
 }

@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author pablito
+ * @author mivkys
  */
 @Entity
 @Table(name = "responsable_objetivo", catalog = "balanced_scorecard", schema = "")
@@ -95,7 +95,7 @@ public class ResponsableObjetivo implements Serializable {
 
     @Override
     public String toString() {
-        return "ucuenca.edu.sg.sistemabscfinal.ResponsableObjetivo[ responsableObjetivoPK=" + responsableObjetivoPK + " ]";
+        return "ucuenca.edu.sg.modelo.ResponsableObjetivo[ responsableObjetivoPK=" + responsableObjetivoPK + " ]";
     }
     
 }

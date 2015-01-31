@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author pablito
+ * @author mivkys
  */
 @Entity
 @Table(catalog = "balanced_scorecard", schema = "")
@@ -98,7 +98,7 @@ public class Meta implements Serializable {
 
     @Override
     public String toString() {
-        return "ucuenca.edu.sg.sistemabscfinal.Meta[ idMeta=" + idMeta + " ]";
+        return "ucuenca.edu.sg.modelo.Meta[ idMeta=" + idMeta + " ]";
     }
     
 }

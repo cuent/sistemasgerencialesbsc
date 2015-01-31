@@ -6,7 +6,7 @@
 package ucuenca.edu.sg.modelo;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -22,13 +22,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author pablito
+ * @author mivkys
  */
 @Entity
 @Table(catalog = "balanced_scorecard", schema = "", uniqueConstraints = {
@@ -63,7 +64,7 @@ public class Usuario implements Serializable {
     @Size(min = 1, max = 32)
     @Column(nullable = false, length = 32)
     private String contrasena;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Email invalido")//if the field contains email address consider using this annotation to enforce field validation
     @Size(max = 64)
     @Column(length = 64)
     private String email;
@@ -73,11 +74,11 @@ public class Usuario implements Serializable {
     @Column(length = 64)
     private String cargo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
-    private Set<ResponsableObjetivo> responsableObjetivoSet;
+    private List<ResponsableObjetivo> responsableObjetivoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
-    private Set<ResponsableActividad> responsableActividadSet;
+    private List<ResponsableActividad> responsableActividadList;
     @OneToMany(mappedBy = "idAdministrador")
-    private Set<Usuario> usuarioSet;
+    private List<Usuario> usuarioList;
     @JoinColumn(name = "ID_ADMINISTRADOR", referencedColumnName = "ID_USUARIO")
     @ManyToOne
     private Usuario idAdministrador;
@@ -152,30 +153,30 @@ public class Usuario implements Serializable {
     }
 
     @XmlTransient
-    public Set<ResponsableObjetivo> getResponsableObjetivoSet() {
-        return responsableObjetivoSet;
+    public List<ResponsableObjetivo> getResponsableObjetivoList() {
+        return responsableObjetivoList;
     }
 
-    public void setResponsableObjetivoSet(Set<ResponsableObjetivo> responsableObjetivoSet) {
-        this.responsableObjetivoSet = responsableObjetivoSet;
-    }
-
-    @XmlTransient
-    public Set<ResponsableActividad> getResponsableActividadSet() {
-        return responsableActividadSet;
-    }
-
-    public void setResponsableActividadSet(Set<ResponsableActividad> responsableActividadSet) {
-        this.responsableActividadSet = responsableActividadSet;
+    public void setResponsableObjetivoList(List<ResponsableObjetivo> responsableObjetivoList) {
+        this.responsableObjetivoList = responsableObjetivoList;
     }
 
     @XmlTransient
-    public Set<Usuario> getUsuarioSet() {
-        return usuarioSet;
+    public List<ResponsableActividad> getResponsableActividadList() {
+        return responsableActividadList;
     }
 
-    public void setUsuarioSet(Set<Usuario> usuarioSet) {
-        this.usuarioSet = usuarioSet;
+    public void setResponsableActividadList(List<ResponsableActividad> responsableActividadList) {
+        this.responsableActividadList = responsableActividadList;
+    }
+
+    @XmlTransient
+    public List<Usuario> getUsuarioList() {
+        return usuarioList;
+    }
+
+    public void setUsuarioList(List<Usuario> usuarioList) {
+        this.usuarioList = usuarioList;
     }
 
     public Usuario getIdAdministrador() {
@@ -208,7 +209,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "ucuenca.edu.sg.sistemabscfinal.Usuario[ idUsuario=" + idUsuario + " ]";
+        return "ucuenca.edu.sg.modelo.Usuario[ idUsuario=" + idUsuario + " ]";
     }
     
 }

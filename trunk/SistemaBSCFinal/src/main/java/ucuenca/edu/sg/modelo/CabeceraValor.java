@@ -7,7 +7,7 @@ package ucuenca.edu.sg.modelo;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author pablito
+ * @author mivkys
  */
 @Entity
 @Table(name = "cabecera_valor", catalog = "balanced_scorecard", schema = "")
@@ -50,7 +50,7 @@ public class CabeceraValor implements Serializable {
     @Column(name = "VALOR_TOTAL", precision = 22)
     private Double valorTotal;
     @OneToMany(mappedBy = "idCabeceraValor")
-    private Set<DetalleValor> detalleValorSet;
+    private List<DetalleValor> detalleValorList;
     @JoinColumn(name = "ID_INDICADOR", referencedColumnName = "ID_INDICADOR")
     @ManyToOne
     private Indicador idIndicador;
@@ -87,12 +87,12 @@ public class CabeceraValor implements Serializable {
     }
 
     @XmlTransient
-    public Set<DetalleValor> getDetalleValorSet() {
-        return detalleValorSet;
+    public List<DetalleValor> getDetalleValorList() {
+        return detalleValorList;
     }
 
-    public void setDetalleValorSet(Set<DetalleValor> detalleValorSet) {
-        this.detalleValorSet = detalleValorSet;
+    public void setDetalleValorList(List<DetalleValor> detalleValorList) {
+        this.detalleValorList = detalleValorList;
     }
 
     public Indicador getIdIndicador() {
@@ -125,7 +125,7 @@ public class CabeceraValor implements Serializable {
 
     @Override
     public String toString() {
-        return "ucuenca.edu.sg.sistemabscfinal.CabeceraValor[ idCabeceraValor=" + idCabeceraValor + " ]";
+        return "ucuenca.edu.sg.modelo.CabeceraValor[ idCabeceraValor=" + idCabeceraValor + " ]";
     }
     
 }

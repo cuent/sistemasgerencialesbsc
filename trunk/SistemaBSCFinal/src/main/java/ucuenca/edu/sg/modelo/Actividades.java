@@ -7,7 +7,7 @@ package ucuenca.edu.sg.modelo;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author pablito
+ * @author mivkys
  */
 @Entity
 @Table(catalog = "balanced_scorecard", schema = "")
@@ -76,7 +76,7 @@ public class Actividades implements Serializable {
     @ManyToOne(optional = false)
     private ObjetivoEstrategico idObjetivoEstrategico;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "actividades")
-    private Set<ResponsableActividad> responsableActividadSet;
+    private List<ResponsableActividad> responsableActividadList;
 
     public Actividades() {
     }
@@ -150,12 +150,12 @@ public class Actividades implements Serializable {
     }
 
     @XmlTransient
-    public Set<ResponsableActividad> getResponsableActividadSet() {
-        return responsableActividadSet;
+    public List<ResponsableActividad> getResponsableActividadList() {
+        return responsableActividadList;
     }
 
-    public void setResponsableActividadSet(Set<ResponsableActividad> responsableActividadSet) {
-        this.responsableActividadSet = responsableActividadSet;
+    public void setResponsableActividadList(List<ResponsableActividad> responsableActividadList) {
+        this.responsableActividadList = responsableActividadList;
     }
 
     @Override
@@ -180,7 +180,7 @@ public class Actividades implements Serializable {
 
     @Override
     public String toString() {
-        return "ucuenca.edu.sg.sistemabscfinal.Actividades[ idActividades=" + idActividades + " ]";
+        return "ucuenca.edu.sg.modelo.Actividades[ idActividades=" + idActividades + " ]";
     }
     
 }

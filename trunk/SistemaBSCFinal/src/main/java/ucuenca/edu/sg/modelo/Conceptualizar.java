@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author pablito
+ * @author mivkys
  */
 @Entity
 @Table(catalog = "balanced_scorecard", schema = "")
@@ -154,7 +154,7 @@ public class Conceptualizar implements Serializable {
 
     @Override
     public String toString() {
-        return "ucuenca.edu.sg.sistemabscfinal.Conceptualizar[ idConceptualizar=" + idConceptualizar + " ]";
+        return "ucuenca.edu.sg.modelo.Conceptualizar[ idConceptualizar=" + idConceptualizar + " ]";
     }
     
 }
