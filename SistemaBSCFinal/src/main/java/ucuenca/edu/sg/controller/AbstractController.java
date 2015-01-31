@@ -177,7 +177,9 @@ public abstract class AbstractController<T> {
     public void prepareEdit(ActionEvent event) {
         // Nothing to do if entity does not have any embeddable key.
     }
-
+public T getItem(java.lang.Integer id) {
+        return getFacade().find(id);
+    }
     public List<T> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }

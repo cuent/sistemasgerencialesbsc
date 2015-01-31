@@ -1,6 +1,6 @@
 package ucuenca.edu.sg.controller;
 
-import ucuenca.edu.sg.modelo.Conceptualizar;
+import ucuenca.edu.sg.modelo.Gerarquia;
 
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
@@ -8,14 +8,14 @@ import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 
-@Named("conceptualizarController")
+@Named("gerarquiaController")
 @SessionScoped
-public class ConceptualizarController extends AbstractController<Conceptualizar> implements Serializable {
+public class GerarquiaController extends AbstractController<Gerarquia> implements Serializable {
 
     @EJB
-    private ucuenca.edu.sg.facade.ConceptualizarFacade ejbFacade;
+    private ucuenca.edu.sg.facade.GerarquiaFacade ejbFacade;
 
-    public ConceptualizarController() {
+    public GerarquiaController() {
     }
 
     @PostConstruct
