@@ -22,4 +22,10 @@ public class EstrategiaGlobalController extends AbstractController<EstrategiaGlo
     public void init() {
         super.setFacade(ejbFacade);
     }
+    
+    public void iniciarNuevo(){
+        this.setSelected(new EstrategiaGlobal());
+        
+    }
+    
 }
