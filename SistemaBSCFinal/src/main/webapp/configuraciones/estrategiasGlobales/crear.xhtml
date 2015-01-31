@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <div style="background-color: #cccccc; height: 30px;">
+            <div style="text-align: center; color:#ffffff; font-size: 1.3em;">ESTRATEGIAS GLOBALES</div>
+
+        </div>
+        <p:panel header="Ingreso de Estrategias globales" style="border: 0; width: 80%; margin: 0px auto;">
+            <h:form id="EstrategiaGlobalCreateForm">
+                
+                <h:panelGroup id="display">
+                    <h:panelGrid columns="2" border="0" cellspacing="80">
+                        <p:graphicImage value="http://ftl-al.org/wp-content/uploads/2014/09/Como-conseguir-tus-objetivos-660x495.jpg" width="180" height="180"/>
+                        <h:panelGrid columns="2" border="0">
+                            <p:outputLabel value="#{bundle.CreateEstrategiaGlobalLabel_estrategia}" for="estrategia" />
+                            <p:inputTextarea id="estrategia" value="#{estrategiaGlobalController.selected.estrategia}" cols="50" rows="6"/>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                    <div style="border: 0; width: 25%; margin: 0px auto;">
+                        <p:commandButton actionListener="#{estrategiaGlobalController.create}" value="#{bundle.Save}" icon="ui-icon-disk"  type="button" update="display"/>
+                        <p:commandButton value="#{bundle.Cancel}" icon="ui-icon-close" onclick="EstrategiaGlobalCreateDialog.hide()"/>
+                    </div>
+                </h:panelGroup>
+            </h:form>
+        </p:panel >
+        <p:panel header="Lista Estrategias" style="border: 0; width: 80%; margin: 0px auto;">
+            <ui:include src="listar.xhtml"/>
+        </p:panel>
+    </ui:composition>
+
+</html>
+
+
