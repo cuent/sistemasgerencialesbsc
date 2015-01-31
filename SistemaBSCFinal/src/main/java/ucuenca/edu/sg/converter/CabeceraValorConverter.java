@@ -5,14 +5,12 @@
  */
 package ucuenca.edu.sg.converter;
 
-import com.sun.javafx.scene.layout.region.Margins.Converter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.ManagedBean;
 import javax.ejb.EJB;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import ucuenca.edu.sg.controller.CabeceraValorController;
 import ucuenca.edu.sg.facade.CabeceraValorFacade;
 import ucuenca.edu.sg.modelo.CabeceraValor;
 
