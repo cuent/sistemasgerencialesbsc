@@ -12,7 +12,7 @@ import ucuenca.edu.sg.modelo.DetalleValor;
 
 /**
  *
- * @author pablito
+ * @author mivkys
  */
 @Stateless
 public class DetalleValorFacade extends AbstractFacade<DetalleValor> {

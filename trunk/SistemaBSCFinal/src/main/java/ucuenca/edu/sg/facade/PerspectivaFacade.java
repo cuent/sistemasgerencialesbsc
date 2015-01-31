@@ -12,7 +12,7 @@ import ucuenca.edu.sg.modelo.Perspectiva;
 
 /**
  *
- * @author pablito
+ * @author mivkys
  */
 @Stateless
 public class PerspectivaFacade extends AbstractFacade<Perspectiva> {

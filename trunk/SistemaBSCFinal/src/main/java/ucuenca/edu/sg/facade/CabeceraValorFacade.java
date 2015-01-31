@@ -12,7 +12,7 @@ import ucuenca.edu.sg.modelo.CabeceraValor;
 
 /**
  *
- * @author pablito
+ * @author mivkys
  */
 @Stateless
 public class CabeceraValorFacade extends AbstractFacade<CabeceraValor> {

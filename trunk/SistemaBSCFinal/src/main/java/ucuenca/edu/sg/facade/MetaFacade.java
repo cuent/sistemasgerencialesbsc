@@ -12,7 +12,7 @@ import ucuenca.edu.sg.modelo.Meta;
 
 /**
  *
- * @author pablito
+ * @author mivkys
  */
 @Stateless
 public class MetaFacade extends AbstractFacade<Meta> {

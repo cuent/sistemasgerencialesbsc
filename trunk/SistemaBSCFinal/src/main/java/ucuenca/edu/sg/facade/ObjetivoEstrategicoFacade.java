@@ -12,7 +12,7 @@ import ucuenca.edu.sg.modelo.ObjetivoEstrategico;
 
 /**
  *
- * @author pablito
+ * @author mivkys
  */
 @Stateless
 public class ObjetivoEstrategicoFacade extends AbstractFacade<ObjetivoEstrategico> {

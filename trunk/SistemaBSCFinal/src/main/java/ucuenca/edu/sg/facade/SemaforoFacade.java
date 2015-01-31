@@ -12,7 +12,7 @@ import ucuenca.edu.sg.modelo.Semaforo;
 
 /**
  *
- * @author pablito
+ * @author mivkys
  */
 @Stateless
 public class SemaforoFacade extends AbstractFacade<Semaforo> {

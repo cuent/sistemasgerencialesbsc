@@ -8,14 +8,14 @@ package ucuenca.edu.sg.facade;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import ucuenca.edu.sg.modelo.ResponsableActividad;
+import ucuenca.edu.sg.modelo.Gerarquia;
 
 /**
  *
  * @author mivkys
  */
 @Stateless
-public class ResponsableActividadFacade extends AbstractFacade<ResponsableActividad> {
+public class GerarquiaFacade extends AbstractFacade<Gerarquia> {
     @PersistenceContext(unitName = "com.mycompany_SistemaBSCFinal_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 
@@ -24,8 +24,8 @@ public class ResponsableActividadFacade extends AbstractFacade<ResponsableActivi
         return em;
     }
 
-    public ResponsableActividadFacade() {
-        super(ResponsableActividad.class);
+    public GerarquiaFacade() {
+        super(Gerarquia.class);
     }
     
 }

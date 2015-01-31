@@ -12,7 +12,7 @@ import ucuenca.edu.sg.modelo.ResponsableObjetivo;
 
 /**
  *
- * @author pablito
+ * @author mivkys
  */
 @Stateless
 public class ResponsableObjetivoFacade extends AbstractFacade<ResponsableObjetivo> {
