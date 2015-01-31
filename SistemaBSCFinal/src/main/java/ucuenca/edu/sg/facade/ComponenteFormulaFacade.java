@@ -12,7 +12,7 @@ import ucuenca.edu.sg.modelo.ComponenteFormula;
 
 /**
  *
- * @author pablito
+ * @author mivkys
  */
 @Stateless
 public class ComponenteFormulaFacade extends AbstractFacade<ComponenteFormula> {

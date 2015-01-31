@@ -12,7 +12,7 @@ import ucuenca.edu.sg.modelo.Conceptualizar;
 
 /**
  *
- * @author pablito
+ * @author mivkys
  */
 @Stateless
 public class ConceptualizarFacade extends AbstractFacade<Conceptualizar> {
