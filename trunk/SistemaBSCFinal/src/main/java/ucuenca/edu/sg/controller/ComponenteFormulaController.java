@@ -10,14 +10,15 @@ import javax.enterprise.context.SessionScoped;
 
 @Named("componenteFormulaController")
 @SessionScoped
-public class ComponenteFormulaController extends AbstractController<ComponenteFormula>implements Serializable {
+public class ComponenteFormulaController extends AbstractController<ComponenteFormula> implements Serializable {
 
     @EJB
     private ucuenca.edu.sg.facade.ComponenteFormulaFacade ejbFacade;
-    
+
     public ComponenteFormulaController() {
     }
-@PostConstruct
+
+    @PostConstruct
     public void init() {
         super.setFacade(ejbFacade);
     }

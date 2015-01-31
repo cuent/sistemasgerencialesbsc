@@ -10,7 +10,7 @@ import javax.enterprise.context.SessionScoped;
 
 @Named("indicadorController")
 @SessionScoped
-public class IndicadorController extends AbstractController<Indicador> implements Serializable {
+public class IndicadorController extends AbstractController<Indicador> implements Serializable{
 
     @EJB
     private ucuenca.edu.sg.facade.IndicadorFacade ejbFacade;
