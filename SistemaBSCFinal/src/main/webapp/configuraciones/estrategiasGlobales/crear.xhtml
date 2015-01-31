@@ -13,17 +13,18 @@
         </div>
         <p:panel header="Ingreso de Estrategias globales" style="border: 0; width: 80%; margin: 0px auto;">
             <h:form id="EstrategiaGlobalCreateForm">
-                
+                <p:growl id="growlCrear" life="3000" />  
+               #{estrategiaGlobalController.iniciarNuevo()}
                 <h:panelGroup id="display">
                     <h:panelGrid columns="2" border="0" cellspacing="80">
                         <p:graphicImage value="http://ftl-al.org/wp-content/uploads/2014/09/Como-conseguir-tus-objetivos-660x495.jpg" width="180" height="180"/>
                         <h:panelGrid columns="2" border="0">
                             <p:outputLabel value="#{bundle.CreateEstrategiaGlobalLabel_estrategia}" for="estrategia" />
-                            <p:inputTextarea id="estrategia" value="#{estrategiaGlobalController.selected.estrategia}" cols="50" rows="6"/>
+                            <p:inputTextarea id="estrategia" value="#{estrategiaGlobalController.selected.estrategia}" cols="50" rows="6" required="true" requiredMessage="#{bundle.CreateEstrategiaGlobalRequiredMessage_estrategia}"/>
                         </h:panelGrid>
                     </h:panelGrid>
                     <div style="border: 0; width: 25%; margin: 0px auto;">
-                        <p:commandButton actionListener="#{estrategiaGlobalController.create}" value="#{bundle.Save}" icon="ui-icon-disk"  type="button" update="display"/>
+                        <p:commandButton actionListener="#{estrategiaGlobalController.create}" value="#{bundle.Save}" icon="ui-icon-disk"  update="display,growlCrear" ajax="false"/>
                         <p:commandButton value="#{bundle.Cancel}" icon="ui-icon-close" onclick="EstrategiaGlobalCreateDialog.hide()"/>
                     </div>
                 </h:panelGroup>
