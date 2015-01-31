@@ -7,6 +7,9 @@ and open the template in the editor.
     Created on : 30-ene-2015, 13:23:09
     Author     : pablito
 */
+body{
+    font-size: 1.2em;
+}
 #top{
     width: 80%;
     height: 100px;
