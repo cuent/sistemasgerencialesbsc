@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author pablito
+ * @author mivkys
  */
 @Entity
 @Table(catalog = "balanced_scorecard", schema = "")
@@ -111,7 +111,7 @@ public class Valores implements Serializable {
 
     @Override
     public String toString() {
-        return "ucuenca.edu.sg.sistemabscfinal.Valores[ idValores=" + idValores + " ]";
+        return "ucuenca.edu.sg.modelo.Valores[ idValores=" + idValores + " ]";
     }
     
 }

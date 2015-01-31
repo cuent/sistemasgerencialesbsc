@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author pablito
+ * @author mivkys
  */
 @Embeddable
 public class ResponsableActividadPK implements Serializable {
@@ -92,7 +92,7 @@ public class ResponsableActividadPK implements Serializable {
 
     @Override
     public String toString() {
-        return "ucuenca.edu.sg.sistemabscfinal.ResponsableActividadPK[ idResponsableActividad=" + idResponsableActividad + ", idActividad=" + idActividad + ", idUsuario=" + idUsuario + " ]";
+        return "ucuenca.edu.sg.modelo.ResponsableActividadPK[ idResponsableActividad=" + idResponsableActividad + ", idActividad=" + idActividad + ", idUsuario=" + idUsuario + " ]";
     }
     
 }

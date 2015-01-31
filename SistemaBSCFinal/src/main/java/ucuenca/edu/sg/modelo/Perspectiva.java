@@ -6,7 +6,7 @@
 package ucuenca.edu.sg.modelo;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author pablito
+ * @author mivkys
  */
 @Entity
 @Table(catalog = "balanced_scorecard", schema = "")
@@ -47,7 +47,7 @@ public class Perspectiva implements Serializable {
     @Column(nullable = false, length = 256)
     private String perspectiva;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPerspectiva")
-    private Set<ObjetivoEstrategico> objetivoEstrategicoSet;
+    private List<ObjetivoEstrategico> objetivoEstrategicoList;
 
     public Perspectiva() {
     }
@@ -78,12 +78,12 @@ public class Perspectiva implements Serializable {
     }
 
     @XmlTransient
-    public Set<ObjetivoEstrategico> getObjetivoEstrategicoSet() {
-        return objetivoEstrategicoSet;
+    public List<ObjetivoEstrategico> getObjetivoEstrategicoList() {
+        return objetivoEstrategicoList;
     }
 
-    public void setObjetivoEstrategicoSet(Set<ObjetivoEstrategico> objetivoEstrategicoSet) {
-        this.objetivoEstrategicoSet = objetivoEstrategicoSet;
+    public void setObjetivoEstrategicoList(List<ObjetivoEstrategico> objetivoEstrategicoList) {
+        this.objetivoEstrategicoList = objetivoEstrategicoList;
     }
 
     @Override
@@ -108,7 +108,7 @@ public class Perspectiva implements Serializable {
 
     @Override
     public String toString() {
-        return "ucuenca.edu.sg.sistemabscfinal.Perspectiva[ idPerspectiva=" + idPerspectiva + " ]";
+        return "ucuenca.edu.sg.modelo.Perspectiva[ idPerspectiva=" + idPerspectiva + " ]";
     }
     
 }

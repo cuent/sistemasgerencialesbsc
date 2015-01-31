@@ -7,7 +7,7 @@ package ucuenca.edu.sg.modelo;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author pablito
+ * @author mivkys
  */
 @Entity
 @Table(name = "objetivo_estrategico", catalog = "balanced_scorecard", schema = "")
@@ -62,17 +62,21 @@ public class ObjetivoEstrategico implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaModificacion;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "objetivoEstrategico")
-    private Set<ResponsableObjetivo> responsableObjetivoSet;
+    private List<ResponsableObjetivo> responsableObjetivoList;
+    @OneToMany(mappedBy = "predecesora")
+    private List<Gerarquia> gerarquiaList;
+    @OneToMany(mappedBy = "sucesora")
+    private List<Gerarquia> gerarquiaList1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idObjetivoEstrategico")
-    private Set<Conceptualizar> conceptualizarSet;
+    private List<Conceptualizar> conceptualizarList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idObjetivoEstrategico")
-    private Set<Actividades> actividadesSet;
+    private List<Actividades> actividadesList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idObjetivoEstrategico")
-    private Set<Semaforo> semaforoSet;
+    private List<Semaforo> semaforoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idObjetivoEstrategico")
-    private Set<Indicador> indicadorSet;
+    private List<Indicador> indicadorList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idObjetivoEstrategico")
-    private Set<Meta> metaSet;
+    private List<Meta> metaList;
     @JoinColumn(name = "ID_PERSPECTIVA", referencedColumnName = "ID_PERSPECTIVA", nullable = false)
     @ManyToOne(optional = false)
     private Perspectiva idPerspectiva;
@@ -123,57 +127,75 @@ public class ObjetivoEstrategico implements Serializable {
     }
 
     @XmlTransient
-    public Set<ResponsableObjetivo> getResponsableObjetivoSet() {
-        return responsableObjetivoSet;
+    public List<ResponsableObjetivo> getResponsableObjetivoList() {
+        return responsableObjetivoList;
     }
 
-    public void setResponsableObjetivoSet(Set<ResponsableObjetivo> responsableObjetivoSet) {
-        this.responsableObjetivoSet = responsableObjetivoSet;
-    }
-
-    @XmlTransient
-    public Set<Conceptualizar> getConceptualizarSet() {
-        return conceptualizarSet;
-    }
-
-    public void setConceptualizarSet(Set<Conceptualizar> conceptualizarSet) {
-        this.conceptualizarSet = conceptualizarSet;
+    public void setResponsableObjetivoList(List<ResponsableObjetivo> responsableObjetivoList) {
+        this.responsableObjetivoList = responsableObjetivoList;
     }
 
     @XmlTransient
-    public Set<Actividades> getActividadesSet() {
-        return actividadesSet;
+    public List<Gerarquia> getGerarquiaList() {
+        return gerarquiaList;
     }
 
-    public void setActividadesSet(Set<Actividades> actividadesSet) {
-        this.actividadesSet = actividadesSet;
-    }
-
-    @XmlTransient
-    public Set<Semaforo> getSemaforoSet() {
-        return semaforoSet;
-    }
-
-    public void setSemaforoSet(Set<Semaforo> semaforoSet) {
-        this.semaforoSet = semaforoSet;
+    public void setGerarquiaList(List<Gerarquia> gerarquiaList) {
+        this.gerarquiaList = gerarquiaList;
     }
 
     @XmlTransient
-    public Set<Indicador> getIndicadorSet() {
-        return indicadorSet;
+    public List<Gerarquia> getGerarquiaList1() {
+        return gerarquiaList1;
     }
 
-    public void setIndicadorSet(Set<Indicador> indicadorSet) {
-        this.indicadorSet = indicadorSet;
+    public void setGerarquiaList1(List<Gerarquia> gerarquiaList1) {
+        this.gerarquiaList1 = gerarquiaList1;
     }
 
     @XmlTransient
-    public Set<Meta> getMetaSet() {
-        return metaSet;
+    public List<Conceptualizar> getConceptualizarList() {
+        return conceptualizarList;
     }
 
-    public void setMetaSet(Set<Meta> metaSet) {
-        this.metaSet = metaSet;
+    public void setConceptualizarList(List<Conceptualizar> conceptualizarList) {
+        this.conceptualizarList = conceptualizarList;
+    }
+
+    @XmlTransient
+    public List<Actividades> getActividadesList() {
+        return actividadesList;
+    }
+
+    public void setActividadesList(List<Actividades> actividadesList) {
+        this.actividadesList = actividadesList;
+    }
+
+    @XmlTransient
+    public List<Semaforo> getSemaforoList() {
+        return semaforoList;
+    }
+
+    public void setSemaforoList(List<Semaforo> semaforoList) {
+        this.semaforoList = semaforoList;
+    }
+
+    @XmlTransient
+    public List<Indicador> getIndicadorList() {
+        return indicadorList;
+    }
+
+    public void setIndicadorList(List<Indicador> indicadorList) {
+        this.indicadorList = indicadorList;
+    }
+
+    @XmlTransient
+    public List<Meta> getMetaList() {
+        return metaList;
+    }
+
+    public void setMetaList(List<Meta> metaList) {
+        this.metaList = metaList;
     }
 
     public Perspectiva getIdPerspectiva() {
@@ -206,7 +228,7 @@ public class ObjetivoEstrategico implements Serializable {
 
     @Override
     public String toString() {
-        return "ucuenca.edu.sg.sistemabscfinal.ObjetivoEstrategico[ idObjetivoEstrategico=" + idObjetivoEstrategico + " ]";
+        return "ucuenca.edu.sg.modelo.ObjetivoEstrategico[ idObjetivoEstrategico=" + idObjetivoEstrategico + " ]";
     }
     
 }

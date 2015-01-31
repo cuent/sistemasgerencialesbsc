@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author pablito
+ * @author mivkys
  */
 @Entity
 @Table(catalog = "balanced_scorecard", schema = "")
@@ -110,7 +110,7 @@ public class Semaforo implements Serializable {
 
     @Override
     public String toString() {
-        return "ucuenca.edu.sg.sistemabscfinal.Semaforo[ idIndicador=" + idIndicador + " ]";
+        return "ucuenca.edu.sg.modelo.Semaforo[ idIndicador=" + idIndicador + " ]";
     }
     
 }

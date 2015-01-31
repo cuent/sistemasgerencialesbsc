@@ -6,7 +6,7 @@
 package ucuenca.edu.sg.modelo;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author pablito
+ * @author mivkys
  */
 @Entity
 @Table(name = "componente_formula", catalog = "balanced_scorecard", schema = "")
@@ -50,7 +50,7 @@ public class ComponenteFormula implements Serializable {
     @Column(length = 64)
     private String unidad;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idComponenteFormula")
-    private Set<DetalleValor> detalleValorSet;
+    private List<DetalleValor> detalleValorList;
     @JoinColumn(name = "ID_INDICADOR", referencedColumnName = "ID_INDICADOR", nullable = false)
     @ManyToOne(optional = false)
     private Indicador idIndicador;
@@ -87,12 +87,12 @@ public class ComponenteFormula implements Serializable {
     }
 
     @XmlTransient
-    public Set<DetalleValor> getDetalleValorSet() {
-        return detalleValorSet;
+    public List<DetalleValor> getDetalleValorList() {
+        return detalleValorList;
     }
 
-    public void setDetalleValorSet(Set<DetalleValor> detalleValorSet) {
-        this.detalleValorSet = detalleValorSet;
+    public void setDetalleValorList(List<DetalleValor> detalleValorList) {
+        this.detalleValorList = detalleValorList;
     }
 
     public Indicador getIdIndicador() {
@@ -125,7 +125,7 @@ public class ComponenteFormula implements Serializable {
 
     @Override
     public String toString() {
-        return "ucuenca.edu.sg.sistemabscfinal.ComponenteFormula[ idComponenteFormula=" + idComponenteFormula + " ]";
+        return "ucuenca.edu.sg.modelo.ComponenteFormula[ idComponenteFormula=" + idComponenteFormula + " ]";
     }
     
 }
