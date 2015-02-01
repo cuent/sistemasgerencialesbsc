@@ -86,8 +86,11 @@ public List<Usuario> autoCompleteUsuario(String query) {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-    public void actualizarListTotalUsuarios() {
+    public String actualizarListTotalUsuarios() {
         listTotalUsuario = ejbUsuarioFacade.findAll();
+        System.out.println("tamano: " +  listTotalUsuario.size());
+        String dialog = "PF('representanteDialog').show()";
+        return dialog;
     }
 
     /**
