@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+
+
+        <h:form id="PerspectivaListForm">
+
+            <p:dataTable id="datalist" value="#{perspectivaController.items}" var="item"
+                         selectionMode="single" selection="#{perspectivaController.selected}"
+                         paginator="true"
+                         paginatorPosition="bottom"
+                         rowKey="#{item.idPerspectiva}"
+                         rows="20"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         >
+                <p:ajax event="rowSelect"   update="editButton deleteButton"/>
+                <p:ajax event="rowUnselect" update="editButton deleteButton"/>
+                <p:column width="45">
+                    <f:facet name="header">
+                        <h:outputText value="ID"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idPerspectiva}"/>
+                </p:column>
+                <p:column width="530">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPerspectivaTitle_perspectiva}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.perspectiva}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Acciones"/>
+                    </f:facet>
+                    <p:commandButton id="editButton" value="Editar" update=":PerspectivaEditForm" icon="ui-icon-pencil" onclick="PF('PerspectivaEditDialog').show()"/>
+                    <p:commandButton id="deleteButton" actionListener="#{perspectivaController.destroy}" update="datalist" value="Eliminar" icon="ui-icon-trash" />
+                </p:column>
+            </p:dataTable>
+        </h:form>
+        <p:dialog header="Edicion de Perspectivas">
+            <p:dialog id="PerspectivaEditDialog" widgetVar="PerspectivaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPerspectivaTitle}">
+                <h:form id="PerspectivaEditForm">
+                    <h:panelGroup id="display" style="margin-bottom:20px; ">
+                        <h:panelGrid columns="2" border="0">
+                            <p:outputLabel value="ID:" for="idPerspectiva" />
+                            <p:inputText id="idPerspectiva" value="#{perspectivaController.selected.idPerspectiva}" disabled="true" title="#{bundle.EditPerspectivaTitle_idPerspectiva}" required="true" requiredMessage="#{bundle.EditPerspectivaRequiredMessage_idPerspectiva}"/>
+                            <p:outputLabel value="PERSPECTIVA:" for="perspectiva" />
+                            <p:inputTextarea id="perspectiva" value="#{perspectivaController.selected.perspectiva}" cols="50" rows="1" required="true" requiredMessage="#{bundle.CreatePerspectivaRequiredMessage_perspectiva}"/>
+                        </h:panelGrid>
+                        <p:commandButton actionListener="#{perspectivaController.update}" update="display,:PerspectivaListForm:datalist" value="ACTUALIZAR" onclick="PerspectivaEditDialog.hide()"/>
+                        <p:commandButton value="CANCELAR" onclick="PerspectivaEditDialog.hide()"/>
+                    </h:panelGroup>
+                </h:form>
+            </p:dialog>
+        </p:dialog>
+    </ui:composition>
+
+</html>

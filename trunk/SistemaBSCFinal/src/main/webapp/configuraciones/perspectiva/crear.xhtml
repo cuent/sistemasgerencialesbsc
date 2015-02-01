@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <div style="background-color: #cccccc; height: 30px;">
+            <div style="text-align: center; color:#ffffff; font-size: 1.3em;">PERSPECTIVAS</div>
+
+        </div>
+        <p:panel header="Ingreso de Perspectivas" style="border: 0; width: 80%; margin: 0px auto;">
+            <h:form id="PerspectivaCreateForm">
+                <p:growl id="growlCrear" life="3000" />  
+                #{perspectivaController.iniciarNuevo()}
+                <h:panelGroup id="display">
+                    <h:panelGrid columns="2" border="0" cellspacing="80">
+                        <p:graphicImage value="http://www.wannalea.com/blog/wp-content/uploads/2013/12/equipo_aumento.jpg" width="180" height="180"/>
+                        <h:panelGrid columns="2" border="0">
+                            <p:outputLabel value="#{bundle.CreatePerspectivaLabel_perspectiva}" for="perspectiva" />
+                            <p:inputText id="perspectiva" value="#{perspectivaController.selected.perspectiva}" title="#{bundle.CreatePerspectivaTitle_perspectiva}" required="true" requiredMessage="#{bundle.CreatePerspectivaRequiredMessage_perspectiva}"/>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                    <div style="border: 0; width: 25%; margin: 0px auto;">
+                        <p:commandButton actionListener="#{perspectivaController.create}" value="#{bundle.Save}"  icon="ui-icon-disk" ajax="false" update="display,growlCrear" />
+                        
+                        <p:commandButton value="#{bundle.Cancel}" icon="ui-icon-close" onclick="PerspectivaCreateDialog.hide()"/>
+                    </div>
+                </h:panelGroup>
+
+            </h:form>
+        </p:panel >
+        <p:panel header="Lista Perspectivas" style="border: 0; width: 80%; margin: 0px auto;">
+            <ui:include src="listar.xhtml"/>
+        </p:panel>
+    </ui:composition>
+
+</html>
