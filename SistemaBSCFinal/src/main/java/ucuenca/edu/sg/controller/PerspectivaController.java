@@ -3,6 +3,7 @@ package ucuenca.edu.sg.controller;
 import ucuenca.edu.sg.modelo.Perspectiva;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -27,6 +28,9 @@ public class PerspectivaController extends AbstractController<Perspectiva> imple
         this.setSelected(new Perspectiva());
         
     }
-    
+      @Override
+    public List<Perspectiva> getItems() {
+        return super.getItems(); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
