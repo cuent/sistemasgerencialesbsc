@@ -7,11 +7,11 @@ package ucuenca.edu.sg.converter;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.ManagedBean;
 import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import ucuenca.edu.sg.controller.ActividadesController;
+import javax.faces.convert.Converter;
 import ucuenca.edu.sg.modelo.Actividades;
 
 /**
@@ -19,7 +19,7 @@ import ucuenca.edu.sg.modelo.Actividades;
  * @author mivkys
  */
 @ManagedBean
-public class ActividadesConverter implements javax.faces.convert.Converter{
+public class ActividadesConverter implements Converter{
     @EJB
     private ucuenca.edu.sg.facade.ActividadesFacade ejbFacade;
     @Override
