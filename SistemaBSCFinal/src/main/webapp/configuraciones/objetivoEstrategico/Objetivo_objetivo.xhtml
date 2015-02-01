@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <p:panelGrid id="panelObjetivo" columns="2" style="width:100%;">
+        <p:column >
+            <p:panelGrid columns="1">
+                <p:outputLabel value="Objetivo Estrategico" for="idObjetivoEstrategicoText" />
+
+                <p:inputTextarea id="idObjetivoEstrategicoText"
+                                 value="#{objetivoEstrategicoController.selected.objetivo}"
+                                 title="Objetivo Estrategico"
+                                 placeholder="Ingrese aqui el nuevo objetivo"
+                                 required="true"
+                                 requiredMessage="Objetivo Estrategico Requerido"/>
+            </p:panelGrid>
+        </p:column>
+        <p:column >
+            <p:panelGrid columns="1"> 
+                <p:outputLabel value="Perspectiva" for="idPerspectivaText" />
+
+                <p:selectOneMenu value="#{objetivoEstrategicoController.selected.idPerspectiva}" 
+                                 effect="bounce" id="idPerspectivaText">    
+                    <f:selectItems value="#{perspectivaController.items}" 
+                                   var="Item"
+                                   itemValue="#{Item}"
+                                   itemLabel="#{Item.perspectiva}"/>  
+                    <f:converter binding="#{perspectivaConverter}"/>  
+                </p:selectOneMenu>
+                <p:outputLabel value="Fecha de Alcance" for="idFechaAlcanceText" />
+
+                <p:calendar  id="idFechaAlcanceText" 
+                             placeholder="La fecha de alcance"
+                             value="#{objetivoEstrategicoController.selected.fechaAlcance}"
+                             effect="explode"
+                             pattern="EEE, dd MMM, yyyy"/>
+            </p:panelGrid>
+        </p:column> 
+
+    </p:panelGrid>
+
+
+</html>
