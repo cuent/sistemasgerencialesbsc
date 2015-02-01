@@ -7,10 +7,11 @@ package ucuenca.edu.sg.converter;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.ManagedBean;
 import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
 import ucuenca.edu.sg.facade.CabeceraValorFacade;
 import ucuenca.edu.sg.modelo.CabeceraValor;
 
