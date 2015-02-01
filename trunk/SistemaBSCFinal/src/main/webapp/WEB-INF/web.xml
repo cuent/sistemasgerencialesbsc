@@ -25,5 +25,5 @@
         <param-name>primefaces.THEME</param-name>
         <param-value>flick</param-value>
     </context-param>
-
+    
 </web-app>
