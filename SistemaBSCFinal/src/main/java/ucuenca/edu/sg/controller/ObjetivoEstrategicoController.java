@@ -18,7 +18,12 @@ public class ObjetivoEstrategicoController extends AbstractController<ObjetivoEs
 
     @EJB
     private ucuenca.edu.sg.facade.ObjetivoEstrategicoFacade ejbFacade;
+     @EJB
+    private ucuenca.edu.sg.facade.UsuarioFacade ejbUsuarioFacade;
     private Usuario usuario;
+    private List<Usuario> listTotalUsuario, listUsuariosObjetivos;
+
+    
     public ObjetivoEstrategicoController() {
     }
 
@@ -27,8 +32,13 @@ public class ObjetivoEstrategicoController extends AbstractController<ObjetivoEs
         super.setFacade(ejbFacade);
         this.setSelected(new ObjetivoEstrategico());
         usuario = new Usuario();
+        listTotalUsuario = ejbUsuarioFacade.findAll();
+        listUsuariosObjetivos=new ArrayList<>();
     }
-
+public void agregarUsuarioObjetivo(){
+    System.out.println("Paso por aki");
+    listUsuariosObjetivos.add(usuario);
+}
     public void prueba() {
         System.out.println("el selectes:;" + ((this.getSelected().getObjetivo() != null) ? this.getSelected().getObjetivo() : " "));
     }
@@ -50,7 +60,19 @@ public class ObjetivoEstrategicoController extends AbstractController<ObjetivoEs
 
         return filteredThemes;
     }
-
+public List<Usuario> autoCompleteUsuario(String query) {
+        List<Usuario> allThemes = listTotalUsuario;
+        List<Usuario> filteredThemes = new ArrayList<>();
+         
+        for (Usuario skin : allThemes) {
+            if(skin.getNombres().toLowerCase().startsWith(query) ||
+                    skin.getApellidos().toLowerCase().startsWith(query)   ) {
+                filteredThemes.add(skin);
+            }
+        }
+         
+        return filteredThemes;
+    }
     /**
      * @return the usuario
      */
@@ -64,4 +86,22 @@ public class ObjetivoEstrategicoController extends AbstractController<ObjetivoEs
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+    public void actualizarListTotalUsuarios() {
+        listTotalUsuario = ejbUsuarioFacade.findAll();
+    }
+
+    /**
+     * @return the listUsuariosObjetivos
+     */
+    public List<Usuario> getListUsuariosObjetivos() {
+        return listUsuariosObjetivos;
+    }
+
+    /**
+     * @param listUsuariosObjetivos the listUsuariosObjetivos to set
+     */
+    public void setListUsuariosObjetivos(List<Usuario> listUsuariosObjetivos) {
+        this.listUsuariosObjetivos = listUsuariosObjetivos;
+    }
+
 }
