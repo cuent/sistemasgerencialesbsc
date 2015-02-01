@@ -4,15 +4,15 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:form>
+        <h:panelGroup id="objetivoEstrategico" >
+            <p:panelGrid id="bloque1" columns="2" style="width:100%">
+                <p:column ><ui:include src="Objetivo_objetivo.xhtml"/></p:column>
+                <p:column ><ui:include src="Objetivo_responsable.xhtml"/></p:column>
+            </p:panelGrid>
 
-    <h:panelGroup id="objetivoEstrategico" >
-        <p:panelGrid id="bloque1" columns="2" style="width:100%">
-            <p:column ><ui:include src="Objetivo_objetivo.xhtml"/></p:column>
-            <p:column ><ui:include src="Objetivo_responsable.xhtml"/></p:column>
-        </p:panelGrid>
-       
             <ui:include src="Objetivo_metas.xhtml"/>
-    </h:panelGroup> 
-
+        </h:panelGroup> 
+    </h:form>
 
 </html>

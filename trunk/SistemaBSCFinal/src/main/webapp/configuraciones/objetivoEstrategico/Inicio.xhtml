@@ -8,7 +8,7 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="content">
-        <p:growl id="growl" showDetail="true" />
+        <p:growl id="growl" showDetail="true" life="15000"/>
         <h:form id="crudObjetivosEstrategicos">
 
             <h:panelGroup id="display">
@@ -62,8 +62,6 @@
                     </p:tab>
                 </p:tabView>
             </h:panelGroup> 
-
-
         </h:form>
     </ui:define>
 </ui:composition>
