@@ -10,6 +10,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import ucuenca.edu.sg.modelo.Usuario;
 
 @Named("objetivoEstrategicoController")
 @SessionScoped
@@ -17,7 +18,7 @@ public class ObjetivoEstrategicoController extends AbstractController<ObjetivoEs
 
     @EJB
     private ucuenca.edu.sg.facade.ObjetivoEstrategicoFacade ejbFacade;
-
+    private Usuario usuario;
     public ObjetivoEstrategicoController() {
     }
 
@@ -25,6 +26,7 @@ public class ObjetivoEstrategicoController extends AbstractController<ObjetivoEs
     public void init() {
         super.setFacade(ejbFacade);
         this.setSelected(new ObjetivoEstrategico());
+        usuario = new Usuario();
     }
 
     public void prueba() {
@@ -47,5 +49,19 @@ public class ObjetivoEstrategicoController extends AbstractController<ObjetivoEs
         }
 
         return filteredThemes;
+    }
+
+    /**
+     * @return the usuario
+     */
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    /**
+     * @param usuario the usuario to set
+     */
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }
