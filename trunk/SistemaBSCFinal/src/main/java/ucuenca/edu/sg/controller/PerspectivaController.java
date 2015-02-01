@@ -22,4 +22,11 @@ public class PerspectivaController extends AbstractController<Perspectiva> imple
     public void init() {
         super.setFacade(ejbFacade);
     }
+    
+    public void iniciarNuevo(){
+        this.setSelected(new Perspectiva());
+        
+    }
+    
+    
 }
