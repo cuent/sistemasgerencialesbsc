@@ -6,26 +6,27 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:panelGrid columns="2" style="width:100%" >
         <p:outputLabel value="Responsables" for="idResponsablesText" />
-        <p:commandButton type="button" value="Agregar" icon="ui-icon-check" 
+        <p:commandButton type="button" value="Agregar " icon="ui-icon-check" 
                          update="representanteForm"
+                         actionListener="#{objetivoEstrategicoController.actualizarListTotalUsuarios()}"
                          onclick="PF('representanteDialog').show()"/>
     </h:panelGrid>
 
 
-    <p:dataScroller value="#{objetivoEstrategicoController.items}" var="car" chunkSize="10" id="idResponsablesText">
+    <p:dataScroller value="#{objetivoEstrategicoController.listUsuariosObjetivos}" var="item" chunkSize="10" id="idResponsablesText">
         <h:panelGrid columns="3" style="width:100%" columnClasses="logo,detail,update">
             <p:graphicImage value="http://smartergp-app.com/Images/menu/2.png" width="50" height="50" /> 
 
             <p:outputPanel>
                 <h:panelGrid columns="2" cellpadding="10">
                     <h:outputText value="Nombres:" style="font-weight: bold"/>
-                    <h:outputText value="Miguel Saca" />
+                    <h:outputText value="#{item.usuario.nombres} #{item.usuario.apellidos}" />
 
                     <h:outputText value="Email:" style="font-weight: bold"/>
-                    <h:outputText value="ssxmaltt@gmail.com" />
+                    <h:outputText value="#{item.usuario.email}" />
 
                     <h:outputText value="Cargo:" style="font-weight: bold"/>
-                    <h:outputText value="Director" style="color: #26BC85"/>
+                    <h:outputText value="#{item.usuario.cargo}" style="color: #26BC85"/>
                 </h:panelGrid>
             </p:outputPanel>
             <p:commandButton type="button"  icon="ui-icon-closethick" title="Eliminar"/>
@@ -39,18 +40,38 @@
               resizable="false">
         <h:form id="representanteForm">
             <h:panelGroup id="display">
-                <p:panelGrid columns="1">
-                    <p:selectOneMenu value=" " effect="bounce" >  
-                        <f:selectItem itemLabel="Seleccionar Representante ..." itemValue="" />  
-                        <f:selectItems value="" />  
-                    </p:selectOneMenu>
-                </p:panelGrid>
-                <p:commandButton type="button" value="Agregar" icon="ui-icon-plus" 
+                <p:outputLabel value="Itemtip:" for="itemTip" />
+            <p:autoComplete id="itemTip" value="#{objetivoEstrategicoController.usuario}" completeMethod="#{objetivoEstrategicoController.autoCompleteUsuario}"
+                        var="theme" itemLabel="#{theme.nombres}" itemValue="#{theme}" forceSelection="true">
+                <f:converter binding="#{usuarioConverter}"/> 
+            <f:facet name="itemtip">
+                <h:panelGrid columns="2" cellpadding="5">
+                    <f:facet name="header">
+                        <h:outputText styleClass="ui-theme ui-theme-#{theme.nombres}" style="margin-left:auto" />
+                    </f:facet>
+ 
+                    <h:outputText value="Nombres:" />
+                    <h:outputText value="#{theme.nombres}" />
+ 
+                    <h:outputText value="Apellidos" />
+                    <h:outputText value="#{theme.apellidos}" />
+                    
+                    <h:outputText value="Email:" />
+                    <h:outputText value="#{theme.email}" />
+ 
+                    <h:outputText value="Cargo" />
+                    <h:outputText value="#{theme.cargo}" />
+                </h:panelGrid>
+            </f:facet>
+        </p:autoComplete>
+                <p:commandButton type="button" value="Agregar Responsable" icon="ui-icon-plus" 
+                                 actionListener="#{objetivoEstrategicoController.agregarUsuarioObjetivo()}"
                                  update="display,idResponsablesText"
-                                 oncomplete="handleSubmit(args,'representanteDialog');"/>
+                                 onclick="PF('representanteDialog').hide()"/>
                 <p:commandButton type="button" value="Cancelar" icon="ui-icon-close" 
                                  onclick="PF('representanteDialog').hide()"/>
             </h:panelGroup>
+            
         </h:form>
     </p:dialog>
 </html>
