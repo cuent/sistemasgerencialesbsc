@@ -6,6 +6,7 @@ import ucuenca.edu.sg.modelo.Usuario;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -189,6 +190,12 @@ public class UsuarioController extends AbstractController<Usuario> implements Se
             }
         }
     }
+
+    @Override
+    public List<Usuario> getItems() {
+        return super.getItems(); //To change body of generated methods, choose Tools | Templates.
+    }
+    
     /**
      * @return the email
      */
