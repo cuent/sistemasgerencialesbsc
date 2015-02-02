@@ -5,15 +5,15 @@
  */
 package ucuenca.edu.sg.controller;
 
-import java.awt.event.ActionEvent;
+
+import ucuenca.edu.sg.controller.util.JsfUtil;
+import ucuenca.edu.sg.facade.AbstractFacade;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJBException;
-import ucuenca.edu.sg.controller.util.JsfUtil;
-import ucuenca.edu.sg.facade.AbstractFacade;
-
+import javax.faces.event.ActionEvent;
 /**
  *
  * @author ESTUDIANTE 1-06
@@ -154,6 +154,8 @@ public abstract class AbstractController<T> {
     public T prepareCreate(ActionEvent event) {
         T newItem;
         try {
+            if(itemClass==null){
+                System.out.println("La clase no esta instanciada");}
             newItem = itemClass.newInstance();
             this.selected = newItem;
             initializeEmbeddableKey();
