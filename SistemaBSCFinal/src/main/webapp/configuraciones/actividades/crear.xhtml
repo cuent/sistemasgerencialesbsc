@@ -40,7 +40,7 @@
                                 <f:converter binding="#{objetivoEstrategicoConverter}" />
                                 
                             </p:selectOneMenu>
-                             <p:outputLabel value="#{bundle.CreateResponsableActividadLabel_responsable}" for="usuario" />
+                             <p:outputLabel value="Responsable" for="usuario" />
 
                              <p:selectManyCheckbox id="usuario" value="#{actividadesController.selected.responsableActividadList}" layout="grid" columns="4" required="false">
                                  <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}" var="idUsuarioItem"
