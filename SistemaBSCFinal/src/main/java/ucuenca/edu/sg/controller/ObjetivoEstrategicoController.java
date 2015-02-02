@@ -45,7 +45,7 @@ public class ObjetivoEstrategicoController extends AbstractController<ObjetivoEs
         meta = new Meta();
         listComponenteFormulas = new ArrayList<>();
         setMetaNueva(new Meta());
-        indicador = new Indicador();
+        indicador = null;
     }
 
     public void prueba() {
@@ -53,7 +53,9 @@ public class ObjetivoEstrategicoController extends AbstractController<ObjetivoEs
     }
 
     public void actualizarVariables() {
-        setListComponenteFormulas(indicador.getComponenteFormulaList());
+        if (indicador != null || indicador.getComponenteFormulaList() != null) {
+            setListComponenteFormulas(indicador.getComponenteFormulaList());
+        }
     }
 
     public void agregarUsuario() {
@@ -66,10 +68,25 @@ public class ObjetivoEstrategicoController extends AbstractController<ObjetivoEs
         }
     }
 
+    public String estadoActualProyecto() {
+        if (indicador != null && indicador.getEstadoActual() != null) {
+            if (indicador.getEstadoActual().equalsIgnoreCase("verde")) {
+                return "../../resources/img/verde.png";
+            }
+        }
+        if (indicador.getEstadoActual().equalsIgnoreCase("rojo")) {
+            return "../../resources/img/rojo.png";
+        }
+        if (indicador.getEstadoActual().equalsIgnoreCase("amarillo")) {
+            return "../../resources/img/amarillo.png";
+        }
+        return "../../resources/img/rojo.png";
+    }
 //public String mostrarMeta(Meta meta){
 //this.meta = meta;
 //return meta.getDescripcion();
 //}
+
     public void actualizarListaUsuariosTotales() {
         setListTotalUsuario(ejbUsuarioFacade.findAll());
     }
@@ -90,6 +107,14 @@ public class ObjetivoEstrategicoController extends AbstractController<ObjetivoEs
         if (this.getSelected() != null & this.getSelected().getMetaList() != null) {
             listMetas = this.getSelected().getMetaList();
         }
+        if (this.getSelected() != null & this.getSelected().getIndicadorList() != null 
+                & !this.getSelected().getIndicadorList().isEmpty() & this.getSelected().getIndicadorList().size()==1) {
+            System.out.println("Solo un indicador");
+            listComponenteFormulas = this.getSelected().getIndicadorList().get(0).getComponenteFormulaList();
+        }else{
+            System.out.println("no hay indicadores");
+        listComponenteFormulas = null;
+        }
         System.out.println("metas tamano : " + listMetas.size());
     }
 
@@ -100,20 +125,26 @@ public class ObjetivoEstrategicoController extends AbstractController<ObjetivoEs
         }
         listMetas.add(metaNueva);
     }
+
     public void agregarVariable() {
         System.out.println("Si ingreso en variable");
         if (listComponenteFormulas == null) {
             listComponenteFormulas = new ArrayList();
         }
-        listComponenteFormulas.add(componenteFormula);
+        if (componenteFormula != null) {
+            listComponenteFormulas.add(componenteFormula);
+        }
+        componenteFormula = null;
     }
-public void eliminarVariable(ComponenteFormula componenteFormula){
+
+    public void eliminarVariable(ComponenteFormula componenteFormula) {
         if (componenteFormula != null) {
             System.out.println("metas tamano eliminacion: " + listComponenteFormulas.size());
             listComponenteFormulas.remove(componenteFormula);
             System.out.println("metas tamano eliminacion: " + listComponenteFormulas.size());
         }
     }
+
     public void eliminarMeta(Meta meta) {
         if (meta != null) {
             System.out.println("metas tamano eliminacion: " + listMetas.size());
