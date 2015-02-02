@@ -17,7 +17,7 @@
                          paginatorPosition="bottom"
                          rowKey="#{item.idUsuario}"
                          rows="20"
-                         rowsPerPageTemplate="10,20,30,40,50"
+                         rowsPerPageTemplate="20,30,40,50"
                          >
 
                 <p:ajax event="rowSelect"   update="editButton deleteButton"/>
@@ -41,9 +41,9 @@
                     </f:facet>
                     <h:outputText value="#{item.email}"/>
                 </p:column>
-                <p:column width="65">
+                <p:column width="70">
                     <f:facet name="header">
-                        <h:outputText value="#{bundle.ListUsuarioTitle_tipoUsuario}"/>
+                        <h:outputText value="Tipo de Usuario"/>
                     </f:facet>
                     <h:outputText value="#{item.tipoUsuario}"/>
                 </p:column>
