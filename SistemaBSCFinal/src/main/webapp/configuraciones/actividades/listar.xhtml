@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+
+
+        <h:form id="ActividadesListForm">
+
+            <p:dataTable id="datalist" value="#{actividadesController.items}" var="item"
+                         selectionMode="single" selection="#{actividadesController.selected}"
+                         paginator="true"
+                         paginatorPosition="bottom"
+                         rowKey="#{item.idActividades}"
+                         rows="20"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         >
+                <p:ajax event="rowSelect"   update="editButton deleteButton"/>
+                <p:ajax event="rowUnselect" update="editButton deleteButton"/>
+                <p:column width="45">
+                    <f:facet name="header">
+                        <h:outputText value="ID"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idActividades}"/>
+                </p:column>
+                <p:column width="100">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListActividadesTitle_actividades}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.actividad}"/>
+                </p:column>
+                <p:column width="100">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListActividadesTitle_duracion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.duracion}"/>
+                </p:column>
+                <p:column width="100">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListActividadesTitle_control}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.control}"/>
+                </p:column>
+                <p:column width="100">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListActividadesTitle_fechaInicio}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fechaInicio}"/>
+                </p:column>
+                <p:column width="100">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListActividadesTitle_fechaFin}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fechaFin}"/>
+                </p:column>
+                <p:column width="100">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListObjetivoEstrategicoTitle_objetivo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idObjetivoEstrategico.objetivo}"/>
+                </p:column>
+                <p:column width="100">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListResponsableActividadTitle_responsable}"/>
+                    </f:facet>
+                    <p:dataList value="#{item.responsableActividadList}" var="res" type="ordered">
+                        <h:outputText value="#{res.getUsuario().getCargo()}"/>
+                    </p:dataList>
+                </p:column>
+                <p:column width="100">
+                    <f:facet name="header">
+                        <h:outputText value="Acciones"/>
+                    </f:facet>
+                    <p:commandButton id="editButton" value="Editar" update=":ActividadesEditForm" icon="ui-icon-pencil" onclick="PF('ActividadesEditDialog').show()"/>
+                    <p:commandButton id="deleteButton" actionListener="#{actividadesController.destroy}" update="datalist" value="Eliminar" icon="ui-icon-trash" />
+                </p:column>
+            </p:dataTable>
+        </h:form>
+        <p:dialog header="Edicion de Actividades">
+            <p:dialog id="ActividadesEditDialog" widgetVar="ActividadesEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditActividadesTitle}">
+                <h:form id="ActividadesEditForm">
+                    <h:panelGroup id="display" style="margin-bottom:20px; ">
+                        <h:panelGrid columns="2" border="0">
+                            <p:outputLabel value="ID:" for="idActividades" />
+                            <p:inputText id="idActividades" value="#{actividadesController.selected.idActividades}" disabled="true" title="#{bundle.EditActividadesTitle_idActividades}" required="true" requiredMessage="#{bundle.EditActividadesRequiredMessage_idActividades}"/>
+                            <p:outputLabel value="ACTIVIDADES:" for="actividades" />
+                            <p:inputTextarea id="actividades" value="#{actividadesController.selected.actividad}" cols="50" rows="1" required="true" requiredMessage="#{bundle.CreateActividadesRequiredMessage_actividades}"/>
+                            <p:outputLabel value="DURACION" for="duracion" />
+                            <p:inputText id="duracion" value="#{actividadesController.selected.duracion}" required="true" requiredMessage="#{bundle.CreateActividadesRequiredMessage_duracion}"/>
+                            <p:outputLabel value="CONTROL" for="control" />
+                            <p:inputText id="control" value="#{actividadesController.selected.control}"  /> 
+                            <p:outputLabel value="FECHA_INICIO" for="fechaInicio" />
+                            <p:calendar id="fechaInicio" pattern="MM/dd/yyyy" value="#{actividadesController.selected.fechaInicio}"  required="true" requiredMessage="#{bundle.EditActividadesRequiredMessage_fechaInicio}" showOn="button"/>
+                            <p:outputLabel value="FECHA_FIN" for="fechaFin" />
+                            <p:calendar id="fechaFin" pattern="MM/dd/yyyy" value="#{actividadesController.selected.fechaFin}"  required="true" requiredMessage="#{bundle.EditActividadesRequiredMessage_fechaFin}" showOn="button"/>
+                            <p:outputLabel value="OBJETIVO_ESTRATEGICO" for="idObjetivoEstrategico" />
+                            <p:selectOneMenu id="idObjetivoEstrategico" value="#{actividadesController.selected.idObjetivoEstrategico}" required="true" requiredMessage="#{bundle.EditActividadesRequiredMessage_idObjetivoEstrategico}">
+                                <f:selectItems value="#{objetivoEstrategicoController.itemsAvailableSelectOne}"
+                                               var="idObjetivoEstrategicoItem"
+                                               itemValue="#{idObjetivoEstrategicoItem}"
+                                               itemLabel="#{idObjetivoEstrategicoItem.objetivo}"/>
+                                <f:converter binding="#{objetivoEstrategicoConverter}" />
+
+                            </p:selectOneMenu>
+                            <p:outputLabel value="RESPONSABLE" for="usuario" />
+
+                            <p:selectManyCheckbox id="usuario" value="#{actividadesController.selected.responsableActividadList}" columns="2" required="false">
+                                <f:selectItems value="#{usuarioController.itemsAvailableSelectMany}"
+                                               var="idUsuarioItem"
+                                               itemValue="#{idUsuarioItem}"
+                                               itemLabel="#{idUsuarioItem.nombres}"/>
+                                <f:converter binding="#{usuarioConverter}" /> 
+                            </p:selectManyCheckbox>
+                        </h:panelGrid>
+                        <p:commandButton actionListener="#{actividadesController.update}" update="display,:ActividadesListForm:datalist" value="ACTUALIZAR" onclick="ActividadesEditDialog.hide()"/>
+                        <p:commandButton value="CANCELAR" onclick="ActividadesEditDialog.hide()"/>
+                    </h:panelGroup>
+                </h:form>
+            </p:dialog>
+        </p:dialog>
+    </ui:composition>
+
+</html>
