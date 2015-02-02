@@ -20,40 +20,48 @@ import ucuenca.edu.sg.modelo.Indicador;
  * @author ESTUDIANTE 1-06
  */
 @ManagedBean
-public class IndicadorConverter implements javax.faces.convert.Converter{
+public class IndicadorConverter implements javax.faces.convert.Converter {
+
     @EJB
     private IndicadorFacade ejbFacade;
-    @Override
-        public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
-            if (value == null || value.length() == 0) {
-                return null;
-            }
-            return this.ejbFacade.find(getKey(value));
-        }
 
-        java.lang.Integer getKey(String value) {
+    @Override
+    public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
+        if (value == null || value.length() == 0) {
+            return null;
+        }
+        return this.ejbFacade.find(getKey(value));
+    }
+
+    java.lang.Integer getKey(String value) {
+        try {
             java.lang.Integer key;
             key = Integer.valueOf(value);
             return key;
+        } catch (NumberFormatException e) {
+            System.out.println("NumberFormatException en IndicadorConverter Linea 42");
+            return -1;
         }
 
-        String getStringKey(java.lang.Integer value) {
-            StringBuilder sb = new StringBuilder();
-            sb.append(value);
-            return sb.toString();
-        }
+    }
 
-        @Override
-        public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
-            if (object == null) {
-                return null;
-            }
-            if (object instanceof Indicador) {
-                Indicador o = (Indicador) object;
-                return getStringKey(o.getIdIndicador());
-            } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Indicador.class.getName()});
-                return null;
-            }
+    String getStringKey(java.lang.Integer value) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(value);
+        return sb.toString();
+    }
+
+    @Override
+    public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
+        if (object == null) {
+            return null;
         }
+        if (object instanceof Indicador) {
+            Indicador o = (Indicador) object;
+            return getStringKey(o.getIdIndicador());
+        } else {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Indicador.class.getName()});
+            return null;
+        }
+    }
 }
