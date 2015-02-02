@@ -88,7 +88,7 @@ public class UsuarioController extends AbstractController<Usuario> implements Se
                     Mensaje.addError("no coinciden las pass");
                     confirmaContrasena = null;
                 } else {
-                    cifrarContrasena();
+                    //cifrarContrasena();
                     System.out.println("verificacion correcta");
                     Mensaje.addSatisfactorio("verificacion correcta");
                 }
@@ -146,7 +146,7 @@ public class UsuarioController extends AbstractController<Usuario> implements Se
         if (ejbFacade.getUsuarioEmail(getEmail()) != null) {
             user = ejbFacade.getUsuarioEmail(getEmail());
             try {
-                if (user.getContrasena().equals(Sesion.MD5(getContrasena()))) {
+                if (user.getContrasena().equals(getContrasena())) {
                         System.out.println("Si logeo...");
 
                         ConnectUsuario.setUsuario(this.getSelected());
@@ -161,8 +161,6 @@ public class UsuarioController extends AbstractController<Usuario> implements Se
                     System.out.println("Contraseña invalida");
                     Mensaje.addError("Contraseña invalida");
                 }
-            } catch (NoSuchAlgorithmException ex) {
-                Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
             } catch (UnsupportedEncodingException ex) {
                 Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
