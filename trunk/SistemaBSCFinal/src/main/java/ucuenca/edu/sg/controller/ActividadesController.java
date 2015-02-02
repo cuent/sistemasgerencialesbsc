@@ -14,6 +14,8 @@ public class ActividadesController extends AbstractController<Actividades> imple
 
     @EJB
     private ucuenca.edu.sg.facade.ActividadesFacade ejbFacade;
+    @EJB
+    private ucuenca.edu.sg.facade.ResponsableActividadFacade ejbResponsableActividadFacade;
 
     public ActividadesController() {
     }
@@ -21,5 +23,16 @@ public class ActividadesController extends AbstractController<Actividades> imple
     @PostConstruct
     public void init() {
         super.setFacade(ejbFacade);
+    }
+    
+     public void iniciarNuevo(){
+        this.setSelected(new Actividades());
+        
+    }
+     
+    public void guadarActividad(){
+        this.create();
+       
+    
     }
 }
