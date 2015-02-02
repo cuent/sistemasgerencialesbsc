@@ -28,4 +28,5 @@ public class ObjetivoEstrategicoFacade extends AbstractFacade<ObjetivoEstrategic
         super(ObjetivoEstrategico.class);
     }
     
+    
 }
