@@ -20,7 +20,7 @@
         <h:outputStylesheet library="css" name="estilo.css"/>
         <h:outputStylesheet library="css" name="form.css"/>
         <h:outputScript library="js" name="megamenu.js"/> 
-        <script>$(document).ready(function () {
+        <script>$(document).ready(function() {
                 $(".megamenu").megamenu();
             });</script>
         <h:outputScript library="js" name="menu_jquery.js"/> 
@@ -45,7 +45,7 @@
             <div style="clear:both;">
                 <h:panelGrid border="0" columns="2" cellspacing="20px" cellpadding="20px">
                     <p:commandLink value="Menu"/>
-                    <p:commandLink value="Salir"/>
+                    <p:commandLink value="Salir" actionListener="#{usuarioController.logout()}"/>
                 </h:panelGrid>
             </div>
         </div>

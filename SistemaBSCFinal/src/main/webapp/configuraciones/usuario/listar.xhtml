@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+
+        <h:form id="UsuarioListForm">
+
+            <p:dataTable id="datalist" value="#{usuarioController.items}" var="item"
+                         selectionMode="single" selection="#{usuarioController.selected}"
+                         paginator="true"
+                         paginatorPosition="bottom"
+                         rowKey="#{item.idUsuario}"
+                         rows="20"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         >
+
+                <p:ajax event="rowSelect"   update="editButton deleteButton"/>
+                <p:ajax event="rowUnselect" update="editButton deleteButton"/>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListUsuarioTitle_nombres}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nombres}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListUsuarioTitle_apellidos}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.apellidos}"/>
+                </p:column>
+                <p:column width="200">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListUsuarioTitle_email}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.email}"/>
+                </p:column>
+                <p:column width="65">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListUsuarioTitle_tipoUsuario}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.tipoUsuario}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListUsuarioTitle_cargo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cargo}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListUsuarioTitle_idAdministrador}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idAdministrador.nombres} #{item.idAdministrador.apellidos}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Acciones"/>
+                    </f:facet>
+                    <p:commandButton id="editButton" value="Editar" update=":UsuarioEditForm" icon="ui-icon-pencil" onclick="PF('UsuarioEditDialog').show()"/>
+                    <p:commandButton id="deleteButton" actionListener="#{usuarioController.destroy}" update="datalist" value="Eliminar" icon="ui-icon-trash" />
+                </p:column>
+            </p:dataTable>
+        </h:form>
+
+        <p:dialog header="Edicion de Usuarios">
+            <p:dialog id="UsuarioEditDialog" widgetVar="UsuarioEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditUsuarioTitle}">
+                <h:form id="UsuarioEditForm">
+                    <h:panelGroup id="display" style="margin-bottom:20px; ">
+                        <h:panelGrid columns="2" border="0">
+                            <p:outputLabel value="#{bundle.EditUsuarioLabel_nombres}" for="nombres" />
+                            <p:inputText id="nombres" 
+                                         value="#{usuarioController.selected.nombres}" 
+                                         title="#{bundle.EditUsuarioTitle_nombres}" 
+                                         required="true" 
+                                         requiredMessage="#{bundle.EditUsuarioRequiredMessage_nombres}"/>
+
+                            <p:outputLabel value="#{bundle.EditUsuarioLabel_apellidos}" for="apellidos" />
+                            <p:inputText id="apellidos" 
+                                         value="#{usuarioController.selected.apellidos}" 
+                                         title="#{bundle.EditUsuarioTitle_apellidos}" 
+                                         required="true"/>
+
+                            <p:outputLabel value="#{bundle.CreateUsuarioLabel_cargo}" for="cargo" />
+                            <p:inputText id="cargo"
+                                         value="#{usuarioController.selected.cargo}" 
+                                         title="#{bundle.CreateUsuarioTitle_cargo}" />
+
+                            <p:outputLabel value="#{bundle.CreateUsuarioLabel_tipoUsuario}" for="tipoUsuario" />
+                            <p:selectOneMenu id="tipoUsuario" 
+                                             value="#{usuarioController.selected.tipoUsuario}"
+                                             required="true" >
+                                <f:selectItem itemLabel="Administrador" itemValue="A" />  
+                                <f:selectItem itemLabel="Cliente" itemValue="C" /> 
+                            </p:selectOneMenu>
+
+                        </h:panelGrid>
+                        <p:commandButton actionListener="#{usuarioController.update}" update="display,:UsuarioListForm:datalist" value="ACTUALIZAR" onclick="UsuarioEditDialog.hide()"/>
+                        <p:commandButton value="CANCELAR" onclick="UsuarioEditDialog.hide()"/>
+                    </h:panelGroup>
+                </h:form>
+            </p:dialog>
+        </p:dialog>
+    </ui:composition>
+
+</html>

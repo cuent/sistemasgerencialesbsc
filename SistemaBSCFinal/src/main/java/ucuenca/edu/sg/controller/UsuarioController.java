@@ -30,27 +30,33 @@ public class UsuarioController extends AbstractController<Usuario> implements Se
     // Usado para el ingreso de la contraseña de la venta de logear
     private String contrasena;
     private String confirmaContrasena;
+
     public UsuarioController() {
     }
 
     @PostConstruct
     public void init() {
         super.setFacade(ejbFacade);
+        this.setSelected(new Usuario());
         setLoginUsuario(ConnectUsuario.getUsuario());
     }
+
     @Override
     public void destroy() {
         System.out.println("esta aki");
-        if(!Objects.equals(ConnectUsuario.getUsuario().getIdUsuario(), this.getSelected().getIdUsuario())){
-        super.destroy(); //To change body of generated methods, choose Tools | Templates.
-        }else{
+        if (!Objects.equals(ConnectUsuario.getUsuario().getIdUsuario(), this.getSelected().getIdUsuario())) {
+            super.destroy(); //To change body of generated methods, choose Tools | Templates.
+        } else {
+            System.out.println("Error");
             Mensaje.addError(" Esta cuenta esta logeado actualemente");
         }
     }
-    public boolean permisos(){
-        return ConnectUsuario.getTipoUsuario()=='A';
-        
+
+    public boolean permisos() {
+        return ConnectUsuario.getTipoUsuario() == 'A';
+
     }
+
     public void validarMail() {
         if (getSelected().getEmail() != null) {
             if (ejbFacade.getUsuarioEmail(getSelected().getEmail()) != null) {
@@ -116,38 +122,44 @@ public class UsuarioController extends AbstractController<Usuario> implements Se
     }
 
     public void guardar() {
-        boolean dir =false;
-        if (ConnectUsuario.getTipoUsuario() == 'A') {
-            if (this.getSelected() != null
-                    && this.getSelected().getNombres() != null
-                    && this.getSelected().getApellidos() != null
-                    && this.getSelected().getEmail() != null
-                    && this.getSelected().getContrasena() != null
-                    && this.getSelected().getTipoUsuario() != null) {
-                this.create();
-                dir = true;
-            }
-        } else {
-            System.out.println("No tiene los permisos de administrador para registrar nuevo usuario");
-            Mensaje.addError("No tiene los permisos de administrador para registrar nuevo usuario");
+        boolean dir = false;
+        System.out.println("esta aqui");
+        //if (ConnectUsuario.getTipoUsuario() == 'A') {
+        System.out.println("esta aqui 2");
+        if (this.getSelected() != null
+                && this.getSelected().getNombres() != null
+                && this.getSelected().getApellidos() != null
+                && this.getSelected().getEmail() != null
+                && this.getSelected().getContrasena() != null
+                && this.getSelected().getTipoUsuario() != null) {
+            this.create();
+            dir = true;
+            System.out.println("Guardado");
         }
+        //} else {
+        //    System.out.println("No tiene los permisos de administrador para registrar nuevo usuario");
+        //    Mensaje.addError("No tiene los permisos de administrador para registrar nuevo usuario");
+        //}
         this.setSelected(new Usuario());
-        if(dir ==true){
+        if (dir == true) {
             try {
-                Sesion.redireccionaPagina("http://localhost:8080/SistemaBSCFinal/");
+                Sesion.redireccionaPagina("http://localhost:8080/SistemaBSCFinal/faces/configuraciones/usuario/inicio.xhtml");
             } catch (IOException ex) {
-                Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("no entra");
             }
         }
     }
-    public void login() {
+
+    public void logear() {
         Usuario user;
-        System.out.println("Usuario " + this.getEmail());
-        if (ejbFacade.getUsuarioEmail(getEmail()) != null) {
+        System.out.println("Email " + this.getEmail());
+        if (ejbFacade.getUsuarioEmail(email) != null) {
             user = ejbFacade.getUsuarioEmail(getEmail());
             try {
-                if (user.getContrasena().equals(getContrasena())) {
+                if (user.getContrasena().equals(Sesion.MD5(contrasena))) {
+                    if (user.getContrasena().equals(getContrasena())) {
                         System.out.println("Si logeo...");
+                        this.setSelected(user);
 
                         ConnectUsuario.setUsuario(this.getSelected());
                         ConnectUsuario.setCodigoUsuario(this.getSelected().getIdUsuario());
@@ -155,12 +167,18 @@ public class UsuarioController extends AbstractController<Usuario> implements Se
                         // Colocando el tiempo de inactividad que tiene el sistema
                         Sesion.tiempoInactividad(1000);
                         Sesion.creaSesion();
-                        Sesion.redireccionaPagina("http://localhost:8080/SistemaBSCFinal/");
+                        Sesion.redireccionaPagina("http://localhost:8080/SistemaBSC/faces/configuraciones/usuario/inicio.xhtml");
                         this.setSelected(new Usuario());
+                    } else {
+                        System.out.println("Usuario ya se encuentra logeado");
+                        Mensaje.addError("Usuario ya se encuentra logeado");
+                    }
                 } else {
                     System.out.println("Contraseña invalida");
                     Mensaje.addError("Contraseña invalida");
                 }
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
             } catch (UnsupportedEncodingException ex) {
                 Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
@@ -171,6 +189,21 @@ public class UsuarioController extends AbstractController<Usuario> implements Se
             Mensaje.addError("No existe usuario");
         }
     }
+
+    public void login() {
+        Usuario user;
+        System.out.println("Usuario " + this.getEmail());
+        if (ejbFacade.getUsuarioEmail(getEmail()) != null) {
+            user = ejbFacade.getUsuarioEmail(getEmail());
+            if (user.getContrasena().equals(getContrasena())) {
+                System.out.println("Si logeo...");
+            }
+        } else {
+            System.out.println("No existe usuario");
+            Mensaje.addError("No existe usuario");
+        }
+    }
+
     public void logout() {
         if (ConnectUsuario.getUsuario() != null) {
             try {
@@ -178,7 +211,7 @@ public class UsuarioController extends AbstractController<Usuario> implements Se
                 ConnectUsuario.setCodigoUsuario(0);
                 ConnectUsuario.setTipoUsuario('N');
                 Sesion.cerrarSesion();
-                Sesion.redireccionaPagina("http://localhost:8080/SistemaBSCFinal/");
+                Sesion.redireccionaPagina("http://localhost:8080/SistemaBSCFinal/index.xhtml");
 
             } catch (ServletException ex) {
                 Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
@@ -193,7 +226,7 @@ public class UsuarioController extends AbstractController<Usuario> implements Se
     public List<Usuario> getItems() {
         return super.getItems(); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     /**
      * @return the email
      */
@@ -235,7 +268,8 @@ public class UsuarioController extends AbstractController<Usuario> implements Se
     public void setConfirmaContrasena(String confirmaContrasena) {
         this.confirmaContrasena = confirmaContrasena;
     }
-        public Usuario getLoginUsuario() {
+
+    public Usuario getLoginUsuario() {
         return ConnectUsuario.getUsuario();
     }
 

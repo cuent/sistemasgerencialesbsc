@@ -97,13 +97,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                             <p:inputText id="login"
                                                          type="submit"
                                                          value="Sign in"
-                                                         onclick="#{usuarioController.login()}"
+                                                         onclick="#{usuarioController.logear()}"
                                                          >
                                                 <p:ajax event="blur" 
                                                         update="password, email"/>
                                             </p:inputText>
-                                        </fieldset>
-                                        <span id="contrasena"><a href="#">Registrar Usuario</a></span>
+                                        </fieldset>                                        
                                     </form>
                                 </div>
                             </div>
