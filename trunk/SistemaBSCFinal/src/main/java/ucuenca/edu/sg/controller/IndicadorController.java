@@ -11,7 +11,7 @@ import ucuenca.edu.sg.modelo.Indicador;
 
 @Named("indicadorController")
 @SessionScoped
-public class IndicadorController extends AbstractController<Indicador> implements Serializable{
+public class IndicadorController extends AbstractController<Indicador> implements Serializable {
 
     @EJB
     private ucuenca.edu.sg.facade.IndicadorFacade ejbFacade;
@@ -52,5 +52,5 @@ public class IndicadorController extends AbstractController<Indicador> implement
     public void setEstructuraFormula(List<String> estructuraFormula) {
         this.estructuraFormula = estructuraFormula;
     }
-    
+
 }
