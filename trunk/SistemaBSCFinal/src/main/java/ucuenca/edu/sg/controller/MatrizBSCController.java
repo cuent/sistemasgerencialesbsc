@@ -41,9 +41,12 @@ public class MatrizBSCController extends AbstractController<ObjetivoEstrategico>
     private List<Meta> itemsMeta;
     private List<Indicador> itemsIndicador;
     private List<Actividades> itemsActividades;
+    private Double valorActual;
+    private Double desempeno;
 
     public MatrizBSCController() {
         super(ObjetivoEstrategico.class);
+        
     }
 
     @PostConstruct
@@ -108,4 +111,23 @@ public class MatrizBSCController extends AbstractController<ObjetivoEstrategico>
         this.itemsActividades = itemsActividades;
     }
 
+    public Double getValorActual() {
+        return valorActual;
+    }
+
+    public void setValorActual(Double valorActual) {
+        this.valorActual = valorActual;
+    }
+
+    public Double getDesempeno() {
+        desempeno=((getValorActual())/(getValorActual()));
+        return desempeno;
+    }
+
+    public void setDesempeno(Double desempeno) {
+        this.desempeno = desempeno;
+    }
+    
+
+    
 }
