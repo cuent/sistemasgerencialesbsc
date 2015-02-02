@@ -4,74 +4,86 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <h:form id="objetivoResponsablre">
-        <h:panelGrid columns="2" style="width:100%" >
-            <p:outputLabel value="Responsables" for="idResponsablesText" />
-            <p:commandButton type="button" value="Agregar Responsable" icon="ui-icon-check" 
-                             update="representanteForm"
-                             onclick="#{objetivoEstrategicoController.actualizarListTotalUsuarios()}"/>
+
+    <h:panelGrid columns="2" style="width:100%" >
+        <p:outputLabel value="Responsables" for="idResponsablesText" />
+
+        <p:commandButton id="agregarRepresentanteButton" icon="ui-icon-check" value="Agregar Responsable"
+                         actionListener="#{objetivoEstrategicoController.actualizarListTotalUsuarios}" 
+                         update=":crudObjetivosEstrategicos:wizard:idTab1:representanteForm" oncomplete="PF('representanteDialog').show()"/>
+    </h:panelGrid>
+
+
+    <p:dataScroller value="#{objetivoEstrategicoController.listUsuariosObjetivos}" var="item" chunkSize="10" id="idResponsablesText">
+        <h:panelGrid columns="3" style="width:100%" columnClasses="logo,detail,update">
+            <p:graphicImage value="http://smartergp-app.com/Images/menu/2.png" width="50" height="50" /> 
+
+            <p:outputPanel>
+                <h:panelGrid columns="2" cellpadding="10">
+                    <h:outputText value="Nombres:" style="font-weight: bold"/>
+                    <h:outputText value="#{item.nombres} #{item.apellidos}" />
+
+                    <h:outputText value="Email:" style="font-weight: bold"/>
+                    <h:outputText value="#{item.email}" />
+
+                    <h:outputText value="Cargo:" style="font-weight: bold"/>
+                    <h:outputText value="#{item.cargo}" style="color: #26BC85"/>
+                </h:panelGrid>
+            </p:outputPanel>
+            <p:commandButton type="button"  icon="ui-icon-closethick" title="Eliminar"/>
+            <span class="ui-separator">
+                <span class="ui-icon  ui-icon-grip-dotted-horizontal" />
+            </span>
         </h:panelGrid>
+    </p:dataScroller>
+
+    <p:dialog id="representanteDialog" widgetVar="representanteDialog" modal="true" 
+              resizable="false">
+        <h:form id="representanteForm">
+            <h:panelGroup id="display">
+                <p:outputLabel value="Itemtip:" for="itemTip" />
+                
 
 
-        <p:dataScroller value="#{objetivoEstrategicoController.listUsuariosObjetivos}" var="item" chunkSize="10" id="idResponsablesText">
-            <h:panelGrid columns="3" style="width:100%" columnClasses="logo,detail,update">
-                <p:graphicImage value="http://smartergp-app.com/Images/menu/2.png" width="50" height="50" /> 
+                <p:selectOneMenu id="itemTip" value="#{objetivoEstrategicoController.usuario}" 
+                                 required="true" requiredMessage="Seleccione al Usuario">
+                    <f:selectItems value="#{objetivoEstrategicoController.listTotalUsuario}"
+                                   var="usuarioItem"
+                                   itemValue="#{usuarioItem}"
+                                   itemLabel="#{usuarioItem.nombres} #{usuarioItem.apellidos}"/>
+                    <f:converter binding="#{usuarioConverter}"/>
+                    <f:facet name="itemtip">
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <f:facet name="header">
+                                <h:outputText styleClass="ui-theme ui-theme-#{usuarioItem.nombres}" style="margin-left:auto" />
+                            </f:facet>
 
-                <p:outputPanel>
-                    <h:panelGrid columns="2" cellpadding="10">
-                        <h:outputText value="Nombres:" style="font-weight: bold"/>
-                        <h:outputText value="#{item.usuario.nombres} #{item.usuario.apellidos}" />
+                            <h:outputText value="Nombres:" />
+                            <h:outputText value="#{usuarioItem.nombres}" />
 
-                        <h:outputText value="Email:" style="font-weight: bold"/>
-                        <h:outputText value="#{item.usuario.email}" />
+                            <h:outputText value="Apellidos" />
+                            <h:outputText value="#{usuarioItem.apellidos}" />
 
-                        <h:outputText value="Cargo:" style="font-weight: bold"/>
-                        <h:outputText value="#{item.usuario.cargo}" style="color: #26BC85"/>
-                    </h:panelGrid>
-                </p:outputPanel>
-                <p:commandButton type="button"  icon="ui-icon-closethick" title="Eliminar"/>
-                <span class="ui-separator">
-                    <span class="ui-icon  ui-icon-grip-dotted-horizontal" />
-                </span>
-            </h:panelGrid>
-        </p:dataScroller>
+                            <h:outputText value="Email:" />
+                            <h:outputText value="#{usuarioItem.email}" />
 
-        <p:dialog id="representanteDialog" widgetVar="representanteDialog" modal="true" 
-                  resizable="false">
-            <h:form id="representanteForm">
-                <h:panelGroup id="display">
-                    <p:outputLabel value="Itemtip:" for="itemTip" />
-                    <p:autoComplete id="itemTip" value="#{objetivoEstrategicoController.usuario}" completeMethod="#{objetivoEstrategicoController.autoCompleteUsuario}"
-                                    var="theme" itemLabel="#{theme.nombres}" itemValue="#{theme}" forceSelection="true">
-                        <f:converter binding="#{usuarioConverter}"/> 
-                        <f:facet name="itemtip">
-                            <h:panelGrid columns="2" cellpadding="5">
-                                <f:facet name="header">
-                                    <h:outputText styleClass="ui-theme ui-theme-#{theme.nombres}" style="margin-left:auto" />
-                                </f:facet>
+                            <h:outputText value="Cargo" />
+                            <h:outputText value="#{usuarioItem.cargo}" />
+                        </h:panelGrid>
+                    </f:facet>
+                </p:selectOneMenu>
 
-                                <h:outputText value="Nombres:" />
-                                <h:outputText value="#{theme.nombres}" />
 
-                                <h:outputText value="Apellidos" />
-                                <h:outputText value="#{theme.apellidos}" />
+                <p:commandButton id="agregarRepresentanteButton" icon="ui-icon-plus"   value="Agregar"
+                                 actionListener="#{objetivoEstrategicoController.agregarUsuario}" 
+                                 update=":crudObjetivosEstrategicos:wizard:idTab1:idResponsablesText" 
+                                 oncomplete="handleSubmit(args,'representanteDialog');"/>
 
-                                <h:outputText value="Email:" />
-                                <h:outputText value="#{theme.email}" />
+                <p:commandButton id="cancelarRepresentanteButton" icon="ui-icon-close"   value="Cancelar"
+                                 onclick="representanteDialog.hide()"/>
+            </h:panelGroup>
 
-                                <h:outputText value="Cargo" />
-                                <h:outputText value="#{theme.cargo}" />
-                            </h:panelGrid>
-                        </f:facet>
-                    </p:autoComplete>
-                    <p:commandButton type="button" value="Agregar" icon="ui-icon-plus" 
-                                     onclick="#{objetivoEstrategicoController.agregarUsuarioObjetivo()}"
-                                     update=":objetivoResponsablre:idResponsablesText"/>
-                    <p:commandButton type="button" value="Cancelar" icon="ui-icon-close" 
-                                     onclick="PF('representanteDialog').hide()"/>
-                </h:panelGroup>
+        </h:form>
+    </p:dialog>
 
-            </h:form>
-        </p:dialog>
-    </h:form>
 </html>

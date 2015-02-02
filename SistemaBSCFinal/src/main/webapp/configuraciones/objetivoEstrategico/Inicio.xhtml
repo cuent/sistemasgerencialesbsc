@@ -8,7 +8,7 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="content">
-        <p:growl id="growl" showDetail="true" life="15000"/>
+        <p:growl id="growl" showDetail="true" life="500"/>
         <h:form id="crudObjetivosEstrategicos">
 
             <h:panelGroup id="display">
@@ -18,18 +18,18 @@
                         <span class="ui-separator">
                             <span class="ui-icon ui-icon-grip-dotted-vertical" />
                         </span>
-                        <p:selectOneMenu effect="bounce" id="seleccionarObjetivo"
-                                         value="#{objetivoEstrategicoController.selected}"
-                                         
-                                         >    
-                            <f:selectItems value="#{objetivoEstrategicoController.items}" 
+                         
+                            <p:selectOneMenu id="seleccionarObjetivo" value="#{objetivoEstrategicoController.selected}" effect="bounce">
+                            <f:selectItems value="#{objetivoEstrategicoController.items}"
                                            var="objetivoEstrategicoItem"
                                            itemValue="#{objetivoEstrategicoItem}"
                                            itemLabel="#{objetivoEstrategicoItem.objetivo}"/>
-                            <p:ajax event="blur"  
-                                    listener="#{objetivoEstrategicoController.prueba()}"
+                            <f:converter binding="#{objetivoEstrategicoConverter}"/>
+                           <p:ajax event="change"  
+                                   listener="#{objetivoEstrategicoController.actualzar()}"
+                                   update="crudObjetivosEstrategicos"
                                      />
-                        </p:selectOneMenu> 
+                        </p:selectOneMenu>
                     </f:facet>
                     <f:facet name="right">
                         <p:outputLabel id="buscarObjetivo" for="autoBuscar" />
@@ -37,14 +37,13 @@
                                         value="#{objetivoEstrategicoController.selected}" 
                                         completeMethod="#{objetivoEstrategicoController.autoComplete}"
                                         var="theme" 
+                                        disabled="true"
                                         itemLabel="#{theme.objetivo}" 
                                         itemValue="#{theme}"  forceSelection="true" 
                                         placeholder="Buscar objetivo Estrategico">
                             <f:converter binding="#{objetivoEstrategicoConverter}"/>
                         </p:autoComplete>
-                        <p:commandButton type="button" value="Search" icon="ui-icon-search" 
-                                         update=":crudObjetivosEstrategicos,wizard:objetivoEstrategico"
-                                         onclick="#{objetivoEstrategicoController.prueba()}" />
+                        <p:commandButton type="button" value="Search" icon="ui-icon-search" />
                         <span class="ui-separator">
                             <span class="ui-icon ui-icon-grip-dotted-vertical" />
                         </span>
