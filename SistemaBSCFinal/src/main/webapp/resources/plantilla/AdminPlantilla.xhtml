@@ -20,9 +20,7 @@
         <h:outputStylesheet library="css" name="estilo.css"/>
         <h:outputStylesheet library="css" name="form.css"/>
         <h:outputScript library="js" name="megamenu.js"/> 
-        <script>$(document).ready(function() {
-                $(".megamenu").megamenu();
-            });</script>
+
         <h:outputScript library="js" name="menu_jquery.js"/> 
         <h:outputScript library="js" name="jquery.easydropdown.js"/> 
         <h:outputScript library="js" name="jquery.etalage.min.js"/> 
@@ -59,7 +57,7 @@
                                 <p:menuitem value="Update" actionListener="#{menuView.update}"  icon="ui-icon-arrowrefresh-1-w"/>
                             </p:submenu>
                             <p:submenu label="Non-Ajax">
-                                <p:menuitem value="Delete" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-close"/>
+                                <p:menuitem value="Valor actual" url="http://localhost:8080/SistemaBSCFinal/faces/configuraciones/crearValor/inicio.xhtml" ajax="false" icon="ui-icon-close"/>
                             </p:submenu>
                             <p:submenu label="Navigations">
                                 <p:menuitem value="External" url="http://www.primefaces.org" icon="ui-icon-home"/>
