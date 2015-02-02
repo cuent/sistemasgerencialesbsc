@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <div style="background-color: #cccccc; height: 30px;">
+            <div style="text-align: center; color:#ffffff; font-size: 1.3em;">VALOR ACTUAL</div>
+        </div>
+
+        <p:panel header="Ingreso del Valor Actual" style="border: 0; width: 80%; margin: 0px auto;">
+            <h:form id="CabeceraValorCreateForm">
+                <p:growl id="growl" showDetail="true" sticky="true" /> 
+                #{cabeceraValorController.iniciar()}
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2">
+                        <p:outputLabel value="Nombre indicador" for="idIndicador" />
+                        <p:selectOneMenu id="idIndicador" value="#{cabeceraValorController.selected.idIndicador}" style="width:300px">
+                            <f:selectItem itemLabel="Seleccione un Indicador" itemValue="" noSelectionOption="true" />
+                            <f:selectItems value="#{indicadorController.itemsAvailableSelectOne}"
+                                           var="idIndicadorItem"
+                                           itemValue="#{idIndicadorItem}"
+                                           itemLabel="#{idIndicadorItem.nombreIndicador}"/>
+                            <f:converter binding="#{indicadorConverter}"/>
+                            <p:ajax event="change" listener="#{cabeceraValorController.mostrarformula}" update="formula,componente1" />
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="Formula" for="formula" />
+                        <p:outputLabel id="formula"  value="#{cabeceraValorController.formula}"/>
+
+                        <p:outputLabel value="" for="componente1" />
+
+                        <p:dataTable id="componente1" var="componente" value="#{cabeceraValorController.variables}" editable="true" editMode="cell" widgetVar="cellCars">
+                            <p:ajax event="cellEdit" listener="#{cabeceraValorController.onCellEdit}" update=":CabeceraValorCreateForm:growl" />
+
+                            <p:column headerText="Variable" width="170">
+                                <h:outputText value="#{componente.componenteFormula.formula}" />
+                            </p:column>
+
+                            <p:column headerText="Valor" width="70">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{componente.valor}" /></f:facet>
+                                    <f:facet name="input"><p:inputText value="#{componente.valor}" style="width:96%" label="Valor"/></f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column headerText="Unidad" width="100" >
+                                <h:outputText value="#{componente.componenteFormula.unidad}" />
+                            </p:column>
+                        </p:dataTable>
+
+                    </p:panelGrid>
+                    <p:commandButton value="Guardar" id="guardar" actionListener="#{cabeceraValorController.create}" update="display,growl" icon="ui-icon-circle-check" />
+                </h:panelGroup>
+            </h:form>
+        </p:panel>
+    </ui:composition>
+</html>

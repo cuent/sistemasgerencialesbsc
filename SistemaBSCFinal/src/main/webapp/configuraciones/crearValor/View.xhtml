@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DetalleValorViewDlg" widgetVar="DetalleValorViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewDetalleValorTitle}">
+            <h:form id="DetalleValorViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{detalleValorController.selected != null}">
+                        <h:outputText value="#{bundle.ViewDetalleValorLabel_idDetalleValor}"/>
+                        <h:outputText value="#{detalleValorController.selected.idDetalleValor}" title="#{bundle.ViewDetalleValorTitle_idDetalleValor}"/>
+                        <h:outputText value="#{bundle.ViewDetalleValorLabel_valorComponente}"/>
+                        <h:outputText value="#{detalleValorController.selected.valorComponente}" title="#{bundle.ViewDetalleValorTitle_valorComponente}"/>
+                        <h:outputText value="#{bundle.ViewDetalleValorLabel_idCabeceraValor}"/>
+                        <h:outputText value="#{detalleValorController.selected.idCabeceraValor}" title="#{bundle.ViewDetalleValorTitle_idCabeceraValor}"/>
+                        <h:outputText value="#{bundle.ViewDetalleValorLabel_idComponenteFormula}"/>
+                        <h:outputText value="#{detalleValorController.selected.idComponenteFormula}" title="#{bundle.ViewDetalleValorTitle_idComponenteFormula}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="DetalleValorViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <div style="background-color: #cccccc; height: 30px;">
+            <div style="text-align: center; color:#ffffff; font-size: 1.3em;">HISTORIAL</div>
+        </div>
+
+        <p:panel header="Aconinuacion se muetra todos los Historicos" style="border: 0; width: 80%; margin: 0px auto;">
+            <h:form id="CabeceraValorListForm">
+                <p:dataTable id="datalist" value="#{cabeceraValorController.items}" var="item"
+                             selectionMode="single" selection="#{cabeceraValorController.selected}"
+                             paginator="true"
+                             paginatorPosition="bottom"
+                             rowKey="#{item.idCabeceraValor}"
+                             rows="5"
+                             rowsPerPageTemplate="10,20,30,40,50"
+                             filteredValue="#{cabeceraValorController.filtroCabeceras}"
+                             >
+                    <f:facet name="footer">
+                        <p:commandButton id="createButton" icon="ui-icon-arrowrefresh-1-e"   value="Actualizar" actionListener="#{cabeceraValorController.prepareCreate}" update=":CabeceraValorCreateForm" oncomplete="PF('CabeceraValorCreateDialog').show()"/>
+                    </f:facet>
+                    <p:column sortBy="#{item.idIndicador.nombreIndicador}" filterBy="#{item.idIndicador.nombreIndicador}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="Nombre Indicador"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idIndicador.nombreIndicador}"/>
+                    </p:column>
+
+                    <p:column  sortBy="#{item.fecha}" filterBy="#{item.fecha}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="Fecha"/>
+                        </f:facet>
+                        <h:outputText value="#{item.fecha}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column filterBy="#{item.valorTotal}" filterMatchMode="contains">
+                        <f:facet name="header" >
+                            <h:outputText value="Valor Total"/>
+                        </f:facet>
+                        <h:outputText value="#{item.valorTotal}"/>
+                    </p:column>
+
+                    <p:column  sortBy="#{item.idIndicador.unidades}" filterBy="#{item.idIndicador.unidades}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="Unidades"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idIndicador.unidades}"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </p:panel>        
+    </ui:composition>
+</html>
