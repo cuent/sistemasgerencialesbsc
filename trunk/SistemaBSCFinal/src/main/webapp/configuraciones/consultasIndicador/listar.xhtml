@@ -15,47 +15,48 @@
                          rowKey="#{item.idIndicador}"
                          rows="20"
                          rowsPerPageTemplate="20,30,40,50"
+                         filteredValue="#{indicadorController.listaIndicadorFiltrado}"
                          >
 
-                <p:column>
+                <p:column filterBy="aclaracion">
                     <f:facet name="header">
                         <h:outputText value="#{bundle.ListIndicadorTitle_aclaracion}"/>
                     </f:facet>
                     <h:outputText value="#{item.aclaracion}"/>
                 </p:column>
-                <p:column width="130">
+                <p:column width="130" filterBy="conceptualizacion">
                     <f:facet name="header">
                         <h:outputText value="#{bundle.ListIndicadorTitle_conceptualizacion}"/>
                     </f:facet>
                     <h:outputText value="#{item.conceptualizacion}"/>
                 </p:column>
-                <p:column width="90">
+                <p:column width="90" filterBy="nombreIndicador">
                     <f:facet name="header">
                         <h:outputText value="Indicador"/>
                     </f:facet>
                     <h:outputText value="#{item.nombreIndicador}"/>
                 </p:column>
-                <p:column width="90">
+                <p:column width="90" filterBy="unidades">
                     <f:facet name="header">
                         <h:outputText value="#{bundle.ListIndicadorTitle_unidades}"/>
                     </f:facet>
                     <h:outputText value="#{item.unidades}"/>
                 </p:column>
-                <p:column>
+                <p:column filterBy="formula">
                     <f:facet name="header">
                         <h:outputText value="#{bundle.ListIndicadorTitle_formula}"/>
                     </f:facet>
                     <h:outputText value="#{item.formula}"/>
                 </p:column>
-                <p:column width="95">
+                <p:column width="95" filterBy="periodicidad">
                     <f:facet name="header">
                         <h:outputText value="#{bundle.ListIndicadorTitle_periodicidad}"/>
                     </f:facet>
                     <h:outputText value="#{item.periodicidad}"/>
                 </p:column>
-                <p:column>
+                <p:column filterBy="estadoActual">
                     <f:facet name="header">
-                        <h:outputText value="#{bundle.ListIndicadorTitle_estadoActual}"/>
+                        <h:outputText value="Estado Actual"/>
                     </f:facet>
                     <h:outputText value="#{item.estadoActual}"/>
                 </p:column>
@@ -77,15 +78,32 @@
                     </f:facet>
                     <h:outputText value="#{item.altoMinimo} - #{item.altoMaximo}"/>
                 </p:column>
-                <p:column>
+                <p:column filterBy="idObjetivoEstrategico.objetivo">
                     <f:facet name="header">
                         <h:outputText value="Objetivo Estrategico"/>
                     </f:facet>
                     <h:outputText value="#{item.idObjetivoEstrategico.objetivo}"/>
                 </p:column>
 
+                <p:column filterBy="idObjetivoEstrategico.idPerspectiva.perspectiva">
+                    <f:facet name="header">
+                        <h:outputText value="Perspectiva"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idObjetivoEstrategico.idPerspectiva.perspectiva}"/>
+                </p:column>
+
+                <!--<p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Responsable"/>
+                    </f:facet>
+                    <p:dataList value="#{item.idObjetivoEstrategico.responsableObjetivoList}" var="res" type="ordered">
+                        <h:outputText value="#{res.getUsuario().getCargo()}"/>
+                    </p:dataList>
+                </p:column>-->
+
+
             </p:dataTable>
-        </h:form>
+        </h:form>        
     </ui:composition>
 
 </html>
