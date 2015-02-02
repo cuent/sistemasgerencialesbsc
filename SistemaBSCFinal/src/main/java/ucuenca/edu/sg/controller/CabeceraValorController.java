@@ -55,7 +55,7 @@ public class CabeceraValorController extends AbstractController<CabeceraValor> i
     public void init() {
         super.setFacade(ejbFacade);
         variables = new ArrayList<>();
-        //createLineModels();
+        createLineModels();
 
         viviendas = new CartesianChartModel();
 
@@ -203,31 +203,61 @@ public class CabeceraValorController extends AbstractController<CabeceraValor> i
         LineChartModel model = new LineChartModel();
         Iterator it = hm.entrySet().iterator();
 
-        ChartSeries boys = new ChartSeries();
-        boys.setLabel("Boys");
-        boys.set("2004", 120);
-        boys.set("2005", 100);
-        boys.set("2006", 44);
-        boys.set("2007", 150);
-        boys.set("2008", 25);
+//        ChartSeries boys = new ChartSeries();
+//        boys.setLabel("Boys");
+//        boys.set("2004", 120);
+//        boys.set("2005", 100);
+//        boys.set("2006", 44);
+//        boys.set("2007", 150);
+//        boys.set("2008", 25);
+        while (it.hasNext()) {
+            Map.Entry e = (Map.Entry) it.next();
+            System.out.println(e.getKey() + " " + e.getValue());
+            ChartSeries cs = new ChartSeries();
+            cs.setLabel(e.getKey() + "");
+            for (CabeceraValor l1 : l) {
+                if (e.getKey().equals(l1.getIdIndicador().getNombreIndicador())) {
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(l1.getFecha());
+                    String mes_ = (calendar.get(Calendar.MONTH) + 1) + "";
+                    String min = (calendar.get(Calendar.MINUTE) + 1) + "";
+                    cs.set(Integer.parseInt(min), l1.getValorTotal());
+                }
+            }
+            model.addSeries(cs);
+        }
+        //model.addSeries(boys);
+        return model;
+    }
 
-//        
-//        while (it.hasNext()) {
-//            Map.Entry e = (Map.Entry) it.next();
-//            System.out.println(e.getKey() + " " + e.getValue());
-//            ChartSeries cs = new ChartSeries();
-//            cs.setLabel(e.getKey() + "");
-//            for (CabeceraValor l1 : l) {
-//                if (e.getKey().equals(l1.getIdIndicador().getNombreIndicador())) {
-//                    Calendar calendar = Calendar.getInstance();
-//                    calendar.setTime(l1.getFecha());
-//                    String mes_ = (calendar.get(Calendar.MONTH) + 1) + "";
-//                    cs.set(mes_, l1.getValorTotal());
-//                }
-//            }
-//            model.addSeries(cs);
-//        }
-        model.addSeries(boys);
+    private CartesianChartModel initLinearModel() {
+        List<CabeceraValor> l = super.getItems();
+        CartesianChartModel model = new CartesianChartModel();
+
+        HashMap<String, String> hm = new HashMap();
+        for (CabeceraValor l1 : l) {
+            hm.put(l1.getIdIndicador().getNombreIndicador(), l1.getIdIndicador().getNombreIndicador());
+        }
+
+        Iterator it = hm.entrySet().iterator();
+
+        while (it.hasNext()) {
+            Map.Entry e = (Map.Entry) it.next();
+            System.out.println(e.getKey() + " " + e.getValue());
+            LineChartSeries cs = new LineChartSeries();
+            cs.setLabel(e.getKey() + "");
+            for (CabeceraValor l1 : l) {
+                if (e.getKey().equals(l1.getIdIndicador().getNombreIndicador())) {
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(l1.getFecha());
+                    String mes_ = (calendar.get(Calendar.MONTH) + 1) + "";
+                    String min = (calendar.get(Calendar.DAY_OF_MONTH) + 1) + "";
+                    cs.set(min, l1.getValorTotal());
+                }
+            }
+            model.addSeries(cs);
+        }
+
         return model;
     }
 
