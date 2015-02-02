@@ -38,6 +38,8 @@ public class CabeceraValorController extends AbstractController<CabeceraValor> i
 
     @EJB
     private ucuenca.edu.sg.facade.CabeceraValorFacade ejbFacade;
+    @EJB
+    private ucuenca.edu.sg.facade.DetalleValorFacade ejbFacade1;
     private String formula;
     //private List<ComponenteFormula> lComponentes;
     private List<Variable> variables;
@@ -96,8 +98,10 @@ public class CabeceraValorController extends AbstractController<CabeceraValor> i
             System.out.println(this.getSelected().getIdIndicador().getFormula());
             super.create(); //To change body of generated methods, choose Tools | Templates.
             for (Variable variable : variables) {
+
                 DetalleValorController dvc = new DetalleValorController();
                 dvc.inicializar(this.getSelected(), variable.getComponenteFormula(), variable.getValor());
+                dvc.setFacade(ejbFacade1);
                 dvc.create();
             }
             anadirMensaje(1);
