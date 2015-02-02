@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+          <style>
+            td {
+                text-align:center;
+                margin: 0px auto;
+            }
+        </style>
+       <div style="background-color: #cccccc; height: 30px;">
+            <div style="text-align: center; color:#ffffff; font-size: 1.3em;">REPORTES</div>
+
+        </div>  
+          <table style="width:60%;  margin: 0px auto; margin-top: 30px;">
+        <tr>
+            
+            <td><img src="http://www.iconarchive.com/download/i6223/custom-icon-design/pretty-office-6/custom-reports.ico" width="150" height="150"/></td>
+            <td><img src="http://www.flowsme.com/wp-content/uploads/2014/10/informe-ventas.png" width="150" height="150"/></td>
+
+        </tr>
+        <tr>
+          
+            <td> Informe de la matriz del Cuadro de mando Integral</td> 
+            <td>Informe de tarea por objetivo estratégico</td>
+
+        </tr>
+        <tr>
+            <h:form>
+                <td><p:commandButton id="b7" value="Generar Reporte" actionListener="#{actividadesController.generarReporte()}" ajax="false"/></td>
+                <td><p:commandButton id="b2" value="Generar Reporte"  /></td>
+            </h:form>
+        </tr>
+         <tr>
+            <h:form>
+                <td><h:outputLink id="link1"  value="../../resources/rep1.pdf" target="_blank">Descargar</h:outputLink></td>
+                <td></td>
+                <td><h:outputLink id="link2"  value="../resources/rep3.pdf" target="_blank">Descargar</h:outputLink></td>
+              
+            </h:form>
+        </tr>
+    </table>
+    </ui:composition>
+</html>
+
