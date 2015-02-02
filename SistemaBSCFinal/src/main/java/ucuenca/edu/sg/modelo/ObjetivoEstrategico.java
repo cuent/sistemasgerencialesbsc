@@ -187,6 +187,7 @@ public class ObjetivoEstrategico implements Serializable {
 
     public void setIndicadorList(List<Indicador> indicadorList) {
         this.indicadorList = indicadorList;
+        
     }
 
     @XmlTransient
