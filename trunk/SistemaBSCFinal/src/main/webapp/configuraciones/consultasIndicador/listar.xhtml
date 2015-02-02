@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <h:form id="IndicadorListForm">
+            <p:dataTable id="datalist" value="#{indicadorController.items}" var="item"
+                         selectionMode="single" selection="#{indicadorController.selected}"
+                         paginator="true"
+                         rowKey="#{item.idIndicador}"
+                         rows="20"
+                         rowsPerPageTemplate="20,30,40,50"
+                         >
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListIndicadorTitle_aclaracion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.aclaracion}"/>
+                </p:column>
+                <p:column width="130">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListIndicadorTitle_conceptualizacion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.conceptualizacion}"/>
+                </p:column>
+                <p:column width="90">
+                    <f:facet name="header">
+                        <h:outputText value="Indicador"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nombreIndicador}"/>
+                </p:column>
+                <p:column width="90">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListIndicadorTitle_unidades}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.unidades}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListIndicadorTitle_formula}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.formula}"/>
+                </p:column>
+                <p:column width="95">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListIndicadorTitle_periodicidad}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.periodicidad}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListIndicadorTitle_estadoActual}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.estadoActual}"/>
+                </p:column>
+                <p:column width="90">
+                    <f:facet name="header">
+                        <h:outputText value="Rojo"/>
+                    </f:facet>
+                    <h:outputText value="#{item.bajoMinimo} - #{item.bajoMaximo}"/>
+                </p:column>                
+                <p:column width="90">
+                    <f:facet name="header">
+                        <h:outputText value="Amarillo"/>
+                    </f:facet>
+                    <h:outputText value="#{item.medioMinimo} - #{item.medioMaximo}"/>
+                </p:column>
+                <p:column width="95">
+                    <f:facet name="header">
+                        <h:outputText value="Verde"/>
+                    </f:facet>
+                    <h:outputText value="#{item.altoMinimo} - #{item.altoMaximo}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Objetivo Estrategico"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idObjetivoEstrategico.objetivo}"/>
+                </p:column>
+
+            </p:dataTable>
+        </h:form>
+    </ui:composition>
+
+</html>
