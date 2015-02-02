@@ -1,29 +1,36 @@
 package ucuenca.edu.sg.controller;
 
-import java.awt.event.ActionEvent;
 import ucuenca.edu.sg.modelo.ObjetivoEstrategico;
+import ucuenca.edu.sg.modelo.Usuario;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
-import ucuenca.edu.sg.modelo.Usuario;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import ucuenca.edu.sg.modelo.ComponenteFormula;
+import ucuenca.edu.sg.modelo.Indicador;
+import ucuenca.edu.sg.modelo.Meta;
+import ucuenca.edu.sg.modelo.ResponsableObjetivo;
 
-@Named("objetivoEstrategicoController")
+@ManagedBean(name = "objetivoEstrategicoController")
 @SessionScoped
 public class ObjetivoEstrategicoController extends AbstractController<ObjetivoEstrategico> implements Serializable {
 
     @EJB
     private ucuenca.edu.sg.facade.ObjetivoEstrategicoFacade ejbFacade;
-     @EJB
+    @EJB
     private ucuenca.edu.sg.facade.UsuarioFacade ejbUsuarioFacade;
     private Usuario usuario;
     private List<Usuario> listTotalUsuario, listUsuariosObjetivos;
+    private List<ComponenteFormula> listComponenteFormulas;
+    private List<Meta> listMetas;
+    private Meta meta, metaNueva;
+    private Indicador indicador;
+    private ComponenteFormula componenteFormula;
 
-    
     public ObjetivoEstrategicoController() {
     }
 
@@ -32,15 +39,87 @@ public class ObjetivoEstrategicoController extends AbstractController<ObjetivoEs
         super.setFacade(ejbFacade);
         this.setSelected(new ObjetivoEstrategico());
         usuario = new Usuario();
-        listTotalUsuario = ejbUsuarioFacade.findAll();
-        listUsuariosObjetivos=new ArrayList<>();
+        setListTotalUsuario(ejbUsuarioFacade.findAll());
+        listUsuariosObjetivos = new ArrayList<>();
+        listMetas = new ArrayList();
+        meta = new Meta();
+        listComponenteFormulas = new ArrayList<>();
+        setMetaNueva(new Meta());
+        indicador = new Indicador();
     }
-public void agregarUsuarioObjetivo(){
-    System.out.println("Paso por aki");
-    listUsuariosObjetivos.add(usuario);
-}
+
     public void prueba() {
-        System.out.println("el selectes:;" + ((this.getSelected().getObjetivo() != null) ? this.getSelected().getObjetivo() : " "));
+        System.out.println("Si vale");
+    }
+
+    public void actualizarVariables() {
+        setListComponenteFormulas(indicador.getComponenteFormulaList());
+    }
+
+    public void agregarUsuario() {
+        System.out.println("Paso por aki");
+        if (listUsuariosObjetivos == null) {
+            listUsuariosObjetivos = new ArrayList<>();
+        }
+        if (usuario != null) {
+            listUsuariosObjetivos.add(usuario);
+        }
+    }
+
+//public String mostrarMeta(Meta meta){
+//this.meta = meta;
+//return meta.getDescripcion();
+//}
+    public void actualizarListaUsuariosTotales() {
+        setListTotalUsuario(ejbUsuarioFacade.findAll());
+    }
+
+    public void actualzar() {
+        this.setItems(ejbFacade.findAll());
+        System.out.println("el selectes:;" + ((this.getSelected().getObjetivo() != null) ? this.getSelected().getObjetivo() : " Esta nulo el selcted"));
+        listUsuariosObjetivos = new ArrayList<>();
+        // listMetas=new ArrayList<>();
+        if (this.getSelected() != null & this.getSelected().getResponsableObjetivoList() != null) {
+            List<ResponsableObjetivo> usuarioObjetivos = this.getSelected().getResponsableObjetivoList();
+            for (ResponsableObjetivo usuarioObjetivo : usuarioObjetivos) {
+                listUsuariosObjetivos.add(usuarioObjetivo.getUsuario());
+            }
+        } else {
+            System.out.println("No esta seleccionado");
+        }
+        if (this.getSelected() != null & this.getSelected().getMetaList() != null) {
+            listMetas = this.getSelected().getMetaList();
+        }
+        System.out.println("metas tamano : " + listMetas.size());
+    }
+
+    public void agregarMeta() {
+        System.out.println("Si ingreso en meta");
+        if (listMetas == null) {
+            listMetas = new ArrayList();
+        }
+        listMetas.add(metaNueva);
+    }
+    public void agregarVariable() {
+        System.out.println("Si ingreso en variable");
+        if (listComponenteFormulas == null) {
+            listComponenteFormulas = new ArrayList();
+        }
+        listComponenteFormulas.add(componenteFormula);
+    }
+public void eliminarVariable(ComponenteFormula componenteFormula){
+        if (componenteFormula != null) {
+            System.out.println("metas tamano eliminacion: " + listComponenteFormulas.size());
+            listComponenteFormulas.remove(componenteFormula);
+            System.out.println("metas tamano eliminacion: " + listComponenteFormulas.size());
+        }
+    }
+    public void eliminarMeta(Meta meta) {
+        if (meta != null) {
+            System.out.println("metas tamano eliminacion: " + listMetas.size());
+            listMetas.remove(meta);
+            System.out.println("metas tamano eliminacion: " + listMetas.size());
+        }
     }
 
     @Override
@@ -60,19 +139,21 @@ public void agregarUsuarioObjetivo(){
 
         return filteredThemes;
     }
-public List<Usuario> autoCompleteUsuario(String query) {
-        List<Usuario> allThemes = listTotalUsuario;
+
+    public List<Usuario> autoCompleteUsuario(String query) {
+        List<Usuario> allThemes = getListTotalUsuario();
         List<Usuario> filteredThemes = new ArrayList<>();
-         
+
         for (Usuario skin : allThemes) {
-            if(skin.getNombres().toLowerCase().startsWith(query) ||
-                    skin.getApellidos().toLowerCase().startsWith(query)   ) {
+            if (skin.getNombres().toLowerCase().startsWith(query)
+                    || skin.getApellidos().toLowerCase().startsWith(query)) {
                 filteredThemes.add(skin);
             }
         }
-         
+
         return filteredThemes;
     }
+
     /**
      * @return the usuario
      */
@@ -86,9 +167,10 @@ public List<Usuario> autoCompleteUsuario(String query) {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+
     public String actualizarListTotalUsuarios() {
-        listTotalUsuario = ejbUsuarioFacade.findAll();
-        System.out.println("tamano: " +  listTotalUsuario.size());
+        setListTotalUsuario(ejbUsuarioFacade.findAll());
+        System.out.println("tamano: " + getListTotalUsuario().size());
         String dialog = "PF('representanteDialog').show()";
         return dialog;
     }
@@ -105,6 +187,111 @@ public List<Usuario> autoCompleteUsuario(String query) {
      */
     public void setListUsuariosObjetivos(List<Usuario> listUsuariosObjetivos) {
         this.listUsuariosObjetivos = listUsuariosObjetivos;
+    }
+
+    @Override
+    public ObjetivoEstrategico prepareCreate(javax.faces.event.ActionEvent event) {
+        this.setSelected(new ObjetivoEstrategico());
+        initializeEmbeddableKey();
+        return this.getSelected();
+    }
+
+    /**
+     * @return the listMetas
+     */
+    public List<Meta> getListMetas() {
+        return listMetas;
+    }
+
+    /**
+     * @param listMetas the listMetas to set
+     */
+    public void setListMetas(List<Meta> listMetas) {
+        this.listMetas = listMetas;
+    }
+
+    /**
+     * @return the meta
+     */
+    public Meta getMeta() {
+        return meta;
+    }
+
+    /**
+     * @param meta the meta to set
+     */
+    public void setMeta(Meta meta) {
+        this.meta = meta;
+    }
+
+    /**
+     * @return the metaNueva
+     */
+    public Meta getMetaNueva() {
+        return metaNueva;
+    }
+
+    /**
+     * @param metaNueva the metaNueva to set
+     */
+    public void setMetaNueva(Meta metaNueva) {
+        this.metaNueva = metaNueva;
+    }
+
+    /**
+     * @return the listTotalUsuario
+     */
+    public List<Usuario> getListTotalUsuario() {
+        return listTotalUsuario;
+    }
+
+    /**
+     * @param listTotalUsuario the listTotalUsuario to set
+     */
+    public void setListTotalUsuario(List<Usuario> listTotalUsuario) {
+        this.listTotalUsuario = listTotalUsuario;
+    }
+
+    /**
+     * @return the indicador
+     */
+    public Indicador getIndicador() {
+        return indicador;
+    }
+
+    /**
+     * @param indicador the indicador to set
+     */
+    public void setIndicador(Indicador indicador) {
+        this.indicador = indicador;
+    }
+
+    /**
+     * @return the listComponenteFormulas
+     */
+    public List<ComponenteFormula> getListComponenteFormulas() {
+        return listComponenteFormulas;
+    }
+
+    /**
+     * @param listComponenteFormulas the listComponenteFormulas to set
+     */
+    public void setListComponenteFormulas(List<ComponenteFormula> listComponenteFormulas) {
+        this.listComponenteFormulas = listComponenteFormulas;
+    }
+
+    /**
+     * @return the componenteFormula
+     */
+    public ComponenteFormula getComponenteFormula() {
+        return componenteFormula;
+    }
+
+    /**
+     * @param componenteFormula the componenteFormula to set
+     */
+    public void setComponenteFormula(ComponenteFormula componenteFormula) {
+        this.componenteFormula = componenteFormula;
     }
 
 }
