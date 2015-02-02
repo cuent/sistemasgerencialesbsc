@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <div style="background-color: #cccccc; height: 30px;">
+            <div style="text-align: center; color:#ffffff; font-size: 1.3em;">ACTIVIDADES</div>
+
+        </div>
+        <p:panel header="Ingreso de Actividades" style="border: 0; width: 80%; margin: 0px auto;">
+            <h:form id="ActividadesCreateForm">
+                <p:growl id="growlCrear" life="3000" />  
+                #{actividadesController.iniciarNuevo()}
+                <h:panelGroup id="display">
+                    <h:panelGrid columns="2" border="0" cellspacing="80">
+                        <p:graphicImage value="https://5d3d955586eccf57b9c46d7ea6d43bb853874ff8-www.googledrive.com/host/0B-wpPN0uKtOfaDZGLVR2dkpjOVU/Dibujocuaderno.jpg" width="180" height="180"/>
+                        <h:panelGrid columns="2" border="0">
+                            <p:outputLabel value="#{bundle.CreateActividadesLabel_idActividades}" for="idActividades" />
+                            <p:inputText id="idActividades" value="#{actividadesController.selected.idActividades}" title="#{bundle.CreateActividadesTitle_idActividades}" required="true" requiredMessage="#{bundle.CreateActividadesRequiredMessage_idActividades}"/>
+                            <p:outputLabel value="#{bundle.CreateActividadesLabel_actividad}" for="actividad" />
+                            <p:inputText id="actividad" value="#{actividadesController.selected.actividad}" title="#{bundle.CreateActividadesTitle_actividad}" required="true" requiredMessage="#{bundle.CreateActividadesRequiredMessage_actividad}"/>
+                            <p:outputLabel value="#{bundle.CreateActividadesLabel_duracion}" for="duracion" />
+                            <p:inputText id="duracion" value="#{actividadesController.selected.duracion}" title="#{bundle.CreateActividadesTitle_duracion}" required="true" requiredMessage="#{bundle.CreateActividadesRequiredMessage_duracion}"/>
+                            <p:outputLabel value="#{bundle.CreateActividadesLabel_control}" for="control" />
+                            <p:inputText id="control" value="#{actividadesController.selected.control}" title="#{bundle.CreateActividadesTitle_control}" />
+                            <p:outputLabel value="#{bundle.CreateActividadesLabel_fechaInicio}" for="fechaInicio" />
+                            <p:calendar id="fechaInicio" pattern="MM/dd/yyyy" value="#{actividadesController.selected.fechaInicio}" title="#{bundle.EditActividadesTitle_fechaInicio}" required="true" requiredMessage="#{bundle.EditActividadesRequiredMessage_fechaInicio}" showOn="button"/>
+                            <p:outputLabel value="#{bundle.CreateActividadesLabel_fechaFin}" for="fechaFin" />
+                            <p:calendar id="fechaFin" pattern="MM/dd/yyyy" value="#{actividadesController.selected.fechaFin}" title="#{bundle.EditActividadesTitle_fechaFin}" required="true" requiredMessage="#{bundle.EditActividadesRequiredMessage_fechaFin}" showOn="button"/>
+                            <p:outputLabel value="#{bundle.CreateActividadesLabel_idObjetivoEstrategico}" for="idObjetivoEstrategico" />
+                            <p:selectOneMenu id="idObjetivoEstrategico" value="#{actividadesController.selected.idObjetivoEstrategico}" required="true" requiredMessage="#{bundle.EditActividadesRequiredMessage_idObjetivoEstrategico}">
+                                <f:selectItems value="#{objetivoEstrategicoController.itemsAvailableSelectOne}"
+                                               var="idObjetivoEstrategicoItem"
+                                               itemValue="#{idObjetivoEstrategicoItem}"
+                                               itemLabel="#{idObjetivoEstrategicoItem.objetivo}"/>
+                                <f:converter binding="#{objetivoEstrategicoConverter}" />
+                                
+                            </p:selectOneMenu>
+                             <p:outputLabel value="#{bundle.CreateResponsableActividadLabel_responsable}" for="usuario" />
+
+                             <p:selectManyCheckbox id="usuario" value="#{actividadesController.selected.responsableActividadList}" layout="grid" columns="4" required="false">
+                                 <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}" var="idUsuarioItem"
+                                               itemValue="#{idUsuarioItem}"
+                                               itemLabel="#{idUsuarioItem.cargo}"/>
+                                 <f:converter binding="#{usuarioConverter}" /> 
+                             </p:selectManyCheckbox>
+                            
+                        </h:panelGrid>
+                    </h:panelGrid>
+                    <div style="border: 0; width: 25%; margin:20px auto;">
+                        <p:commandButton actionListener="#{actividadesController.create}" value="#{bundle.Save}" icon="ui-icon-disk" ajax="false" update="display,growlCrear" />
+                        <p:commandButton value="#{bundle.Cancel}" icon="ui-icon-close" onclick="ActividadesCreateDialog.hide()"/>
+                    </div>
+                </h:panelGroup>
+
+            </h:form>
+        </p:panel >
+        <p:panel header="Lista Actividades" style="border: 0; width: 80%; margin: 0px auto;">
+            <ui:include src="listar.xhtml"/>
+        </p:panel>
+    </ui:composition>
+
+</html>
