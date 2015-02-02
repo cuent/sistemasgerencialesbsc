@@ -37,7 +37,7 @@ public class ActividadesController extends AbstractController<Actividades> imple
     public void generarReporte() {
         List<Actividades> listaGlobales = getItems();
         GeneracionReportes generarReporte = new GeneracionReportes();
-        generarReporte.generarActividades(listaGlobales,getListObjetivo());
+        //generarReporte.generarActividades(listaGlobales,getListObjetivo());
     }
 
     /**
