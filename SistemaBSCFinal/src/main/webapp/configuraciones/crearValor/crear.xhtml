@@ -54,6 +54,8 @@
 
                     </p:panelGrid>
                     <p:commandButton value="Guardar" id="guardar" actionListener="#{cabeceraValorController.create}" update="display,growl" icon="ui-icon-circle-check" />
+                    <p:commandButton id="createButton" action="http://localhost:8080/SistemaBSCFinal/faces/configuraciones/crearValor/inicio.xhtml" icon="ui-icon-arrowrefresh-1-e"   value="Actualizar" update=":CabeceraValorCreateForm"/>
+
                 </h:panelGroup>
             </h:form>
         </p:panel>
