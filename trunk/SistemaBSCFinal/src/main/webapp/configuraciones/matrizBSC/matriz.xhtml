@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+
+    <h:form id="ObjetivoEstrategicoListForm">
+        <p:panel >
+            <p:growl id="messages" showDetail="true" />
+            <p:dataTable id="datalist" value="#{matrizBSCController.items}" var="item"
+                         selectionMode="single" selection="#{matrizBSCController.selected}"
+                         paginator="true"
+                         rowKey="#{item.idPerspectiva}"
+                         rows="10"
+                         rowsPerPageTemplate="10,20"
+                         >
+                <p:column filterBy="#{item.idPerspectiva.perspectiva}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListObjetivoEstrategicoTitle_idPerspectiva}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idPerspectiva.perspectiva}"/>
+                </p:column>
+               <p:column >
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListObjetivoEstrategicoTitle_objetivo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.objetivo}"/>
+                </p:column>
+                 <p:column >
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListIndicadorTitle_idIndicador}"/>
+                    </f:facet>
+                     <p:dataList value="#{item.indicadorList}" var="ind" type="ordered">
+                        <h:outputText value="#{ind.getNombreIndicador()}"/>
+                    </p:dataList>
+                    
+                </p:column>
+                 <p:column >
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListIndicadorTitle_unidades}"/>
+                    </f:facet>
+                     <p:dataList value="#{item.indicadorList}" var="ind" type="ordered">
+                        <h:outputText value="#{ind.getUnidades()}"/>
+                    </p:dataList>
+                    
+                </p:column>
+                <p:column >
+                    <f:facet name="header">
+                        <h:outputText value="Responsable"/>
+                    </f:facet>
+                     <p:dataList value="#{item.responsableObjetivoList}" var="resp" type="ordered">
+                        <h:outputText value="#{resp.getUsuario().getCargo()}"/>
+                    </p:dataList>
+                    
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Base"/>
+                    </f:facet>
+                     <p:dataList value="#{item.indicadorList}" var="ind" type="ordered">
+                        <h:outputText value="#{ind.getBajoMaximo()}"/>
+                    </p:dataList>
+                    
+                </p:column>
+                <p:column >
+                    <f:facet name="header">
+                        <h:outputText value="Meta"/>
+                    </f:facet>
+                     <p:dataList value="#{item.indicadorList}" var="ind" type="ordered">
+                        <h:outputText value="#{ind.getAltoMaximo()}"/>
+                    </p:dataList>
+                    
+                </p:column>
+                <p:column >
+                    <f:facet name="header">
+                        <h:outputText value="Valor"/>
+                    </f:facet>
+                     <p:dataList value="#{item.indicadorList}" var="ind" type="ordered">
+                        <h:outputText value="#{ind.getEstadoActual()}"/>
+                    </p:dataList>
+                    
+                    
+                    
+                    
+                </p:column>
+                <p:column >
+                    <f:facet name="header">
+                        <h:outputText value="Semaforo"/>
+                    </f:facet>
+                     <p:dataList value="#{item.semaforoList}" var="ind" type="ordered">
+                        <h:outputText value="#{ind.getSemaforoList()}"/>
+                    </p:dataList>
+                    
+                </p:column>
+                <p:column >
+                    <f:facet name="header">
+                        <h:outputText value="Desempeno"/>
+                    </f:facet>
+                    
+                       
+                </p:column>
+                <p:column >
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListIndicadorTitle_periodicidad}"/>
+                    </f:facet>
+                     <p:dataList value="#{item.indicadorList}" var="ind" type="ordered">
+                        <h:outputText value="#{ind.getPeriodicidad()}"/>
+                    </p:dataList>
+                    
+                </p:column>
+            </p:dataTable>
+        </p:panel>
+
+    </h:form>
+</html>

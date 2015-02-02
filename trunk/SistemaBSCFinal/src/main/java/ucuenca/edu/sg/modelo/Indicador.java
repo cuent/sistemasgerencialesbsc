@@ -224,6 +224,7 @@ public class Indicador implements Serializable {
 
     public void setCabeceraValorList(List<CabeceraValor> cabeceraValorList) {
         this.cabeceraValorList = cabeceraValorList;
+        
     }
 
     public ObjetivoEstrategico getIdObjetivoEstrategico() {
@@ -241,6 +242,7 @@ public class Indicador implements Serializable {
 
     public void setValoresList(List<Valores> valoresList) {
         this.valoresList = valoresList;
+        
     }
 
     @XmlTransient
