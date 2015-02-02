@@ -38,11 +38,10 @@
                 <p:graphicImage value="http://smartergp-app.com/Images/menu/2.png" width="50" height="50"/>
             </div>
             <div style="float: left;">
-                Administrador
+                <p:outputLabel value="#{usuarioController.email}" />                
             </div>
             <div style="clear:both;">
-                <h:panelGrid border="0" columns="2" cellspacing="20px" cellpadding="20px">
-                    <p:commandLink value="Menu"/>
+                <h:panelGrid border="0" columns="2" cellspacing="20px" cellpadding="20px">                    
                     <p:commandLink value="Salir" actionListener="#{usuarioController.logout()}"/>
                 </h:panelGrid>
             </div>
@@ -52,16 +51,22 @@
                 <p:panel header="Menu" style="border: 0px;">
                     <h:form>
                         <p:menu style="width: 280px; margin-left: 0px; border: 0px;"  >
-                            <p:submenu label="Ajax">
-                                <p:menuitem value="Save" actionListener="#{menuView.save}"  icon="ui-icon-disk" />
-                                <p:menuitem value="Update" actionListener="#{menuView.update}"  icon="ui-icon-arrowrefresh-1-w"/>
+                            <p:submenu label="Registros" rendered="#{usuarioController.permisos()}">                                
+                                <p:menuitem value="Perspectivas" url="http://localhost:8080/SistemaBSCFinal/faces/configuraciones/perspectiva/inicio.xhtml"  icon="ui-icon-disk" />                                
+                                <p:menuitem value="Estrategias Globales" url="http://localhost:8080/SistemaBSCFinal/faces/configuraciones/estrategiasGlobales/inicio.xhtml"  icon="ui-icon-disk" />
+                                <p:menuitem value="Objetivo Estrategico" url="http://localhost:8080/SistemaBSCFinal/faces/configuraciones/objetivoEstrategico/Inicio.xhtml"  icon="ui-icon-disk" />                                
+                                <p:menuitem value="Registro de Usuarios" url="http://localhost:8080/SistemaBSCFinal/faces/configuraciones/usuario/inicio.xhtml"  icon="ui-icon-person" />
+                                <p:menuitem value="Actividades" url="http://localhost:8080/SistemaBSCFinal/faces/configuraciones/actividades/inicio.xhtml"  icon="ui-icon-disk" />
                             </p:submenu>
-                            <p:submenu label="Non-Ajax">
-                                <p:menuitem value="Valor actual" url="http://localhost:8080/SistemaBSCFinal/faces/configuraciones/crearValor/inicio.xhtml" ajax="false" icon="ui-icon-close"/>
+                            <p:submenu label="Consultas">
+                                <p:menuitem value="Reportes" url="http://localhost:8080/SistemaBSCFinal/faces/configuraciones/reporte/inicio.xhtml" ajax="false" icon="ui-icon-note"/>
+                                <p:menuitem value="Indicadores" url="http://localhost:8080/SistemaBSCFinal/faces/configuraciones/consultasIndicador/inicio.xhtml" ajax="false" icon="ui-icon-note"/>                                
+                                <p:menuitem value="Matriz BSC" url="http://localhost:8080/SistemaBSCFinal/faces/configuraciones/matrizBSC/inicio.xhtml" ajax="false" icon="ui-icon-note"/>
+                                <p:menuitem value="Valor actual" url="http://localhost:8080/SistemaBSCFinal/faces/configuraciones/crearValor/inicio.xhtml" ajax="false" icon="ui-icon-note"/>
+                                
                             </p:submenu>
-                            <p:submenu label="Navigations">
-                                <p:menuitem value="External" url="http://www.primefaces.org" icon="ui-icon-home"/>
-                                <p:menuitem value="Internal"  icon="ui-icon-star"/>
+                            <p:submenu label="Mapa Estrategico">
+                                <p:menuitem value="Mapa Estrategico" url="http://localhost:8080/SistemaBSCFinal/faces/configuraciones/mapaEstrategico/inicio.xhtml" />                                
                             </p:submenu>
                         </p:menu>
                     </h:form>
