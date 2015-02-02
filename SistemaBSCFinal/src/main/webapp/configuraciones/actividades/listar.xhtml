@@ -66,10 +66,10 @@
                 </p:column>
                 <p:column width="100">
                     <f:facet name="header">
-                        <h:outputText value="#{bundle.ListResponsableActividadTitle_responsable}"/>
+                        <h:outputText value="Responsable"/>
                     </f:facet>
                     <p:dataList value="#{item.responsableActividadList}" var="res" type="ordered">
-                        <h:outputText value="#{res.getUsuario().getCargo()}"/>
+                        <h:outputText value="#{res.getCargo()}"/>
                     </p:dataList>
                 </p:column>
                 <p:column width="100">
@@ -113,7 +113,7 @@
                                 <f:selectItems value="#{usuarioController.itemsAvailableSelectMany}"
                                                var="idUsuarioItem"
                                                itemValue="#{idUsuarioItem}"
-                                               itemLabel="#{idUsuarioItem.nombres}"/>
+                                               itemLabel="#{idUsuarioItem.cargo}"/>
                                 <f:converter binding="#{usuarioConverter}" /> 
                             </p:selectManyCheckbox>
                         </h:panelGrid>

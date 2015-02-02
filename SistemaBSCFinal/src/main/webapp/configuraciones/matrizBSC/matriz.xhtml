@@ -79,28 +79,18 @@
                         <h:outputText value="Valor"/>
                     </f:facet>
                      <p:dataList value="#{item.indicadorList}" var="ind" type="ordered">
-                        <h:outputText value="#{ind.getEstadoActual()}"/>
+                        <h:outputText value="#{ind}"/>
                     </p:dataList>
-                    
-                    
-                    
                     
                 </p:column>
                 <p:column >
                     <f:facet name="header">
                         <h:outputText value="Semaforo"/>
                     </f:facet>
-                     <p:dataList value="#{item.semaforoList}" var="ind" type="ordered">
-                        <h:outputText value="#{ind.getSemaforoList()}"/>
+                     <p:dataList value="#{item.indicadorList}" var="ind" type="ordered">
+                        <h:outputText value="#{ind.getEstadoActual()}"/>
                     </p:dataList>
                     
-                </p:column>
-                <p:column >
-                    <f:facet name="header">
-                        <h:outputText value="Desempeno"/>
-                    </f:facet>
-                    
-                       
                 </p:column>
                 <p:column >
                     <f:facet name="header">
