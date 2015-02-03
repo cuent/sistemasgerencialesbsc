@@ -59,6 +59,7 @@ public class ObjetivoEstrategicoController extends AbstractController<ObjetivoEs
         setMetaNueva(new Meta());
         indicador = null;
         componenteFormula = new ComponenteFormula();
+        
     }
 
     public void guardar(ActionEvent event) {
@@ -77,9 +78,9 @@ public class ObjetivoEstrategicoController extends AbstractController<ObjetivoEs
             for (ResponsableObjetivo ro : ros) {
                 ejbResponsableObjetivoFacade.remove(ro);
             }
-            for (Usuario usuario : listUsuariosObjetivos) {
+            for (Usuario usuarios : listUsuariosObjetivos) {
                 ResponsableObjetivoPK pk = new ResponsableObjetivoPK();
-                pk.setIdUsuario(usuario.getIdUsuario());
+                pk.setIdUsuario(usuarios.getIdUsuario());
                 pk.setIdObjetivoEstrategico(this.getSelected().getIdObjetivoEstrategico());
                 ResponsableObjetivo pob = new ResponsableObjetivo(pk);
                 ejbResponsableObjetivoFacade.create(pob);
@@ -259,14 +260,14 @@ public class ObjetivoEstrategicoController extends AbstractController<ObjetivoEs
     }
 
     /**
-     * @return the usuario
+     * @return the usuarios
      */
     public Usuario getUsuario() {
         return usuario;
     }
 
     /**
-     * @param usuario the usuario to set
+     * @param usuario the usuarios to set
      */
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
