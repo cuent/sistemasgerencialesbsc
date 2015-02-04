@@ -5,9 +5,11 @@
  */
 package ucuenca.edu.sg.facade;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import ucuenca.edu.sg.modelo.Indicador;
 
 /**
@@ -16,6 +18,7 @@ import ucuenca.edu.sg.modelo.Indicador;
  */
 @Stateless
 public class IndicadorFacade extends AbstractFacade<Indicador> {
+
     @PersistenceContext(unitName = "com.mycompany_SistemaBSCFinal_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 
@@ -27,5 +30,10 @@ public class IndicadorFacade extends AbstractFacade<Indicador> {
     public IndicadorFacade() {
         super(Indicador.class);
     }
-    
+
+    public List<Indicador> getitemsIndicador(Integer idObjetivoEstrategico) {
+        Query query = this.em.createNamedQuery(Indicador.findByidObjetivoEstrategico);
+        query.setParameter("idObjetivoEstrategico", idObjetivoEstrategico);
+        return query.getResultList();
+    }
 }
