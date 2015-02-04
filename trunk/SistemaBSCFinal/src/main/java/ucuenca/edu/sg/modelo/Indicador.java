@@ -278,7 +278,7 @@ public class Indicador implements Serializable {
 
     @Override
     public String toString() {
-        return "ucuenca.edu.sg.modelo.Indicador[ idIndicador=" + idIndicador + " ]";
+        return "ucuenca.edu.sg.modelo.Indicador[ idIndicador=" + idIndicador + " "+this.nombreIndicador +" ]";
     }
     
 }

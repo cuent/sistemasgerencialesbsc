@@ -43,6 +43,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "ObjetivoEstrategico.findByFechaModificacion", query = "SELECT o FROM ObjetivoEstrategico o WHERE o.fechaModificacion = :fechaModificacion")})
 public class ObjetivoEstrategico implements Serializable {
     private static final long serialVersionUID = 1L;
+    public static final String findByIdObjetivoEstrategico ="ObjetivoEstrategico.findByIdObjetivoEstrategico";
+    public static final String findByObjetivo ="ObjetivoEstrategico.findByObjetivo";
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
