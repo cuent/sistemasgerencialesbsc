@@ -86,6 +86,12 @@
                                          value="#{usuarioController.selected.apellidos}" 
                                          title="#{bundle.EditUsuarioTitle_apellidos}" 
                                          required="true"/>
+                            
+                            <p:outputLabel value="#{bundle.EditUsuarioLabel_email}" for="email" />
+                            <p:inputText id="email" 
+                                         value="#{usuarioController.selected.email}" 
+                                         title="#{bundle.EditUsuarioTitle_email}" 
+                                         required="true"/>
 
                             <p:outputLabel value="#{bundle.CreateUsuarioLabel_cargo}" for="cargo" />
                             <p:inputText id="cargo"
@@ -97,7 +103,8 @@
                                              value="#{usuarioController.selected.tipoUsuario}"
                                              required="true" >
                                 <f:selectItem itemLabel="Administrador" itemValue="A" />  
-                                <f:selectItem itemLabel="Cliente" itemValue="C" /> 
+                                <f:selectItem itemLabel="Usuario de Consultas" itemValue="C" /> 
+                                <f:selectItem itemLabel="Usuario de Ingreso de Valores" itemValue="I" /> 
                             </p:selectOneMenu>
 
                         </h:panelGrid>
