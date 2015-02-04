@@ -9,8 +9,12 @@
     <ui:composition>
 
         <h:form id="IndicadorListForm">
-            <p:dataTable id="datalist" value="#{indicadorController.items}" var="item"
-                         selectionMode="single" selection="#{indicadorController.selected}"
+            <p:dataTable id="datalist" 
+                         widgetVar="tablaIndicador"
+                         value="#{indicadorController.items}" 
+                         var="item"
+                         selectionMode="single" 
+                         selection="#{indicadorController.selected}"
                          paginator="true"
                          rowKey="#{item.idIndicador}"
                          rows="20"
@@ -18,80 +22,92 @@
                          filteredValue="#{indicadorController.listaIndicadorFiltrado}"
                          >
 
-                <p:column filterBy="aclaracion">
+                <f:facet name="header">
+                    <p:outputPanel>
+                        <h:outputText value="Buscar por todos:" />
+                        <p:inputText id="globalFilter" onkeyup="PF('tablaIndicador').filter()" style="width:150px"/>
+                        <p:commandButton id="toggler" type="button" value="Columnas" style="float:right" icon="ui-icon-calculator" />
+                        <p:columnToggler datasource="datalist" trigger="toggler" />
+                    </p:outputPanel>
+
+                </f:facet>
+
+                <p:column filterBy="aclaracion" filterMatchMode="contains" >
                     <f:facet name="header">
                         <h:outputText value="#{bundle.ListIndicadorTitle_aclaracion}"/>
                     </f:facet>
                     <h:outputText value="#{item.aclaracion}"/>
                 </p:column>
-                <p:column width="130" filterBy="conceptualizacion">
+                <p:column  filterBy="conceptualizacion" filterMatchMode="contains" >
                     <f:facet name="header">
                         <h:outputText value="#{bundle.ListIndicadorTitle_conceptualizacion}"/>
                     </f:facet>
                     <h:outputText value="#{item.conceptualizacion}"/>
                 </p:column>
-                <p:column width="90" filterBy="nombreIndicador">
+                <p:column  filterBy="nombreIndicador" filterMatchMode="contains" >
                     <f:facet name="header">
                         <h:outputText value="Indicador"/>
                     </f:facet>
                     <h:outputText value="#{item.nombreIndicador}"/>
                 </p:column>
-                <p:column width="90" filterBy="unidades">
+                <p:column  filterBy="unidades" filterMatchMode="contains" >
                     <f:facet name="header">
                         <h:outputText value="#{bundle.ListIndicadorTitle_unidades}"/>
                     </f:facet>
                     <h:outputText value="#{item.unidades}"/>
                 </p:column>
-                <p:column filterBy="formula">
+                <p:column filterBy="formula" filterMatchMode="contains" >
                     <f:facet name="header">
                         <h:outputText value="#{bundle.ListIndicadorTitle_formula}"/>
                     </f:facet>
                     <h:outputText value="#{item.formula}"/>
                 </p:column>
-                <p:column width="95" filterBy="periodicidad">
+                <p:column width="95" filterBy="periodicidad" filterMatchMode="contains">
                     <f:facet name="header">
                         <h:outputText value="#{bundle.ListIndicadorTitle_periodicidad}"/>
                     </f:facet>
                     <h:outputText value="#{item.periodicidad}"/>
                 </p:column>
-                <p:column filterBy="estadoActual">
+                <p:column filterBy="estadoActual" filterMatchMode="contains" >
                     <f:facet name="header">
                         <h:outputText value="Estado Actual"/>
                     </f:facet>
                     <h:outputText value="#{item.estadoActual}"/>
                 </p:column>
-                <p:column width="90">
+                <p:column >
                     <f:facet name="header">
                         <h:outputText value="Rojo"/>
                     </f:facet>
                     <h:outputText value="#{item.bajoMinimo} - #{item.bajoMaximo}"/>
                 </p:column>                
-                <p:column width="90">
+                <p:column >
                     <f:facet name="header">
                         <h:outputText value="Amarillo"/>
                     </f:facet>
                     <h:outputText value="#{item.medioMinimo} - #{item.medioMaximo}"/>
                 </p:column>
-                <p:column width="95">
+                <p:column >
                     <f:facet name="header">
                         <h:outputText value="Verde"/>
                     </f:facet>
                     <h:outputText value="#{item.altoMinimo} - #{item.altoMaximo}"/>
                 </p:column>
-                <p:column filterBy="idObjetivoEstrategico.objetivo">
+                
+                <p:column rendered="false" filterBy="idObjetivoEstrategico.objetivo" filterMatchMode="contains">
                     <f:facet name="header">
                         <h:outputText value="Objetivo Estrategico"/>
                     </f:facet>
                     <h:outputText value="#{item.idObjetivoEstrategico.objetivo}"/>
                 </p:column>
 
-                <p:column filterBy="idObjetivoEstrategico.idPerspectiva.perspectiva">
+                <p:column rendered="false" filterBy="idObjetivoEstrategico.idPerspectiva.perspectiva" filterMatchMode="contains">
                     <f:facet name="header">
                         <h:outputText value="Perspectiva"/>
                     </f:facet>
                     <h:outputText value="#{item.idObjetivoEstrategico.idPerspectiva.perspectiva}"/>
                 </p:column>
 
+               
                 <!--<p:column>
                     <f:facet name="header">
                         <h:outputText value="Responsable"/>

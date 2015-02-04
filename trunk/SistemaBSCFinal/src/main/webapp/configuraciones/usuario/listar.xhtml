@@ -92,6 +92,30 @@
                                          value="#{usuarioController.selected.email}" 
                                          title="#{bundle.EditUsuarioTitle_email}" 
                                          required="true"/>
+                            
+                            <p:outputLabel value="#{bundle.CreateUsuarioLabel_contrasena}" for="contrasena" />                            
+                            <p:inputText id="contrasena" 
+                                         type="password" 
+                                         value="#{usuarioController.selected.contrasena}" 
+                                         title="#{bundle.CreateUsuarioTitle_contrasena}" 
+                                         required="true" 
+                                         requiredMessage="#{bundle.CreateUsuarioRequiredMessage_contrasena}">
+                                <p:ajax event="blur" 
+                                        listener="#{usuarioController.validarContrasena()}"
+                                        />
+                            </p:inputText>
+
+                            <p:outputLabel value="Reingrese Contrasena" for="recontrasena" />
+                            <p:inputText id="recontrasena" 
+                                         type="password" 
+                                         value="#{usuarioController.confirmaContrasena}"
+                                         title="#{bundle.CreateUsuarioTitle_contrasena}" 
+                                         required="true" 
+                                         requiredMessage="#{bundle.CreateUsuarioRequiredMessage_contrasena}">
+                                <p:ajax event="blur" 
+                                        listener="#{usuarioController.validarConfirmacionContrasena()}"
+                                        />
+                            </p:inputText>
 
                             <p:outputLabel value="#{bundle.CreateUsuarioLabel_cargo}" for="cargo" />
                             <p:inputText id="cargo"
