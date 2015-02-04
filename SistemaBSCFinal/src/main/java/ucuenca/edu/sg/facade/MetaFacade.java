@@ -5,9 +5,11 @@
  */
 package ucuenca.edu.sg.facade;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import ucuenca.edu.sg.modelo.Meta;
 
 /**
@@ -27,5 +29,9 @@ public class MetaFacade extends AbstractFacade<Meta> {
     public MetaFacade() {
         super(Meta.class);
     }
-    
+        public List<Meta> getitemsMeta(Integer idObjetivoEstrategico) {
+        Query query = this.em.createNamedQuery(Meta.findByidObjetivoEstrategico);
+        query.setParameter("idObjetivoEstrategico", idObjetivoEstrategico);
+            return query.getResultList();
+    }
 }
