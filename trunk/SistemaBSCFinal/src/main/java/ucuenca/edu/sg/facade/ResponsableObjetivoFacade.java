@@ -5,10 +5,14 @@
  */
 package ucuenca.edu.sg.facade;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import ucuenca.edu.sg.modelo.ResponsableObjetivo;
+import ucuenca.edu.sg.modelo.Usuario;
 
 /**
  *
@@ -27,5 +31,19 @@ public class ResponsableObjetivoFacade extends AbstractFacade<ResponsableObjetiv
     public ResponsableObjetivoFacade() {
         super(ResponsableObjetivo.class);
     }
-    
+    public ResponsableObjetivo getObjetivoEstrategicoResponsable(Integer idResponsable, Integer idObjetivoEstrategico) {
+        Query query = this.em.createNamedQuery(ResponsableObjetivo.findByIdResponsableidObjetivoEstrategico);
+        query.setParameter("idResponsable", idResponsable);
+        query.setParameter("idObjetivoEstrategico", idObjetivoEstrategico);
+        try{
+            return (ResponsableObjetivo)query.getSingleResult();
+        }catch(NoResultException e){
+            return null;
+        }
+    }
+    public List<Usuario> getitemsObjetivoResponsable(Integer idObjetivoEstrategico) {
+        Query query = this.em.createNamedQuery(ResponsableObjetivo.findByIdObjetivoEstrategico);
+        query.setParameter("idObjetivoEstrategico", idObjetivoEstrategico);
+            return query.getResultList();
+    }
 }
