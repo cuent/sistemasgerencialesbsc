@@ -5,15 +5,15 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-    <h:form id="idTab1">
-        <p:panelGrid id="bloque1" columns="2" style="width:100%">
-
+   
+    <p:panelGrid id="panelGridObjetivo" columns="2" style="width:100%; border: hidden; border-color: white;" >
+            
             <p:column ><ui:include src="Objetivo_objetivo.xhtml"/></p:column>
             <p:column ><ui:include src="Objetivo_responsable.xhtml"/></p:column>
 
-
+         
         </p:panelGrid>
         <ui:include src="Objetivo_metas.xhtml"/>
-    </h:form>
+ 
 
 </html>

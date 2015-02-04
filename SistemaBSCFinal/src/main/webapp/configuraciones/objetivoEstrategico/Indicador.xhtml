@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <p:panelGrid id="bloque8" columns="1" style="width:500%">
         <p:selectOneMenu id="ciudad" 
                          value="#{objetivoEstrategicoController.indicador}">
@@ -15,200 +16,12 @@
                            />
             <f:converter binding="#{indicadorConverter}"/>
             <p:ajax event="change"  
+                    listener="#{objetivoEstrategicoController.actualizarVariables()}"
                     update="indicadorFormularios"/>
         </p:selectOneMenu>
     </p:panelGrid>
-    <h:form id="indicadorFormularios" rendered="#{objetivoEstrategicoController.indicador!=null}">
-        <p:panelGrid id="bloque3" columns="2" style="width:100%">
-            <p:panelGrid id="indicadorDescripcion" columns="1">
-                <p:outputLabel value="Nombre del Indicador" for="idIndicadorText" />
-
-                <p:inputTextarea id="idIndicadorText"
-                                 value="#{objetivoEstrategicoController.indicador.nombreIndicador}"
-                                 title="Indicador"
-                                 placeholder="Ingrese aqui  el nombre del indicador"
-                                 required="true"
-                                 requiredMessage="Nombre del inidcador Requerida"/>
-
-                <p:outputLabel value="Aclaracion" for="idAclaracionText" />
-
-                <p:inputTextarea id="idAclaracionText"
-                                 value="#{objetivoEstrategicoController.indicador.aclaracion}"
-                                 title="Aclaracion"
-                                 placeholder="Ingrese aqui la aclaracion del objetivo estrategico"
-                                 required="true"
-                                 requiredMessage="Aclaracion Requerida"/>
-
-                <p:outputLabel value="Conceptualizacion" for="idConceptualizacionText" />
-
-                <p:inputTextarea id="idConceptualizacionText"
-                                 value="#{objetivoEstrategicoController.indicador.conceptualizacion}"
-                                 title="Conceptualizacion"
-                                 placeholder="Ingrese aqui la conceptualizacion del objetivo estrategico"
-                                 required="true"
-                                 requiredMessage="Conceptualizacion Requerida"/>
-                <p:outputLabel value="Formula" for="idFormulaText" />
-
-                <p:inputTextarea id="idFormulaText"
-                                 value="#{objetivoEstrategicoController.indicador.formula}"
-                                 title="Formula"
-                                 disabled="true"/>
-            </p:panelGrid>
-            <p:panelGrid  columns="1" style="width:100%">
-                <p:panelGrid id="indicadorFormulacion" columns="3" style="width:100%">
-                    <p:panelGrid  columns="1">
-                        <p:outputLabel value="Unidades" for="idUnidadesText" />
-
-                        <p:inputText id="idUnidadesText"
-                                     value="#{objetivoEstrategicoController.indicador.unidades}"
-                                     title="Unidades"
-                                     placeholder="Ingrese aqui  la Unidad"
-                                     required="true"
-                                     requiredMessage="Unidad Requerida"/>
-                    </p:panelGrid>
-                    <p:panelGrid  columns="1"> 
-                        <p:outputLabel value="Periodicidad" for="idPeriodicidadText" />
-
-                        <p:inputText id="idPeriodicidadText"
-                                     value="#{objetivoEstrategicoController.indicador.periodicidad}"
-                                     title="Periodicidad"
-                                     placeholder="Ingrese aqui la Periodicidad"
-                                     required="true"
-                                     requiredMessage="Periodicidad Requerida"/>
-
-                    </p:panelGrid>
-                    <p:panelGrid  columns="1"> 
-                        <p:outputLabel value="EstadoActual" for="idEstadoActualText" />
-
-
-                        <p:inputText id="idEstadoActualText"
-                                     value="#{objetivoEstrategicoController.indicador.estadoActual}"
-                                     title="Formula"
-                                     disabled="true"/>
-                    </p:panelGrid>
-                </p:panelGrid>
-                <p:panelGrid id="indicadorRestriccion" columns="2" style="width:100%">
-
-                    <h:panelGrid columns="3" cellpadding="10">
-                        <p:outputPanel >
-                            <p:outputLabel value="Min" for="idBajoMinText" style="color: #FF0000"/>
-                            <p:inputText id="idBajoMinText"
-                                         style="background-color: #ebcccc; size: auto"
-                                         value="#{objetivoEstrategicoController.indicador.bajoMinimo}"
-                                         title="Minimo"
-                                         placeholder="Valor minimo"
-                                         required="true"
-                                         requiredMessage="Valor minimo Requerido"/>
-                        </p:outputPanel>
-                        <p:graphicImage value="../../resources/img/rojo.png" width="40" height="40" /> 
-                        <p:outputPanel >
-                            <p:outputLabel value="Max" for="idBajoMaxText" style="color: #FF0000"/>
-                            <p:inputText id="idBajoMaxText"
-                                         style="background-color: #ebcccc; size: auto"
-                                         value="#{objetivoEstrategicoController.indicador.altoMinimo}"
-                                         title="Maximo"
-                                         placeholder="Valor maximo"
-                                         required="true"
-                                         requiredMessage="Valor maximo Requerido"/>
-                        </p:outputPanel>
-                        <p:outputPanel >
-                            <p:outputLabel value="Min" for="idMedioMinText" style="color: #FFCC00"/>
-                            <p:inputText id="idMedioMinText"
-                                         style="background-color: #EAEA95; size: auto"
-                                         value="#{objetivoEstrategicoController.indicador.medioMinimo}"
-                                         title="Minimo"
-                                         placeholder="Valor minimo"
-                                         required="true"
-                                         requiredMessage="Valor minimo Requerido"/>
-                        </p:outputPanel>
-                        <p:graphicImage value="../../resources/img/amarillo.png" width="40" height="40" /> 
-                        <p:outputPanel >
-                            <p:outputLabel value="Max" for="idMedioMaxText" style="color: #FFCC00"/>
-                            <p:inputText id="idMedioMaxText"
-                                         style="background-color: #EAEA95; size: auto"
-                                         value="#{objetivoEstrategicoController.indicador.medioMaximo}"
-                                         title="Maximo"
-                                         placeholder="Valor maximo"
-                                         required="true"
-                                         requiredMessage="Valor maximo Requerido"/>
-                        </p:outputPanel>
-                        <p:outputPanel >
-                            <p:outputLabel value="Min" for="idAltoMinText" style="color: #009933"/>
-                            <p:inputText id="idAltoMinText"
-                                         style="background-color: #6ADA6A; size: auto"
-                                         value="#{objetivoEstrategicoController.indicador.bajoMaximo}"
-                                         title="Minimo"
-                                         placeholder="Valor minimo"
-                                         required="true"
-                                         requiredMessage="Valor minimo Requerido"/>
-                        </p:outputPanel>
-                        <p:graphicImage value="../../resources/img/verde.png" width="40" height="40" /> 
-                        <p:outputPanel >
-                            <p:outputLabel value="Max" for="idAltoMaxText" style="color: #009933"/>
-                            <p:inputText id="idAltoMaxText"
-                                         style="background-color: #6ADA6A; size: auto"
-                                         value="#{objetivoEstrategicoController.indicador.altoMaximo}"
-                                         title="Maximo"
-                                         placeholder="Valor maximo"
-                                         required="true"
-                                         requiredMessage="Valor maximo Requerido"/>
-                        </p:outputPanel>
-                    </h:panelGrid>
-                    <p:dataScroller value="#{objetivoEstrategicoController.items}" var="car" chunkSize="10" id="idPantallaText">
-                        <p:outputPanel>
-                            <h:panelGrid columns="4" cellpadding="5">
-                                <p:commandButton type="button"  icon="ui-icon-closethick" title="Eliminar"/>
-                                <p:commandButton type="button"  icon="ui-icon-closethick" title="Eliminar"/>
-                                <p:commandButton type="button"  icon="ui-icon-closethick" title="Eliminar"/>
-                            </h:panelGrid>
-                        </p:outputPanel>
-
-
-
-                    </p:dataScroller>
-                    <p:panelGrid id="bloque5" columns="2" style="width:100%">
-                        <p:panelGrid columns="1">
-                            <p:inputTextarea id="idVariableText"
-                                             value="#{objetivoEstrategicoController.componenteFormula}"
-                                             title="Variable nueva"
-                                             placeholder="Ingrese aqui la variable"/>
-                            <p:commandButton id="agregarVariableButton" icon="ui-icon-check"   value="Agregar Variables" 
-                                             actionListener="#{objetivoEstrategicoController.agregarVariable}" 
-                                             update=":crudObjetivosEstrategicos:wizard:indicadorFormularios:idVariablesText" />
-                        </p:panelGrid>
-                        <h:panelGroup id="panelVariables">
-                            <p:dataScroller value="#{objetivoEstrategicoController.listComponenteFormulas}" var="varItem" chunkSize="10" id="idVariablesText">
-                                <f:facet name="header">
-                                    <h:outputText value="VARIABLES"/>
-                                </f:facet>
-                                <h:panelGrid columns="2" style="width:100%">
-
-                                    <h:outputText value="#{varItem.formula}"/>
-                                    <p:commandButton id="deleteButton" icon="ui-icon-closethick"   
-                                                     actionListener="#{objetivoEstrategicoController.eliminarVariable(varItem)}" 
-                                                     update=":crudObjetivosEstrategicos:wizard:indicadorFormularios:idVariablesText" />
-                                    <span class="ui-separator">
-                                        <span class="ui-icon  ui-icon-grip-dotted-horizontal" />
-                                    </span>
-                                </h:panelGrid> 
-
-                            </p:dataScroller>
-                        </h:panelGroup>
-
-                    </p:panelGrid>
-                    <p:panelGrid id="bloque7" columns="1" style="width:100%; border:0" >
-                        <p:panelGrid id="calculadora" columns="2" style="width:100%; border:0">
-                            <p:commandButton type="button"  value="+" style="font-weight: bold"/>
-                            <p:commandButton type="button"  value="-" style="font-weight: bold"/>
-                            <p:commandButton type="button"  value="x" style="font-weight: bold"/>
-                            <p:commandButton type="button"  value="/" style="font-weight: bold"/>
-                            <p:commandButton type="button"  value="(" style="font-weight: bold"/>
-                            <p:commandButton type="button"  value=")" style="font-weight: bold"/>
-                        </p:panelGrid>
-                        <p:commandButton type="button"  value="Agregar Formula" style="font-weight: bold" icon=" ui-icon-circle-arrow-n"/>
-                    </p:panelGrid>
-                </p:panelGrid>
-            </p:panelGrid>
-        </p:panelGrid>
+    <h:form id="indicadorFormularios" >
+            
+                <ui:include src="Semaforo.xhtml" />
     </h:form>
 </html>

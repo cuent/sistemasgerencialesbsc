@@ -8,56 +8,59 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="content">
-        <p:growl id="growl" showDetail="true" life="500"/>
-        <h:form id="crudObjetivosEstrategicos">
+        <p:growl id="growl" showDetail="true" life="20000"/>
+        <h:form id="crudOE">
 
             <h:panelGroup id="display">
                 <p:toolbar styleClass="btn-toolbar" >
 
                     <f:facet name="left">
+                        <p:commandButton id="buttonNuevo" icon="ui-icon-document"   
+                                         value="Nuevo Objetivo" actionListener="#{objetivoEstrategicoController.init}" 
+                                         rendered="#{objetivoEstrategicoController.switchObjetivo}"
+                                         update="crudOE, :growl"/>
+                        <p:commandButton id="buttonBuscar" icon="ui-icon-search"   
+                                         value="Buscar Objetivo" actionListener="#{objetivoEstrategicoController.init}" 
+                                         rendered="#{!objetivoEstrategicoController.switchObjetivo}"
+                                         update="crudOE, :growl"/>
                         <span class="ui-separator">
                             <span class="ui-icon ui-icon-grip-dotted-vertical" />
                         </span>
-                         
-                            <p:selectOneMenu id="seleccionarObjetivo" value="#{objetivoEstrategicoController.selected}" effect="bounce">
-                            <f:selectItems value="#{objetivoEstrategicoController.items}"
-                                           var="objetivoEstrategicoItem"
-                                           itemValue="#{objetivoEstrategicoItem}"
-                                           itemLabel="#{objetivoEstrategicoItem.objetivo}"/>
+
+                        <p:selectOneMenu id="selectOE" value="#{objetivoEstrategicoController.selected}" effect="blind" 
+                                         rendered="#{objetivoEstrategicoController.switchObjetivo}">
+                            <f:selectItems value="#{objetivoEstrategicoController.itemsAvailableSelectMany}"
+                                           var="itemOE"
+                                           itemValue="#{itemOE}"
+                                           itemLabel="#{itemOE.objetivo}"/>
                             <f:converter binding="#{objetivoEstrategicoConverter}"/>
-                           <p:ajax event="change"  
-                                   listener="#{objetivoEstrategicoController.actualzar()}"
-                                   update="crudObjetivosEstrategicos"
-                                     />
+                            <p:ajax event="change"  
+                                    listener="#{objetivoEstrategicoController.faceUpdateAll()}"
+                                    update="crudOE, :growl"
+                                    />
                         </p:selectOneMenu>
                     </f:facet>
                     <f:facet name="right">
-                        <p:outputLabel id="buscarObjetivo" for="autoBuscar" />
-                        <p:autoComplete id="autoBuscar" 
-                                        value="#{objetivoEstrategicoController.selected}" 
-                                        completeMethod="#{objetivoEstrategicoController.autoComplete}"
-                                        var="theme" 
-                                        disabled="true"
-                                        itemLabel="#{theme.objetivo}" 
-                                        itemValue="#{theme}"  forceSelection="true" 
-                                        placeholder="Buscar objetivo Estrategico">
-                            <f:converter binding="#{objetivoEstrategicoConverter}"/>
-                        </p:autoComplete>
-                        <p:commandButton type="button" value="Search" icon="ui-icon-search" />
+                        <span class="ui-separator">
+                            <span class="ui-icon ui-icon-grip-dotted-vertical" />
+                        </span>
+                        <p:commandButton id="buttonGuardar" icon="ui-icon-disk"   
+                                         value="Guardar" actionListener="#{objetivoEstrategicoController.createMeta}" 
+                                         update="crudOE, :growl"/>
+
                         <span class="ui-separator">
                             <span class="ui-icon ui-icon-grip-dotted-vertical" />
                         </span>
 
-                        <p:commandButton type="button" value="Cancel" icon=" ui-icon-circle-close"/>
                     </f:facet>
                 </p:toolbar>
-                <p:tabView dynamic="true" cache="true" id="wizard">
-                    <p:tab title="Objetivos Estrategicos" id="tab1">
+                <p:tabView dynamic="true" cache="true" id="tabView1">
+                    <p:tab title="Objetivos Estrategicos" id="tabOE">
 
                         <ui:include src="Objetivo.xhtml"/>
                     </p:tab>
-                    <p:tab title="Indicadores" id="tab2">
-                        <ui:include src="Indicador.xhtml"/>
+                    <p:tab title="Indicadores" id="tabIndicadores" rendered="#{objetivoEstrategicoController.selected!=null}">
+                        <!-- <ui:include src="Indicador.xhtml"/>-->
                     </p:tab>
                 </p:tabView>
             </h:panelGroup> 
