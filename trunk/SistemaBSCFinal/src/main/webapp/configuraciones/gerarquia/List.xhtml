@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <div style="background-color: #cccccc; height: 30px; margin-bottom: 50px;">
+            <div style="text-align: center; color:#ffffff; font-size: 1.3em;">ENLACE DE OBJETIVOS</div>
+
+        </div>
+        <h:form id="GerarquiaCreateForm">
+            <p:growl id="growlguadar" life="3000" /> 
+            <h:panelGroup id="display">
+                #{gerarquiaController.inicarNuevo()}
+                <h:panelGrid columns="3" border="0" cellpadding="200px">
+                    <p:panel header="Objetivo Inicio" style="border: 0;">
+                        <p:selectOneMenu id="sucesora" value="#{gerarquiaController.sucesora}" >
+                            <f:selectItem itemLabel="Selecione..."/>
+                            <f:selectItems value="#{objetivoEstrategicoController.itemsAvailableSelectOne}"
+                                           var="sucesoraItem"
+                                           itemValue="#{sucesoraItem}"
+                                           itemLabel="#{sucesoraItem.objetivo}"/>
+                            <p:ajax event="change" listener="#{gerarquiaController.cargarPerspectivasucesora()}" update="perSuce"/>
+                            <f:converter binding="#{objetivoEstrategicoConverter}"/>
+                        </p:selectOneMenu>
+                        <p:separator/>
+                        <h:panelGrid columns="2" border="0">
+                            <p:outputLabel value="Perspectiva:"/>
+                            <p:inputText id="perSuce" value="#{gerarquiaController.persSucesora}" disabled="true"/>
+                        </h:panelGrid>  
+                    </p:panel>
+                    <p:graphicImage value="http://www.equitec.com.ar/imagen_flecha_derecha.gif"/>
+                    <p:panel header="Objetivo final" style="border: 0;">
+                        <p:selectOneMenu id="predecesora" value="#{gerarquiaController.predecesora}" height="100">
+                            <f:selectItem itemLabel="Selecione..."/>
+                            <f:selectItems value="#{objetivoEstrategicoController.itemsAvailableSelectOne}"
+                                            
+                                           var="predecesoraItem"
+                                           itemValue="#{predecesoraItem}"
+                                           itemLabel="#{predecesoraItem.objetivo}"/>
+                            <p:ajax event="change" listener="#{gerarquiaController.cargarPerspectivaPredecesora()}" update="perPre"/>
+                            <f:converter binding="#{objetivoEstrategicoConverter}"/>
+                        </p:selectOneMenu>
+                        <p:separator/>
+                        <h:panelGrid columns="2" border="0">
+                            <p:outputLabel value="Perspectiva:"/>
+                            <p:inputText id="perPre" value="#{gerarquiaController.persPredecesora}" disabled="true"/>
+                        </h:panelGrid>  
+                    </p:panel>
+                </h:panelGrid>
+
+                <div style="width: 25%; margin-top: 30px; margin: 0 auto;">
+                    <p:commandButton actionListener="#{gerarquiaController.guadarNuevo}" value="Guardar" ajax="false" update="display,:GerarquiaListForm:datalist,growlguadar"/>
+                    <p:commandButton value="#{bundle.Cancel}"/>
+                </div>  
+            </h:panelGroup>
+        </h:form>
+        <div>
+            <h:form id="GerarquiaListForm">
+                <p:panel header="Ingreso de Enlaces">
+                    <p:dataTable id="datalist" value="#{gerarquiaController.listgerarquia}" var="item"
+                                 selectionMode="single" selection="#{gerarquiaController.gerarquia}"
+                                 paginator="true"
+                                 rowKey="#{item.idGerarquia}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="editButton deleteButton"/>
+
+                        <p:column width="20">
+                            <f:facet name="header">
+                                <h:outputText value="Perspectiva"/>
+                            </f:facet>
+                            <h:outputText value="#{item.sucesora.idPerspectiva.perspectiva}"/>
+                        </p:column>
+                        <p:column  width="40">
+                            <f:facet name="header">
+                                <h:outputText value="Objetivo Inicial"/>
+                            </f:facet>
+                            <h:outputText value="#{item.sucesora.objetivo}"/>
+
+                        </p:column>
+                        <p:column  width="20">
+                            <f:facet name="header">
+                                <h:outputText value="Perspectiva"/>
+                            </f:facet>
+                            <h:outputText value="#{item.predecesora.idPerspectiva.perspectiva}"/>
+
+                        </p:column>
+                        <p:column  width="40">
+                            <f:facet name="header">
+                                <h:outputText value="Objetivo Final"/>
+                            </f:facet>
+                            <h:outputText value="#{item.predecesora.objetivo}"/>
+                        </p:column>
+                        <f:facet name="footer">
+
+                           
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Actulizar" update=":GerarquiaEditForm" oncomplete="PF('GerarquiaEditDialog').show()" disabled="#{empty gerarquiaController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="Eliminar" actionListener="#{gerarquiaController.destroy}" update="datalist" disabled="#{empty gerarquiaController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+        </div>
+
+        <ui:include src="Edit.xhtml"/>
+      
+
+    </ui:composition>
+
+</html>

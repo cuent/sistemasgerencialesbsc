@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GerarquiaCreateDlg" widgetVar="GerarquiaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Nuevo 
+                  enlace">
+            <h:form id="GerarquiaCreateForm">
+                <h:panelGroup id="display">
+                    #{gerarquiaController.inicarNuevo()}
+                    <p:panelGrid columns="2">
+
+                       
+                        <p:outputLabel value="Inicio Objetivo:" for="sucesora" />
+                        <p:selectOneMenu id="sucesora" value="#{gerarquiaController.selected.sucesora}" >
+                            <f:selectItems value="#{objetivoEstrategicoController.itemsAvailableSelectOne}"
+                                           var="sucesoraItem"
+                                           itemValue="#{sucesoraItem}"
+                                           itemLabel="#{sucesoraItem.objetivo}"/>
+
+                            <f:converter binding="#{objetivoEstrategicoConverter}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Fin del Objetivo:" for="predecesora" />
+                        <p:selectOneMenu id="predecesora" value="#{gerarquiaController.selected.predecesora}" >
+                            <f:selectItems value="#{objetivoEstrategicoController.itemsAvailableSelectOne}"
+                                           var="predecesoraItem"
+                                           itemValue="#{predecesoraItem}"
+                                           itemLabel="#{predecesoraItem.objetivo}"/>
+                                           
+                            <f:converter binding="#{objetivoEstrategicoConverter}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{gerarquiaController.create}" value="Guardar" ajax="false" update="display,:GerarquiaListForm:datalist" oncomplete="handleSubmit(args,'GerarquiaCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="GerarquiaCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+     
+    </ui:composition>
+</html>
