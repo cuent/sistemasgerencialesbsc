@@ -65,22 +65,13 @@ public class MatrizBSCController extends AbstractController<ObjetivoEstrategico>
     public String cargarValor(ObjetivoEstrategico obje) {
         Indicador identi = getUitimoIndicador(obje.getIndicadorList());
         if (identi != null) {
-         
-            CabeceraValor cabezeraValor = ejbCabezeraValorFacade.getValores(identi.getIdIndicador());
-            return String.valueOf(cabezeraValor.getValorTotal());
-        } else {
-            return "No hay valor";
-        }
 
-    }
-    
-     public String desempenoValor(ObjetivoEstrategico obje) {
-        Indicador identi = getUitimoIndicador(obje.getIndicadorList());
-        if (identi != null) {
-         
             CabeceraValor cabezeraValor = ejbCabezeraValorFacade.getValores(identi.getIdIndicador());
-            Double valor= ((cabezeraValor.getValorTotal()-obje.getIndicadorList().get(0).getBajoMaximo())/(obje.getIndicadorList().get(0).getAltoMaximo()-obje.getIndicadorList().get(0).getBajoMaximo()));
-            return String.valueOf(valor);
+            if (cabezeraValor != null) {
+                return String.valueOf(cabezeraValor.getValorTotal());
+            } else {
+                return "No hay Valor";
+            }
         } else {
             return "No hay valor";
         }
@@ -168,24 +159,6 @@ public class MatrizBSCController extends AbstractController<ObjetivoEstrategico>
 
     public void setDesempeno(Double desempeno) {
         this.desempeno = desempeno;
-    }
-
-    public Double getValActual(int idIndicador) {
-        Indicador l = this.getSelected().getIndicadorList().get(idIndicador);
-
-        List<CabeceraValor> cabeceras = l.getCabeceraValorList();
-
-        Collections.sort(cabeceras, new Comparator<CabeceraValor>() {
-
-            @Override
-            public int compare(CabeceraValor t, CabeceraValor t1) {
-                return t.getFecha().compareTo(t1.getFecha());
-            }
-
-        });
-
-        CabeceraValor cv = cabeceras.get(cabeceras.size() - 1);
-        return cv.getValorTotal();
     }
 
 }
