@@ -34,7 +34,7 @@
                                    itemLabel="#{itemI.nombreIndicador}"/>
                     <f:converter binding="#{indicadorConverter}"/>
                     <p:ajax event="change"  
-                            listener="#{objetivoEstrategicoController.updateComponenteFormula()}"
+                            listener="#{objetivoEstrategicoController.updateItemsComponenteFormula()}"
                             update=":crudOE:tabView1:dataScrollerIndicadores, :growl"
                             />
                 </p:selectOneMenu>
@@ -53,9 +53,7 @@
                 <p:inputTextarea id="idIndicadorText"
                                  value="#{objetivoEstrategicoController.indicador.nombreIndicador}"
                                  title="Indicador"
-                                 placeholder="Ingrese aqui  el nombre del indicador"
-                                 required="true"
-                                 requiredMessage="Nombre del inidcador Requerida"/>
+                                 placeholder="Ingrese aqui  el nombre del indicador"/>
 
                 <p:outputLabel value="Aclaracion" for="idAclaracionText" />
 
@@ -83,9 +81,7 @@
                         <p:inputText id="idUnidadesText"
                                      value="#{objetivoEstrategicoController.indicador.unidades}"
                                      title="Unidades"
-                                     placeholder="Ingrese aqui  la Unidad"
-                                     required="true"
-                                     requiredMessage="Unidad Requerida"/>
+                                     placeholder="Ingrese aqui  la Unidad"/>
                     </p:panelGrid>
                     <p:panelGrid  columns="1"> 
                         <p:outputLabel value="Periodicidad" for="idPeriodicidadText" />
@@ -93,9 +89,7 @@
                         <p:inputText id="idPeriodicidadText"
                                      value="#{objetivoEstrategicoController.indicador.periodicidad}"
                                      title="Periodicidad"
-                                     placeholder="Ingrese aqui la Periodicidad"
-                                     required="true"
-                                     requiredMessage="Periodicidad Requerida"/>
+                                     placeholder="Ingrese aqui la Periodicidad"/>
 
                     </p:panelGrid>
                     <p:panelGrid  columns="1" > 

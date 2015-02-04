@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="IndicadorEditDlg" widgetVar="IndicadorEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditIndicadorTitle}">
+            <h:form id="IndicadorEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{indicadorController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditIndicadorLabel_idIndicador}" for="idIndicador" />
+                        <p:inputText id="idIndicador" value="#{indicadorController.selected.idIndicador}" title="#{bundle.EditIndicadorTitle_idIndicador}" required="true" requiredMessage="#{bundle.EditIndicadorRequiredMessage_idIndicador}"/>
+                        <p:outputLabel value="#{bundle.EditIndicadorLabel_aclaracion}" for="aclaracion" />
+                        <p:inputText id="aclaracion" value="#{indicadorController.selected.aclaracion}" title="#{bundle.EditIndicadorTitle_aclaracion}" />
+                        <p:outputLabel value="#{bundle.EditIndicadorLabel_conceptualizacion}" for="conceptualizacion" />
+                        <p:inputText id="conceptualizacion" value="#{indicadorController.selected.conceptualizacion}" title="#{bundle.EditIndicadorTitle_conceptualizacion}" />
+                        <p:outputLabel value="#{bundle.EditIndicadorLabel_nombreIndicador}" for="nombreIndicador" />
+                        <p:inputText id="nombreIndicador" value="#{indicadorController.selected.nombreIndicador}" title="#{bundle.EditIndicadorTitle_nombreIndicador}" />
+                        <p:outputLabel value="#{bundle.EditIndicadorLabel_unidades}" for="unidades" />
+                        <p:inputText id="unidades" value="#{indicadorController.selected.unidades}" title="#{bundle.EditIndicadorTitle_unidades}" />
+                        <p:outputLabel value="#{bundle.EditIndicadorLabel_formula}" for="formula" />
+                        <p:inputText id="formula" value="#{indicadorController.selected.formula}" title="#{bundle.EditIndicadorTitle_formula}" />
+                        <p:outputLabel value="#{bundle.EditIndicadorLabel_periodicidad}" for="periodicidad" />
+                        <p:inputText id="periodicidad" value="#{indicadorController.selected.periodicidad}" title="#{bundle.EditIndicadorTitle_periodicidad}" />
+                        <p:outputLabel value="#{bundle.EditIndicadorLabel_estadoActual}" for="estadoActual" />
+                        <p:inputText id="estadoActual" value="#{indicadorController.selected.estadoActual}" title="#{bundle.EditIndicadorTitle_estadoActual}" />
+                        <p:outputLabel value="#{bundle.EditIndicadorLabel_bajoMinimo}" for="bajoMinimo" />
+                        <p:inputText id="bajoMinimo" value="#{indicadorController.selected.bajoMinimo}" title="#{bundle.EditIndicadorTitle_bajoMinimo}" />
+                        <p:outputLabel value="#{bundle.EditIndicadorLabel_bajoMaximo}" for="bajoMaximo" />
+                        <p:inputText id="bajoMaximo" value="#{indicadorController.selected.bajoMaximo}" title="#{bundle.EditIndicadorTitle_bajoMaximo}" />
+                        <p:outputLabel value="#{bundle.EditIndicadorLabel_medioMinimo}" for="medioMinimo" />
+                        <p:inputText id="medioMinimo" value="#{indicadorController.selected.medioMinimo}" title="#{bundle.EditIndicadorTitle_medioMinimo}" />
+                        <p:outputLabel value="#{bundle.EditIndicadorLabel_medioMaximo}" for="medioMaximo" />
+                        <p:inputText id="medioMaximo" value="#{indicadorController.selected.medioMaximo}" title="#{bundle.EditIndicadorTitle_medioMaximo}" />
+                        <p:outputLabel value="#{bundle.EditIndicadorLabel_altoMinimo}" for="altoMinimo" />
+                        <p:inputText id="altoMinimo" value="#{indicadorController.selected.altoMinimo}" title="#{bundle.EditIndicadorTitle_altoMinimo}" />
+                        <p:outputLabel value="#{bundle.EditIndicadorLabel_altoMaximo}" for="altoMaximo" />
+                        <p:inputText id="altoMaximo" value="#{indicadorController.selected.altoMaximo}" title="#{bundle.EditIndicadorTitle_altoMaximo}" />
+                        <p:outputLabel value="#{bundle.EditIndicadorLabel_idObjetivoEstrategico}" for="idObjetivoEstrategico" />
+                        <p:selectOneMenu id="idObjetivoEstrategico" value="#{indicadorController.selected.idObjetivoEstrategico}" required="true" requiredMessage="#{bundle.EditIndicadorRequiredMessage_idObjetivoEstrategico}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{objetivoEstrategicoController.itemsAvailableSelectOne}"
+                                           var="idObjetivoEstrategicoItem"
+                                           itemValue="#{idObjetivoEstrategicoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{indicadorController.update}" value="#{bundle.Save}" update="display,:IndicadorListForm:datalist" oncomplete="handleSubmit(args, 'IndicadorEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="IndicadorEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

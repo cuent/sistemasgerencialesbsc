@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="IndicadorCreateDlg" widgetVar="IndicadorCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Agregar Indicador">
+            <h:form id="IndicadorCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{indicadorController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateIndicadorLabel_nombreIndicador}" for="nombreIndicador" />
+                        <p:inputText id="nombreIndicador" value="#{indicadorController.selected.nombreIndicador}" title="#{bundle.CreateIndicadorTitle_nombreIndicador}" />
+                        <p:outputLabel value="#{bundle.CreateIndicadorLabel_unidades}" for="unidades" />
+                        <p:inputText id="unidades" value="#{indicadorController.selected.unidades}" title="#{bundle.CreateIndicadorTitle_unidades}" />
+                        <p:outputLabel value="#{bundle.CreateIndicadorLabel_formula}" for="formula" />
+                        <p:inputText id="formula" value="#{indicadorController.selected.formula}" title="#{bundle.CreateIndicadorTitle_formula}" />
+                        <p:outputLabel value="#{bundle.CreateIndicadorLabel_periodicidad}" for="periodicidad" />
+                        <p:inputText id="periodicidad" value="#{indicadorController.selected.periodicidad}" title="#{bundle.CreateIndicadorTitle_periodicidad}" />
+                        <p:outputLabel value="#{bundle.CreateIndicadorLabel_estadoActual}" for="estadoActual" />
+                        <p:inputText id="estadoActual" value="#{indicadorController.selected.estadoActual}" title="#{bundle.CreateIndicadorTitle_estadoActual}" disabled="true" />
+                         <h:panelGrid columns="3" cellpadding="10">
+                                <p:outputPanel >
+                                    <p:outputLabel value="Min" for="idBajoMinText" style="color: #FF0000"/>
+                                    <p:inputText id="idBajoMinText"
+                                                 style="background-color: #ebcccc; size: auto"
+                                                 value="#{indicadorController.selected.bajoMinimo}"
+                                                 title="Minimo"
+                                                 placeholder="Valor minimo"/>
+                                </p:outputPanel>
+                                <p:graphicImage value="../../resources/img/rojo.png" width="40" height="40" /> 
+                                <p:outputPanel >
+                                    <p:outputLabel value="Max" for="idBajoMaxText" style="color: #FF0000"/>
+                                    <p:inputText id="idBajoMaxText"
+                                                 style="background-color: #ebcccc; size: auto"
+                                                 value="#{indicadorController.selected.altoMinimo}"
+                                                 title="Maximo"
+                                                 placeholder="Valor maximo"/>
+                                </p:outputPanel>
+                                <p:outputPanel >
+                                    <p:outputLabel value="Min" for="idMedioMinText" style="color: #FFCC00"/>
+                                    <p:inputText id="idMedioMinText"
+                                                 style="background-color: #EAEA95; size: auto"
+                                                 value="#{indicadorController.selected.medioMinimo}"
+                                                 title="Minimo"
+                                                 placeholder="Valor minimo"/>
+                                </p:outputPanel>
+                                <p:graphicImage value="../../resources/img/amarillo.png" width="40" height="40" /> 
+                                <p:outputPanel >
+                                    <p:outputLabel value="Max" for="idMedioMaxText" style="color: #FFCC00"/>
+                                    <p:inputText id="idMedioMaxText"
+                                                 style="background-color: #EAEA95; size: auto"
+                                                 value="#{indicadorController.selected.medioMaximo}"
+                                                 title="Maximo"
+                                                 placeholder="Valor maximo"/>
+                                </p:outputPanel>
+                                <p:outputPanel >
+                                    <p:outputLabel value="Min" for="idAltoMinText" style="color: #009933"/>
+                                    <p:inputText id="idAltoMinText"
+                                                 style="background-color: #6ADA6A; size: auto"
+                                                 value="#{indicadorController.selected.bajoMaximo}"
+                                                 title="Minimo"
+                                                 placeholder="Valor minimo"/>
+                                </p:outputPanel>
+                                <p:graphicImage value="../../resources/img/verde.png" width="40" height="40" /> 
+                                <p:outputPanel >
+                                    <p:outputLabel value="Max" for="idAltoMaxText" style="color: #009933"/>
+                                    <p:inputText id="idAltoMaxText"
+                                                 style="background-color: #6ADA6A; size: auto"
+                                                 value="#{indicadorController.selected.altoMaximo}"
+                                                 title="Maximo"
+                                                 placeholder="Valor maximo"/>
+                                </p:outputPanel>
+                            </h:panelGrid>
+                        <h:outputText value="#{indicadorController.selected.idObjetivoEstrategico.objetivo}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{indicadorController.create}" value="#{bundle.Save}" update="display,:IndicadorListForm:datalist" oncomplete="handleSubmit(args,'IndicadorCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="IndicadorCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
