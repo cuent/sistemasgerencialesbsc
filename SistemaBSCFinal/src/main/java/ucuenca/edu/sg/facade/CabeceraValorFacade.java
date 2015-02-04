@@ -33,12 +33,14 @@ public class CabeceraValorFacade extends AbstractFacade<CabeceraValor> {
     }
 
     public CabeceraValor getValores(Integer idIndicandor) {
+        System.out.println(idIndicandor);
         Query query = this.em.createNamedQuery(CabeceraValor.findByUltimoValor);
         query.setParameter("idIndicador", idIndicandor);
         try {
             query.setMaxResults(1);
             return (CabeceraValor) query.getSingleResult();
         } catch (NoResultException e) {
+            System.out.println("Error");
             return null;
         }
 

@@ -62,10 +62,11 @@ public class MatrizBSCController extends AbstractController<ObjetivoEstrategico>
 
     }
 
-    public String cargarValor(ObjetivoEstrategico obje) {
+    public String cargarValor(ObjetivoEstrategico obje) {        
         Indicador identi = getUitimoIndicador(obje.getIndicadorList());
+        //System.out.println(identi.getNombreIndicador());
         if (identi != null) {
-
+         
             CabeceraValor cabezeraValor = ejbCabezeraValorFacade.getValores(identi.getIdIndicador());
             if (cabezeraValor != null) {
                 return String.valueOf(cabezeraValor.getValorTotal());
@@ -74,7 +75,28 @@ public class MatrizBSCController extends AbstractController<ObjetivoEstrategico>
             }
         } else {
             return "No hay valor";
-        }
+        }          
+
+    }
+    
+    public String desempenoValor(ObjetivoEstrategico obje) {        
+        Indicador identi = getUitimoIndicador(obje.getIndicadorList());
+       // System.out.println(identi.getNombreIndicador());
+        if (identi != null) {
+         
+            CabeceraValor cabezeraValor = ejbCabezeraValorFacade.getValores(identi.getIdIndicador());
+            if (cabezeraValor != null) {
+                double base = obje.getIndicadorList().get(0).getMedioMinimo();
+                double meta = obje.getIndicadorList().get(0).getAltoMinimo();
+                double desem = (cabezeraValor.getValorTotal()-base)/(meta-base);
+                return String.valueOf(desem);
+            } else {
+                
+                return "No hay Valor";
+            }
+        } else {
+            return "No hay valor";
+        }          
 
     }
 

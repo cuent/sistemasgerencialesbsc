@@ -22,12 +22,7 @@
                          >
                 <p:ajax event="rowSelect"   update="editButton deleteButton"/>
                 <p:ajax event="rowUnselect" update="editButton deleteButton"/>
-                <p:column width="45">
-                    <f:facet name="header">
-                        <h:outputText value="ID"/>
-                    </f:facet>
-                    <h:outputText value="#{item.idActividades}"/>
-                </p:column>
+                
                 <p:column width="100">
                     <f:facet name="header">
                         <h:outputText value="#{bundle.ListActividadesTitle_actividades}"/>
@@ -69,7 +64,7 @@
                         <h:outputText value="Responsable"/>
                     </f:facet>
                     <p:dataList value="#{item.responsableActividadList}" var="res" type="ordered">
-                        <h:outputText value="#{res.getCargo()}"/>
+                        <h:outputText value="#{res}"/>
                     </p:dataList>
                 </p:column>
                 <p:column width="100">
@@ -86,8 +81,6 @@
                 <h:form id="ActividadesEditForm">
                     <h:panelGroup id="display" style="margin-bottom:20px; ">
                         <h:panelGrid columns="2" border="0">
-                            <p:outputLabel value="ID:" for="idActividades" />
-                            <p:inputText id="idActividades" value="#{actividadesController.selected.idActividades}" disabled="true" title="#{bundle.EditActividadesTitle_idActividades}" required="true" requiredMessage="#{bundle.EditActividadesRequiredMessage_idActividades}"/>
                             <p:outputLabel value="ACTIVIDADES:" for="actividades" />
                             <p:inputTextarea id="actividades" value="#{actividadesController.selected.actividad}" cols="50" rows="1" required="true" requiredMessage="#{bundle.CreateActividadesRequiredMessage_actividades}"/>
                             <p:outputLabel value="DURACION" for="duracion" />
