@@ -29,6 +29,7 @@
 
                         <p:selectOneMenu id="selectOE" value="#{objetivoEstrategicoController.selected}" effect="blind" 
                                          rendered="#{objetivoEstrategicoController.switchObjetivo}">
+                            <f:selectItem noSelectionOption="false"/>
                             <f:selectItems value="#{objetivoEstrategicoController.itemsAvailableSelectMany}"
                                            var="itemOE"
                                            itemValue="#{itemOE}"
@@ -45,7 +46,7 @@
                             <span class="ui-icon ui-icon-grip-dotted-vertical" />
                         </span>
                         <p:commandButton id="buttonGuardar" icon="ui-icon-disk"   
-                                         value="Guardar" actionListener="#{objetivoEstrategicoController.createMeta}" 
+                                         value="Guardar" actionListener="#{objetivoEstrategicoController.create}" 
                                          update="crudOE, :growl"/>
 
                         <span class="ui-separator">
@@ -60,7 +61,7 @@
                         <ui:include src="Objetivo.xhtml"/>
                     </p:tab>
                     <p:tab title="Indicadores" id="tabIndicadores" rendered="#{objetivoEstrategicoController.selected!=null}">
-                        <!-- <ui:include src="Indicador.xhtml"/>-->
+                         <ui:include src="Indicador.xhtml"/>
                     </p:tab>
                 </p:tabView>
             </h:panelGroup> 
