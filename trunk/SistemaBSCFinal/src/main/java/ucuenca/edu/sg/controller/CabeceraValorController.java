@@ -112,6 +112,8 @@ public class CabeceraValorController extends AbstractController<CabeceraValor> i
                 dvc.create();
             }
             anadirMensaje(1);
+            createLineModels();
+
         } catch (ELException | NullPointerException e) {
             anadirMensaje(2);
         }
@@ -212,9 +214,9 @@ public class CabeceraValorController extends AbstractController<CabeceraValor> i
         lineModel2.setZoom(true);
         lineModel2.setShowPointLabels(true);
         //lineModel2.getAxes().put(AxisType.X, new CategoryAxis("Dia"));
-        lineModel2.getAxis(AxisType.Y).setLabel("Valores");
+        lineModel2.getAxis(AxisType.Y).setLabel("Valores Actuales");
         //Eje X
-        DateAxis axis = new DateAxis("Día");
+        DateAxis axis = new DateAxis("Días");
         axis.setTickAngle(-50);
         //axis.setMax("2015-08-01");
         axis.setTickFormat("%#d %b, %y");
@@ -228,7 +230,7 @@ public class CabeceraValorController extends AbstractController<CabeceraValor> i
     }
 
     private LineChartModel initCategoryModel() {
-        List<CabeceraValor> l = super.getItems();
+        List<CabeceraValor> l = super.getItemsAvailableSelectMany();
 
         HashMap<String, String> hm = new HashMap();
         for (CabeceraValor l1 : l) {

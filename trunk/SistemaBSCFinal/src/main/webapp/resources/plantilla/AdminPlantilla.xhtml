@@ -62,6 +62,7 @@
                                 <p:menuitem rendered="#{usuarioController.permisosIngreso()}" value="Valor actual" url="http://localhost:8080/SistemaBSCFinal/faces/configuraciones/crearValor/inicio.xhtml" ajax="false" icon="ui-icon-note"/>
                             </p:submenu>
                             <p:submenu label="Consultas">
+                                <p:menuitem rendered="#{usuarioController.permisosConsulta()}" value="Valor Actual" url="http://localhost:8080/SistemaBSCFinal/faces/configuraciones/crearValor/inicioConsultas.xhtml" ajax="false" icon="ui-icon-note"/>
                                 <p:menuitem rendered="#{usuarioController.permisosConsulta()}" value="Reportes" url="http://localhost:8080/SistemaBSCFinal/faces/configuraciones/reporte/inicio.xhtml" ajax="false" icon="ui-icon-note"/>
                                 <p:menuitem rendered="#{usuarioController.permisosConsulta()}" value="Indicadores" url="http://localhost:8080/SistemaBSCFinal/faces/configuraciones/consultasIndicador/inicio.xhtml" ajax="false" icon="ui-icon-note"/>                                
                                 <p:menuitem rendered="#{usuarioController.permisosConsulta()}" value="Matriz BSC" url="http://localhost:8080/SistemaBSCFinal/faces/configuraciones/matrizBSC/inicio.xhtml" ajax="false" icon="ui-icon-note"/>

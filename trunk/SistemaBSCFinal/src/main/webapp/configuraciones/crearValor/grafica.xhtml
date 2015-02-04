@@ -10,7 +10,8 @@
         <div style="background-color: #cccccc; height: 30px;">
             <div style="text-align: center; color:#ffffff; font-size: 1.3em;">GRAFICA</div>
         </div>
-        <h:form id="graficarForm">
+        <h:form id="graficarForm" >
+
             <p:chart id="graficoLinea" type="line" model="#{cabeceraValorController.lineModel2}" style="height:300px;"/>
 
             <p:commandButton id="createButton" action="http://localhost:8080/SistemaBSCFinal/faces/configuraciones/crearValor/inicio.xhtml" icon="ui-icon-arrowrefresh-1-e"   value="Actualizar"/>
