@@ -7,7 +7,9 @@ package ucuenca.edu.sg.facade;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import ucuenca.edu.sg.modelo.ObjetivoEstrategico;
 
 /**
@@ -27,6 +29,23 @@ public class ObjetivoEstrategicoFacade extends AbstractFacade<ObjetivoEstrategic
     public ObjetivoEstrategicoFacade() {
         super(ObjetivoEstrategico.class);
     }
-    
+     public ObjetivoEstrategico getObjetivoEstrategico(Integer idObjetivoEstrategico) {
+        Query query = this.em.createNamedQuery(ObjetivoEstrategico.findByIdObjetivoEstrategico);
+        query.setParameter("idObjetivoEstrategico", idObjetivoEstrategico);
+        try{
+            return (ObjetivoEstrategico)query.getSingleResult();
+        }catch(NoResultException e){
+            return null;
+        }
+    }
+     public ObjetivoEstrategico getObjetivoEstrategico(String objetivo) {
+        Query query = this.em.createNamedQuery(ObjetivoEstrategico.findByObjetivo);
+        query.setParameter("objetivo", objetivo);
+        try{
+            return (ObjetivoEstrategico)query.getSingleResult();
+        }catch(NoResultException e){
+            return null;
+        }
+    }
 
 }
