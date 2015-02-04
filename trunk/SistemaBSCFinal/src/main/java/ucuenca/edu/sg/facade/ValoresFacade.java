@@ -5,9 +5,12 @@
  */
 package ucuenca.edu.sg.facade;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import ucuenca.edu.sg.modelo.Valores;
 
 /**
@@ -16,6 +19,7 @@ import ucuenca.edu.sg.modelo.Valores;
  */
 @Stateless
 public class ValoresFacade extends AbstractFacade<Valores> {
+
     @PersistenceContext(unitName = "com.mycompany_SistemaBSCFinal_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 
@@ -27,5 +31,9 @@ public class ValoresFacade extends AbstractFacade<Valores> {
     public ValoresFacade() {
         super(Valores.class);
     }
+
+ 
+
     
+
 }

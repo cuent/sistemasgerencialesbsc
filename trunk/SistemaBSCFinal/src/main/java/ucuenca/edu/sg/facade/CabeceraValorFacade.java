@@ -7,8 +7,11 @@ package ucuenca.edu.sg.facade;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import ucuenca.edu.sg.modelo.CabeceraValor;
+import ucuenca.edu.sg.modelo.Valores;
 
 /**
  *
@@ -16,6 +19,7 @@ import ucuenca.edu.sg.modelo.CabeceraValor;
  */
 @Stateless
 public class CabeceraValorFacade extends AbstractFacade<CabeceraValor> {
+
     @PersistenceContext(unitName = "com.mycompany_SistemaBSCFinal_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 
@@ -27,5 +31,16 @@ public class CabeceraValorFacade extends AbstractFacade<CabeceraValor> {
     public CabeceraValorFacade() {
         super(CabeceraValor.class);
     }
-    
+
+    public CabeceraValor getValores(Integer idIndicandor) {
+        Query query = this.em.createNamedQuery(CabeceraValor.findByUltimoValor);
+        query.setParameter("idIndicador", idIndicandor);
+        try {
+            query.setMaxResults(1);
+            return (CabeceraValor) query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+
+    }
 }

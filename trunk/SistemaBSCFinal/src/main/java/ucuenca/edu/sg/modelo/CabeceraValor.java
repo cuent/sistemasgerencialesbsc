@@ -36,9 +36,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "CabeceraValor.findAll", query = "SELECT c FROM CabeceraValor c"),
     @NamedQuery(name = "CabeceraValor.findByIdCabeceraValor", query = "SELECT c FROM CabeceraValor c WHERE c.idCabeceraValor = :idCabeceraValor"),
     @NamedQuery(name = "CabeceraValor.findByFecha", query = "SELECT c FROM CabeceraValor c WHERE c.fecha = :fecha"),
-    @NamedQuery(name = "CabeceraValor.findByValorTotal", query = "SELECT c FROM CabeceraValor c WHERE c.valorTotal = :valorTotal")})
+    @NamedQuery(name = "CabeceraValor.findByValorTotal", query = "SELECT c FROM CabeceraValor c WHERE c.valorTotal = :valorTotal"),
+    @NamedQuery(name = "CabeceraValor.findByUltimoValor", query = "SELECT c FROM CabeceraValor c WHERE c.idIndicador.idIndicador = :idIndicador ORDER BY c.fecha DESC")})
 public class CabeceraValor implements Serializable {
     private static final long serialVersionUID = 1L;
+    public static final String findByUltimoValor = "CabeceraValor.findByUltimoValor";
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)

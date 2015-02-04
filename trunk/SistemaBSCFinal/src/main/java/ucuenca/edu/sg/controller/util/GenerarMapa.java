@@ -9,11 +9,14 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.StringTokenizer;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import ucuenca.edu.sg.modelo.Gerarquia;
+import ucuenca.edu.sg.modelo.Indicador;
 import ucuenca.edu.sg.modelo.ObjetivoEstrategico;
 
 /**
@@ -31,25 +34,25 @@ public class GenerarMapa {
             + "    subgraph clusterA {\n"
             + "\n"
             + "        node [shape=\"rect\",style=\"filled\", color=\"beige\", fontname=\"Arial\", fontsize=10, tooltip=\"Applicatie\"];\n"
-            + "     	{rank=\"f\";}\n"
+            + "     	{rank=\"f\";}  \n"
             + "        node [shape=\"ellipse\", style=\"invisible\", color=\"#3CB371\", fontsize=1];\n"
             + "        cluA [label=\".\"];\n"
             + "	style=\"filled\";\n"
             + "	fontname = \"Arial\";\n"
-            + "	fontcolor=\"white\";\n"
-            + "        color=\"grey\";\n"
+            + "	fontcolor=\"dodgerblue\";\n"
+            + "        color=\"grey54\";\n"
             + "        label=\"Financiera\";\n"
             + "    }\n"
             + "\n"
             + "    subgraph clusterB {\n"
-            + "        node [shape=\"ellipse\", style=\"filled\", fontname=\"Arial\", color=\"whitesmoke\", fontsize=10, tooltip=\"Frontend Service\"];\n"
+            + "        node [shape=\"ellipse\", style=\"filled\", fontname=\"Arial\", color=\"antiquewhite4\", fontsize=10, tooltip=\"Frontend Service\"];\n"
             + "        {rank=\"c\";}\n"
             + "	node [shape=\"ellipse\", style=\"invisible\", color=\"#3CB371\", fontsize=1, tooltip=\"Applicatie\"];\n"
             + "        cluB [label=\".\"];\n"
             + "	style=\"filled\";\n"
             + "	fontname = \"Arial\";\n"
-            + "	fontcolor=\"white\";\n"
-            + "        color=\"darkgoldenrod1\";\n"
+            + "	fontcolor=\"dodgerblue\";\n"
+            + "        color=\"grey68\";\n"
             + "        label=\"Cliente\";\n"
             + "    }\n"
             + "\n"
@@ -61,8 +64,8 @@ public class GenerarMapa {
             + "        cluC [label=\".\"];\n"
             + "	style=\"filled\";\n"
             + "	fontname = \"Arial\";\n"
-            + "	fontcolor=\"white\";\n"
-            + "        color=\"dodgerblue3\";\n"
+            + "	fontcolor=\"dodgerblue\";\n"
+            + "        color=\"grey80\";\n"
             + "\n"
             + "	label=\"Procesos Internos\";\n"
             + "    }\n"
@@ -75,9 +78,9 @@ public class GenerarMapa {
             + "        cluD [label=\".\"];\n"
             + "	\n"
             + "	fontname = \"Arial\";\n"
-            + "	fontcolor=\"white\";\n"
+            + "	fontcolor=\"dodgerblue\";\n"
             + "	style=\"filled\";\n"
-            + "        color=\"firebrick3\";\n"
+            + "        color=\"grey90\";\n"
             + "        label=\"Aplicacion Y Crecimiento\";\n"
             + "       \n"
             + "    } \n"
@@ -86,7 +89,7 @@ public class GenerarMapa {
             + "  \"cluB\" -> \"cluC\" [style=invis ltail=clusterB lhead=clusterC];\n"
             + "  \"cluC\" -> \"cluD\" [style=invis ltail=clusterC lhead=clusterD];\n"
             + "  edge [color=\"red\", tooltip=\"Opvragen\"];\n"
-            + "   remincross=\"true\";"
+            + "   remincross=\"true\";\n"
             + "}\n"
             + "\n"
             + "}";
@@ -99,22 +102,61 @@ public class GenerarMapa {
         String aprendizaje = "";
         for (ObjetivoEstrategico objetivo : getListObjetivosEstrategicos()) {
             String perspectiva = objetivo.getIdPerspectiva().getPerspectiva();
+            String color = "darkkhaki";
+            Indicador idicador = getUitimoIndicador(objetivo.getIndicadorList());
+            
+            if (idicador != null) {
+                color = getcolor(idicador.getEstadoActual());
+                System.out.println("nombre: identi "+idicador.getIdIndicador());
+            }
+            if(color==null)
+                color = "darkkhaki";
+            
             if (perspectiva.equalsIgnoreCase("Financiera")) {
-                finaciero = finaciero + "f" + objetivo.getIdObjetivoEstrategico() + " [label=\"" + separar(objetivo.getObjetivo()) + "\"]; ";
-              
+                finaciero = finaciero + "f" + objetivo.getIdObjetivoEstrategico() + " [label=\"" + separar(objetivo.getObjetivo()) + "\", color=\""+color+"\"]; ";
+
             }
             if (perspectiva.equalsIgnoreCase("Clientes")) {
-                cliente = cliente + "c" + objetivo.getIdObjetivoEstrategico() + " [label=\"" + separar(objetivo.getObjetivo()) + "\"]; ";
+                cliente = cliente + "c" + objetivo.getIdObjetivoEstrategico() + " [label=\"" + separar(objetivo.getObjetivo()) + "\", color=\""+color+"\"]; ";
             }
             if (perspectiva.equalsIgnoreCase("Procesos internos")) {
-                proceso = proceso + "p" + objetivo.getIdObjetivoEstrategico() + " [label=\"" + separar(objetivo.getObjetivo()) + "\"]; ";
+                proceso = proceso + "p" + objetivo.getIdObjetivoEstrategico() + " [label=\"" + separar(objetivo.getObjetivo()) + "\", color=\""+color+"\"]; ";
             }
-            if (perspectiva.equalsIgnoreCase("Aprendizaje")) {
-                aprendizaje = aprendizaje + "a" + objetivo.getIdObjetivoEstrategico() + " [label=\"" + separar(objetivo.getObjetivo()) + "\"]; ";
+            if (perspectiva.equalsIgnoreCase("Aprendizaje y Crecimiento")) {
+                aprendizaje = aprendizaje + "a" + objetivo.getIdObjetivoEstrategico() + " [label=\"" + separar(objetivo.getObjetivo()) + "\", color=\""+color+"\"]; ";
             }
         }
         procesoRemplazar(finaciero, cliente, proceso, aprendizaje);
 
+    }
+
+    private String getcolor(String color) {
+        String res = "darkkhaki";
+        if (color.equalsIgnoreCase("verde")) {
+            res = "chartreuse";
+        }
+        if (color.equalsIgnoreCase("rojo")) {
+            res = "firebrick1";
+        }
+        if (color.equalsIgnoreCase("amarillo")) {
+            res = "gold1";
+        }
+        return res;
+    }
+
+    public Indicador getUitimoIndicador(List<Indicador> identificadores) {
+        Collections.sort(identificadores, new Comparator<Indicador>() {
+
+            @Override
+            public int compare(Indicador o1, Indicador o2) {
+                return new Integer(o2.getIdIndicador()).compareTo(new Integer(o1.getIdIndicador()));
+            }
+        });
+
+        if (identificadores != null && identificadores.size() > 0) {
+            return identificadores.get(0);
+        }
+        return null;
     }
 
     public void procesoRemplazar(String f, String c, String p, String a) {
@@ -122,9 +164,7 @@ public class GenerarMapa {
         codigo = codigo.replaceAll("rank=\"c\";", c);
         codigo = codigo.replaceAll("rank=\"p\";", p);
         codigo = codigo.replaceAll("rank=\"a\";", a);
-        codigo=codigo.replaceAll("remincross=\"true\";", cargarRelaciones());
-        System.out.println("entrooo: "+"/*relaciones*/");
-        
+        codigo = codigo.replaceAll("remincross=\"true\";", cargarRelaciones());
 
     }
 
@@ -152,10 +192,10 @@ public class GenerarMapa {
             String perspectivaPredeceso = identificarPerspectiva(gerarquia.getPredecesora().getIdPerspectiva().getPerspectiva());
             String sucesora = identificarPerspectiva(gerarquia.getSucesora().getIdPerspectiva().getPerspectiva());
 
-            relaciones += perspectivaPredeceso + gerarquia.getPredecesora().getIdObjetivoEstrategico() + " -> " + sucesora + gerarquia.getSucesora().getIdObjetivoEstrategico()+"; ";
+            relaciones += perspectivaPredeceso + gerarquia.getPredecesora().getIdObjetivoEstrategico() + " -> " + sucesora + gerarquia.getSucesora().getIdObjetivoEstrategico() + "; ";
 
         }
-        System.out.println(relaciones);
+
         return relaciones;
     }
 
@@ -169,7 +209,7 @@ public class GenerarMapa {
         if (perspectiva.equalsIgnoreCase("Procesos internos")) {
             return "p";
         }
-        if (perspectiva.equalsIgnoreCase("Aprendizaje")) {
+        if (perspectiva.equalsIgnoreCase("Aprendizaje y Crecimiento")) {
             return "a";
         }
         return "";
