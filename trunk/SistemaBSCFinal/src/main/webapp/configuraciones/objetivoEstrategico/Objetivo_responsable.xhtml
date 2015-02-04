@@ -5,16 +5,34 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <h:panelGrid columns="2" style="width:100%" >
-        <p:outputLabel value="Responsables" for="idResponsablesText" />
 
-        <p:commandButton id="agregarRepresentanteButton" icon="ui-icon-check" value="Agregar Responsable"
-                         actionListener="#{objetivoEstrategicoController.actualizarListTotalUsuarios}" 
-                         update=":crudObjetivosEstrategicos:wizard:idTab1:representanteForm" oncomplete="PF('representanteDialog').show()"/>
-    </h:panelGrid>
+    <p:dataScroller value="#{objetivoEstrategicoController.itemsResponsable}" 
+                    rendered="#{objetivoEstrategicoController.selected!=null}"
+                    var="item" chunkSize="10" id="dataScrollerResponsables">
+        <f:facet name="header">
+            <h:panelGrid columns="4" style="width:100%" rendered="#{objetivoEstrategicoController.selected!=null}" >
 
+                <p:outputLabel value="RESPONSABLES" />
+                <span class="ui-separator">
+                    <span class="ui-icon  ui-icon-grip-dotted-vertical" />
+                </span>
 
-    <p:dataScroller value="#{objetivoEstrategicoController.listUsuariosObjetivos}" var="item" chunkSize="10" id="idResponsablesText">
+                <p:outputLabel value="Agregar" for="selectOneMenuResponsable"  />
+
+                <p:selectOneMenu id="selectOneMenuResponsable" value="#{objetivoEstrategicoController.usuario}" 
+                                 required="true" requiredMessage="Seleccione al Usuario">
+                    <f:selectItems value="#{objetivoEstrategicoController.filterListResponsable}"
+                                   var="usuarioItem"
+                                   itemValue="#{usuarioItem}"
+                                   itemLabel="#{usuarioItem.nombres} #{usuarioItem.apellidos}"/>
+                    <f:converter binding="#{usuarioConverter}"/>
+                    <p:ajax event="change"  
+                            listener="#{objetivoEstrategicoController.addResponsable()}"
+                            update="dataScrollerResponsables, :growl"/>
+                </p:selectOneMenu>
+
+            </h:panelGrid>
+        </f:facet>
         <h:panelGrid columns="3" style="width:100%" columnClasses="logo,detail,update">
             <p:graphicImage value="http://smartergp-app.com/Images/menu/2.png" width="50" height="50" /> 
 
@@ -30,60 +48,13 @@
                     <h:outputText value="#{item.cargo}" style="color: #26BC85"/>
                 </h:panelGrid>
             </p:outputPanel>
-            <p:commandButton type="button"  icon="ui-icon-closethick" title="Eliminar"/>
+            <p:commandButton icon="ui-icon-closethick" title="Eliminar"
+                             actionListener="#{objetivoEstrategicoController.deleteItemsResponsable(item)}"
+                             update=":crudOE:tabView1:dataScrollerResponsables,:growl"
+                             />
             <span class="ui-separator">
                 <span class="ui-icon  ui-icon-grip-dotted-horizontal" />
             </span>
         </h:panelGrid>
     </p:dataScroller>
-
-    <p:dialog id="representanteDialog" widgetVar="representanteDialog" modal="true" 
-              resizable="false">
-        <h:form id="representanteForm">
-            <h:panelGroup id="display">
-                <p:outputLabel value="Itemtip:" for="itemTip" />
-                
-
-
-                <p:selectOneMenu id="itemTip" value="#{objetivoEstrategicoController.usuario}" 
-                                 required="true" requiredMessage="Seleccione al Usuario">
-                    <f:selectItems value="#{objetivoEstrategicoController.listTotalUsuario}"
-                                   var="usuarioItem"
-                                   itemValue="#{usuarioItem}"
-                                   itemLabel="#{usuarioItem.nombres} #{usuarioItem.apellidos}"/>
-                    <f:converter binding="#{usuarioConverter}"/>
-                    <f:facet name="itemtip">
-                        <h:panelGrid columns="2" cellpadding="5">
-                            <f:facet name="header">
-                                <h:outputText styleClass="ui-theme ui-theme-#{usuarioItem.nombres}" style="margin-left:auto" />
-                            </f:facet>
-
-                            <h:outputText value="Nombres:" />
-                            <h:outputText value="#{usuarioItem.nombres}" />
-
-                            <h:outputText value="Apellidos" />
-                            <h:outputText value="#{usuarioItem.apellidos}" />
-
-                            <h:outputText value="Email:" />
-                            <h:outputText value="#{usuarioItem.email}" />
-
-                            <h:outputText value="Cargo" />
-                            <h:outputText value="#{usuarioItem.cargo}" />
-                        </h:panelGrid>
-                    </f:facet>
-                </p:selectOneMenu>
-
-
-                <p:commandButton id="agregarRepresentanteButton" icon="ui-icon-plus"   value="Agregar"
-                                 actionListener="#{objetivoEstrategicoController.agregarUsuario}" 
-                                 update=":crudObjetivosEstrategicos:wizard:idTab1:idResponsablesText" 
-                                 oncomplete="handleSubmit(args,'representanteDialog');"/>
-
-                <p:commandButton id="cancelarRepresentanteButton" icon="ui-icon-close"   value="Cancelar"
-                                 onclick="representanteDialog.hide()"/>
-            </h:panelGroup>
-
-        </h:form>
-    </p:dialog>
-
 </html>

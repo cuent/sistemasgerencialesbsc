@@ -7,25 +7,25 @@
 
     <p:panelGrid id="bloque2" columns="2" style="width:100%">
         <p:panelGrid columns="2">
-            <p:commandButton id="agregarMetaButton" icon="ui-icon-check"   value="Agregar Meta"
-                             actionListener="#{objetivoEstrategicoController.agregarMeta}" 
-                             update=":crudObjetivosEstrategicos:wizard:idTab1:idMetasText" />
-            <p:inputTextarea id="idMetaText"
-                             value="#{objetivoEstrategicoController.metaNueva.descripcion}"
+            <p:commandButton id="commandButtonAgregarMeta" icon="ui-icon-check"   value="Agregar Meta"
+                             actionListener="#{objetivoEstrategicoController.addMeta}" 
+                             update=":crudOE:tabView1:dataScrollerMeta,inputTextareaMeta" />
+            <p:inputTextarea id="inputTextareaMeta"
+                             value="#{objetivoEstrategicoController.meta.descripcion}"
                              title="Meta nueva"
                              placeholder="Ingrese aqui una meta nueva"/>
         </p:panelGrid>
-        <h:panelGroup id="panelMetas">
-            <p:dataScroller value="#{objetivoEstrategicoController.listMetas}" var="item" chunkSize="10" id="idMetasText">
+        <h:panelGroup id="panelGroupMeta">
+            <p:dataScroller value="#{objetivoEstrategicoController.itemsMeta}" var="item" chunkSize="10" id="dataScrollerMeta">
                 <f:facet name="header">
                     <h:outputText value="METAS"/>
                 </f:facet>
                 <h:panelGrid columns="2" style="width:100%">
 
                     <h:outputText value="#{item.descripcion}"/>
-                    <p:commandButton id="deleteButton" icon="ui-icon-closethick"   
-                                     actionListener="#{objetivoEstrategicoController.eliminarMeta(item)}" 
-                                     update=":crudObjetivosEstrategicos:wizard:idTab1:idMetasText" />
+                    <p:commandButton id="commandButtonEliminarMeta" icon="ui-icon-closethick"   
+                                     actionListener="#{objetivoEstrategicoController.deleteItemsMeta(item)}" 
+                                     update=":crudOE:tabView1:dataScrollerMeta" />
                     <span class="ui-separator">
                         <span class="ui-icon  ui-icon-grip-dotted-horizontal" />
                     </span>
