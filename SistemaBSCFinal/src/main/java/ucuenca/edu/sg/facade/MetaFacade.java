@@ -32,6 +32,6 @@ public class MetaFacade extends AbstractFacade<Meta> {
         public List<Meta> getitemsMeta(Integer idObjetivoEstrategico) {
         Query query = this.em.createNamedQuery(Meta.findByidObjetivoEstrategico);
         query.setParameter("idObjetivoEstrategico", idObjetivoEstrategico);
-            return query.getResultList();
+        return query.getResultList();
     }
 }
