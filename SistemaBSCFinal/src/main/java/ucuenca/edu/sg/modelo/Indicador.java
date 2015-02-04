@@ -46,9 +46,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Indicador.findByMedioMinimo", query = "SELECT i FROM Indicador i WHERE i.medioMinimo = :medioMinimo"),
     @NamedQuery(name = "Indicador.findByMedioMaximo", query = "SELECT i FROM Indicador i WHERE i.medioMaximo = :medioMaximo"),
     @NamedQuery(name = "Indicador.findByAltoMinimo", query = "SELECT i FROM Indicador i WHERE i.altoMinimo = :altoMinimo"),
-    @NamedQuery(name = "Indicador.findByAltoMaximo", query = "SELECT i FROM Indicador i WHERE i.altoMaximo = :altoMaximo")})
+    @NamedQuery(name = "Indicador.findByAltoMaximo", query = "SELECT i FROM Indicador i WHERE i.altoMaximo = :altoMaximo"),
+@NamedQuery(name = "Indicador.findByidObjetivoEstrategico", query = "SELECT i FROM Indicador i WHERE i.idObjetivoEstrategico.idObjetivoEstrategico = :idObjetivoEstrategico")})
 public class Indicador implements Serializable {
     private static final long serialVersionUID = 1L;
+    public static final String findByidObjetivoEstrategico = "Indicador.findByidObjetivoEstrategico";
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)

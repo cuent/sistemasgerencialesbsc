@@ -35,9 +35,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "ComponenteFormula.findAll", query = "SELECT c FROM ComponenteFormula c"),
     @NamedQuery(name = "ComponenteFormula.findByIdComponenteFormula", query = "SELECT c FROM ComponenteFormula c WHERE c.idComponenteFormula = :idComponenteFormula"),
     @NamedQuery(name = "ComponenteFormula.findByFormula", query = "SELECT c FROM ComponenteFormula c WHERE c.formula = :formula"),
-    @NamedQuery(name = "ComponenteFormula.findByUnidad", query = "SELECT c FROM ComponenteFormula c WHERE c.unidad = :unidad")})
+    @NamedQuery(name = "ComponenteFormula.findByUnidad", query = "SELECT c FROM ComponenteFormula c WHERE c.unidad = :unidad")
+        ,
+    @NamedQuery(name = "ComponenteFormula.findByIndicador", query = "SELECT c FROM ComponenteFormula c WHERE c.idIndicador.idIndicador = :idIndicador")})
 public class ComponenteFormula implements Serializable {
     private static final long serialVersionUID = 1L;
+    public static final String findByIndicador = "ComponenteFormula.findByIndicador";
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
