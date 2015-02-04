@@ -13,7 +13,7 @@
 
         <p:panel header="Aconinuacion se muetra todos los Historicos" style="border: 0; width: 80%; margin: 0px auto;">
             <h:form id="CabeceraValorListForm">
-                <p:dataTable id="datalist" value="#{cabeceraValorController.items}" var="item"
+                <p:dataTable id="datalist" value="#{cabeceraValorController.itemsAvailableSelectMany}" var="item"
                              selectionMode="single" selection="#{cabeceraValorController.selected}"
                              paginator="true"
                              paginatorPosition="bottom"
@@ -37,7 +37,7 @@
                             <h:outputText value="Fecha"/>
                         </f:facet>
                         <h:outputText value="#{item.fecha}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            <f:convertDateTime pattern="EEE, dd MMM YYYY    , HH:mm:ss" timeZone="#{cabeceraValorController.timeZone}"/>
                         </h:outputText>
                     </p:column>
 

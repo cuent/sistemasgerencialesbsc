@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.el.ELException;
@@ -87,7 +88,7 @@ public class CabeceraValorController extends AbstractController<CabeceraValor> i
 
     public void iniciar() {
         this.setSelected(new CabeceraValor());
-        this.getSelected().setValorTotal(20.25);
+        this.getSelected().setValorTotal(0.0);
     }
 
     @Override
@@ -95,8 +96,12 @@ public class CabeceraValorController extends AbstractController<CabeceraValor> i
         try {
             Date d = new Date();
             this.getSelected().setFecha(d);
-            System.out.println(this.getSelected().getIdIndicador().getFormula());
-            super.create(); //To change body of generated methods, choose Tools | Templates.
+            System.out.println(d);
+            Date dGMT = cvtToGmt(d);
+
+            System.out.println(d);
+            System.out.println(dGMT);
+            //super.create(); //To change body of generated methods, choose Tools | Templates.
             for (Variable variable : variables) {
 
                 DetalleValorController dvc = new DetalleValorController();
@@ -109,6 +114,20 @@ public class CabeceraValorController extends AbstractController<CabeceraValor> i
             anadirMensaje(2);
         }
 
+    }
+
+    private Date cvtToGmt(Date date) {
+        TimeZone tz = TimeZone.getDefault();
+        Date ret = new Date(date.getTime() - tz.getRawOffset());
+
+        if (tz.inDaylightTime(ret)) {
+            Date dstDate = new Date(ret.getTime() - tz.getDSTSavings());
+
+            if (tz.inDaylightTime(dstDate)) {
+                ret = dstDate;
+            }
+        }
+        return ret;
     }
 
     public void mostrarformula() {
@@ -224,7 +243,7 @@ public class CabeceraValorController extends AbstractController<CabeceraValor> i
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTime(l1.getFecha());
                     String mes_ = (calendar.get(Calendar.MONTH) + 1) + "";
-                    String min = (calendar.get(Calendar.MINUTE) + 1) + "";
+                    String min = (calendar.get(Calendar.DAY_OF_MONTH) + 1) + "";
                     cs.set(Integer.parseInt(min), l1.getValorTotal());
                 }
             }
@@ -265,4 +284,7 @@ public class CabeceraValorController extends AbstractController<CabeceraValor> i
         return model;
     }
 
+    public TimeZone getTimeZone() {
+        return TimeZone.getDefault();
+    }
 }
