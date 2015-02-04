@@ -19,7 +19,7 @@ import ucuenca.edu.sg.modelo.Meta;
 import ucuenca.edu.sg.modelo.ResponsableObjetivo;
 import ucuenca.edu.sg.modelo.ResponsableObjetivoPK;
 
-@ManagedBean(name = "objetivoEstrategicoController")
+@ManagedBean(name = "objetivoController")
 @SessionScoped
 public class ObjetivoEstrategicoController extends AbstractController<ObjetivoEstrategico> implements Serializable {
     
