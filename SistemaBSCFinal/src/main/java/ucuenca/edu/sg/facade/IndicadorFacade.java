@@ -36,4 +36,5 @@ public class IndicadorFacade extends AbstractFacade<Indicador> {
         query.setParameter("idObjetivoEstrategico", idObjetivoEstrategico);
         return query.getResultList();
     }
+    
 }
