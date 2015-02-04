@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import ucuenca.edu.sg.controller.util.GeneracionReportes;
 import ucuenca.edu.sg.modelo.Indicador;
 
 @Named("indicadorController")
@@ -32,7 +33,7 @@ public class IndicadorController extends AbstractController<Indicador> implement
     public List<Indicador> getListaIndicadorFiltrado() {
         return listaIndicadorFiltrado;
     }
-
+   
     public void setListaIndicadorFiltrado(List<Indicador> listaIndicadorFiltrado) {
         this.listaIndicadorFiltrado = listaIndicadorFiltrado;
     }
@@ -52,5 +53,9 @@ public class IndicadorController extends AbstractController<Indicador> implement
     public void setEstructuraFormula(List<String> estructuraFormula) {
         this.estructuraFormula = estructuraFormula;
     }
-
+ public void generarInforme() {
+        List<Indicador> listaGlobales = getItems();
+        GeneracionReportes generarReporte = new GeneracionReportes();
+        generarReporte.generarMatriz(listaGlobales);
+    }
 }

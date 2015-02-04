@@ -34,7 +34,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Valores.findByIdValores", query = "SELECT v FROM Valores v WHERE v.idValores = :idValores"),
     @NamedQuery(name = "Valores.findByFecha", query = "SELECT v FROM Valores v WHERE v.fecha = :fecha"),
     @NamedQuery(name = "Valores.findByValorTotal", query = "SELECT v FROM Valores v WHERE v.valorTotal = :valorTotal")})
+
 public class Valores implements Serializable {
+
+   
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -113,5 +116,5 @@ public class Valores implements Serializable {
     public String toString() {
         return "ucuenca.edu.sg.modelo.Valores[ idValores=" + idValores + " ]";
     }
-    
+
 }

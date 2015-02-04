@@ -24,19 +24,29 @@ public class GerarquiaController extends AbstractController<Gerarquia> implement
     private ucuenca.edu.sg.facade.GerarquiaFacade ejbFacade;
     @EJB
     private ucuenca.edu.sg.facade.ObjetivoEstrategicoFacade ejbObjetivoEstrategicoFacade;
-    
+    private List<Gerarquia> listgerarquia;
+    private Gerarquia gerarquia;
     
     private List<ObjetivoEstrategico> listObjetivosEstrategicos;
     public GerarquiaController() {
+        
     }
 
     @PostConstruct
     public void init() {
         super.setFacade(ejbFacade);
+        setListgerarquia(ejbFacade.findAll());
         setListObjetivosEstrategicos(ejbObjetivoEstrategicoFacade.findAll());
         
     }
+    public void inicarNuevo(){
+      this.setGerarquia(new Gerarquia());
+    }
     
+    public void guadar(){
+        
+      this.create();
+    }
     public void generarMapa(){
        
         try {
@@ -64,6 +74,34 @@ public class GerarquiaController extends AbstractController<Gerarquia> implement
      */
     public void setListObjetivosEstrategicos(List<ObjetivoEstrategico> listObjetivosEstrategicos) {
         this.listObjetivosEstrategicos = listObjetivosEstrategicos;
+    }
+
+    /**
+     * @return the listgerarquia
+     */
+    public List<Gerarquia> getListgerarquia() {
+        return listgerarquia;
+    }
+
+    /**
+     * @param listgerarquia the listgerarquia to set
+     */
+    public void setListgerarquia(List<Gerarquia> listgerarquia) {
+        this.listgerarquia = listgerarquia;
+    }
+
+    /**
+     * @return the gerarquia
+     */
+    public Gerarquia getGerarquia() {
+        return gerarquia;
+    }
+
+    /**
+     * @param gerarquia the gerarquia to set
+     */
+    public void setGerarquia(Gerarquia gerarquia) {
+        this.gerarquia = gerarquia;
     }
     
    

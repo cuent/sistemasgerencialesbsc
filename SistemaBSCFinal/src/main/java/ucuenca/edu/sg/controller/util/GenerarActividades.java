@@ -5,8 +5,16 @@
  */
 package ucuenca.edu.sg.controller.util;
 
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.Chunk;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Image;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Set;
 import java.util.Vector;
@@ -68,32 +76,72 @@ public class GenerarActividades {
         titulo4 = new Titulo4();
     }
 
-    public void generardocumento(List<Actividades> listaGlobales, List<ObjetivoEstrategico> listObjetivo) throws DocumentException {
+    public void generardocumento(List<Actividades> listaGlobales, List<ObjetivoEstrategico> listObjetivo) throws DocumentException, BadElementException, IOException {
         String ruta = getEc().getRealPath("resources");
         System.out.println(ruta);
         documento = new Documento(ruta + "/rep1.pdf");
         documento.setMargins(60, 30, 30, 40);
+        piePaguina();
         documento.open();
         cabezera();
         cuerpo(listaGlobales, listObjetivo);
         documento.close();
     }
 
-    public void cabezera() throws DocumentException {
+    public void cabezera() throws DocumentException, BadElementException, IOException {
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         titulo1.setTexto("INFORME DE TAREA POR OBJETIVO");
         titulo1.getElementoRojo();
         espacioBlanco.getElemento();
-        //imagen.setDir("");
-
-    }
-
-    public void cuerpo(List<Actividades> actividades, List<ObjetivoEstrategico> listObjetivo) throws DocumentException {
-
         documento.add(titulo1.getElemento());
         documento.add(espacioBlanco.getElemento());
+        documento.add(lineaNormal.getLinea());
+        documento.add(espacioBlanco.getElemento());
         documento.add(espacioBlanco.getElemento());
 
-        documento.add(lineaNormal.getElemento());
+        Image foto = Image.getInstance(getEc().getRealPath("resources") + "/img/golden.jpg");
+        foto.scaleToFit(130, 130);
+        foto.setAlignment(Chunk.ALIGN_MIDDLE);
+        documento.add(foto);
+
+        tablaVertical.limpiar();
+        tablaVertical.setTitulos("Nombre Empresa:", "Ubicacion:", "Fecha:");
+
+        tablaVertical.setContenidos(new Object[]{"Gonlden Bringe Corporation S.A ", "Florencia Astudillo 1-28 y Av. 12 de Abril", fecha()});
+
+        tablaVertical.setAlineamientos(new int[]{0, 0});
+        tablaVertical.setAnchoTabla(50);
+        tablaVertical.setPosicion(0);
+        tablaVertical.setTamanos(new int[]{30, 70});
+        tablaVertical.llenarTabla(false);
+        documento.add(tablaVertical.getTabla());
+
+        documento.add(espacioBlanco.getElemento());
+        documento.add(espacioBlanco.getElemento());
+
+    }
+ public String fecha() {
+        //Instanciamos el objeto Calendar
+        //en fecha obtenemos la fecha y hora del sistema
+        Calendar fecha = new GregorianCalendar();
+        //Obtenemos el valor del año, mes, día,
+        //hora, minuto y segundo del sistema
+        //usando el método get y el parámetro correspondiente
+        int año = fecha.get(Calendar.YEAR);
+        int mes = fecha.get(Calendar.MONTH);
+        int dia = fecha.get(Calendar.DAY_OF_MONTH);
+        int hora = fecha.get(Calendar.HOUR_OF_DAY);
+        int minuto = fecha.get(Calendar.MINUTE);
+        int segundo = fecha.get(Calendar.SECOND);
+
+        return dia + "/" + (mes + 1) + "/" + año;
+    }
+    public void cuerpo(List<Actividades> actividades, List<ObjetivoEstrategico> listObjetivo) throws DocumentException {
+
+        
+     
+
+        
         documento.add(espacioBlanco.getElemento());
         int cont = 0;
         documento.add(espacioBlanco.getElemento());
@@ -161,7 +209,10 @@ public class GenerarActividades {
     }
 
     public void piePaguina() {
-
+java.util.Date ahora = new Date();
+        SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        encabezado.setEncabezado("Creado el: " + formateador.format(ahora));
+        documento.getWriter().setPageEvent(encabezado);
     }
 
     /**
