@@ -21,14 +21,6 @@ public class DetalleValorController extends AbstractController<DetalleValor> imp
     public DetalleValorController() {
     }
 
-    public DetalleValorFacade getEjbFacade() {
-        return ejbFacade;
-    }
-
-    public void setEjbFacade(DetalleValorFacade ejbFacade) {
-        this.ejbFacade = ejbFacade;
-    }
-
     @PostConstruct
     public void init() {
         super.setFacade(ejbFacade);

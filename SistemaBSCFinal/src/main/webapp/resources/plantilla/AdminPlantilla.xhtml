@@ -28,7 +28,7 @@
     </h:head>
 
     <h:body>
-       
+
         <div id="top">
 
         </div>
@@ -41,9 +41,11 @@
                 <p:outputLabel value="#{usuarioController.email}" />                
             </div>
             <div style="clear:both;">
-                <h:panelGrid border="0" columns="2" cellspacing="20px" cellpadding="20px">                    
-                    <p:commandLink value="Salir" actionListener="#{usuarioController.logout()}"/>
-                </h:panelGrid>
+                <h:form id="logout">
+                    <h:panelGrid border="0" columns="2" cellspacing="20px" cellpadding="20px">                    
+                        <p:commandLink value="Salir" actionListener="#{usuarioController.logout()}"/>
+                    </h:panelGrid>
+                </h:form>
             </div>
         </div>
         <div>
@@ -72,7 +74,9 @@
                     </h:form>
                 </p:panel>
                 <p:panel header="Calendario" style="border: 0px;">
-                    <p:calendar id="inline" value="#{calendarView.date1}" mode="inline" style="width: 300px; margin-left: 0px;" />
+                    <h:form>
+                        <p:calendar id="inline" value="#{calendarView.date1}" mode="inline" style="width: 300px; margin-left: 0px;" />
+                    </h:form>
                 </p:panel>
             </div>
 

@@ -11,8 +11,8 @@
             <div style="text-align: center; color:#ffffff; font-size: 1.3em;">GRAFICA</div>
         </div>
         <p:chart type="line" model="#{cabeceraValorController.lineModel2}" style="height:300px;"/>
-
-        <p:commandButton id="createButton" action="http://localhost:8080/SistemaBSCFinal/faces/configuraciones/crearValor/inicio.xhtml" icon="ui-icon-arrowrefresh-1-e"   value="Actualizar"/>
-
+        <h:form>
+            <p:commandButton id="createButton" action="http://localhost:8080/SistemaBSCFinal/faces/configuraciones/crearValor/inicio.xhtml" icon="ui-icon-arrowrefresh-1-e"   value="Actualizar"/>
+        </h:form>
     </ui:composition>
 </html>

@@ -13,7 +13,7 @@
 
         <p:panel header="Ingreso del Valor Actual" style="border: 0; width: 80%; margin: 0px auto;">
             <h:form id="CabeceraValorCreateForm">
-                <p:growl id="growl" showDetail="true" sticky="true" /> 
+                <p:growl id="growl" showDetail="true" sticky="false" life="1000"/> 
                 #{cabeceraValorController.iniciar()}
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2">
@@ -53,9 +53,10 @@
                         </p:dataTable>
 
                     </p:panelGrid>
-                    <p:commandButton value="Guardar" id="guardar" actionListener="#{cabeceraValorController.create}" update="display,growl" icon="ui-icon-circle-check" />
-                    <p:commandButton id="createButton" action="http://localhost:8080/SistemaBSCFinal/faces/configuraciones/crearValor/inicio.xhtml" icon="ui-icon-arrowrefresh-1-e"   value="Actualizar" update=":CabeceraValorCreateForm"/>
-
+                    <p:commandButton value="Guardar" id="guardar" actionListener="#{cabeceraValorController.create}" update="display,growl,:CabeceraValorListForm:datalist" icon="ui-icon-circle-check" />
+                    
+                    <p:commandButton id="createButton" icon="ui-icon-arrowrefresh-1-e"   value="Nuevo" update=":CabeceraValorCreateForm"/>
+                    
                 </h:panelGroup>
             </h:form>
         </p:panel>

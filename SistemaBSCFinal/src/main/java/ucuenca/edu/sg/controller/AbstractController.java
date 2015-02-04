@@ -120,7 +120,7 @@ public abstract class AbstractController<T> {
                 String msg = "";
                 if (persistAction != PersistAction.DELETE) {
                     this.ejbFacade.edit(selected);
-                    JsfUtil.addSuccessMessage(successMessage);
+                    //JsfUtil.addSuccessMessage(successMessage);
                 } else {
                     this.ejbFacade.remove(selected);
                     JsfUtil.addSuccessMessage(successMessage);
