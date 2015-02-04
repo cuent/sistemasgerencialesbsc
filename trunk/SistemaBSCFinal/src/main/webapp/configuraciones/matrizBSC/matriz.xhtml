@@ -78,11 +78,7 @@
                     <f:facet name="header">
                         <h:outputText value="Valor"/>
                     </f:facet>
-                     <p:dataList value="#{item.indicadorList}" var="ind" type="ordered">
-                        <h:outputText value="#{ind}"/>
-                          
-                    </p:dataList>
-                    
+                    <h:outputText value="#{matrizBSCController.cargarValor(item)}"/>
                 </p:column>
                 <p:column >
                     <f:facet name="header">
