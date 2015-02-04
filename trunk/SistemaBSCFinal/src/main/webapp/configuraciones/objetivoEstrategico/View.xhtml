@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="IndicadorViewDlg" widgetVar="IndicadorViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewIndicadorTitle}">
+            <h:form id="IndicadorViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{indicadorController.selected != null}">
+                        <h:outputText value="#{bundle.ViewIndicadorLabel_idIndicador}"/>
+                        <h:outputText value="#{indicadorController.selected.idIndicador}" title="#{bundle.ViewIndicadorTitle_idIndicador}"/>
+                        <h:outputText value="#{bundle.ViewIndicadorLabel_aclaracion}"/>
+                        <h:outputText value="#{indicadorController.selected.aclaracion}" title="#{bundle.ViewIndicadorTitle_aclaracion}"/>
+                        <h:outputText value="#{bundle.ViewIndicadorLabel_conceptualizacion}"/>
+                        <h:outputText value="#{indicadorController.selected.conceptualizacion}" title="#{bundle.ViewIndicadorTitle_conceptualizacion}"/>
+                        <h:outputText value="#{bundle.ViewIndicadorLabel_nombreIndicador}"/>
+                        <h:outputText value="#{indicadorController.selected.nombreIndicador}" title="#{bundle.ViewIndicadorTitle_nombreIndicador}"/>
+                        <h:outputText value="#{bundle.ViewIndicadorLabel_unidades}"/>
+                        <h:outputText value="#{indicadorController.selected.unidades}" title="#{bundle.ViewIndicadorTitle_unidades}"/>
+                        <h:outputText value="#{bundle.ViewIndicadorLabel_formula}"/>
+                        <h:outputText value="#{indicadorController.selected.formula}" title="#{bundle.ViewIndicadorTitle_formula}"/>
+                        <h:outputText value="#{bundle.ViewIndicadorLabel_periodicidad}"/>
+                        <h:outputText value="#{indicadorController.selected.periodicidad}" title="#{bundle.ViewIndicadorTitle_periodicidad}"/>
+                        <h:outputText value="#{bundle.ViewIndicadorLabel_estadoActual}"/>
+                        <h:outputText value="#{indicadorController.selected.estadoActual}" title="#{bundle.ViewIndicadorTitle_estadoActual}"/>
+                        <h:outputText value="#{bundle.ViewIndicadorLabel_bajoMinimo}"/>
+                        <h:outputText value="#{indicadorController.selected.bajoMinimo}" title="#{bundle.ViewIndicadorTitle_bajoMinimo}"/>
+                        <h:outputText value="#{bundle.ViewIndicadorLabel_bajoMaximo}"/>
+                        <h:outputText value="#{indicadorController.selected.bajoMaximo}" title="#{bundle.ViewIndicadorTitle_bajoMaximo}"/>
+                        <h:outputText value="#{bundle.ViewIndicadorLabel_medioMinimo}"/>
+                        <h:outputText value="#{indicadorController.selected.medioMinimo}" title="#{bundle.ViewIndicadorTitle_medioMinimo}"/>
+                        <h:outputText value="#{bundle.ViewIndicadorLabel_medioMaximo}"/>
+                        <h:outputText value="#{indicadorController.selected.medioMaximo}" title="#{bundle.ViewIndicadorTitle_medioMaximo}"/>
+                        <h:outputText value="#{bundle.ViewIndicadorLabel_altoMinimo}"/>
+                        <h:outputText value="#{indicadorController.selected.altoMinimo}" title="#{bundle.ViewIndicadorTitle_altoMinimo}"/>
+                        <h:outputText value="#{bundle.ViewIndicadorLabel_altoMaximo}"/>
+                        <h:outputText value="#{indicadorController.selected.altoMaximo}" title="#{bundle.ViewIndicadorTitle_altoMaximo}"/>
+                        <h:outputText value="#{bundle.ViewIndicadorLabel_idObjetivoEstrategico}"/>
+                        <h:outputText value="#{indicadorController.selected.idObjetivoEstrategico}" title="#{bundle.ViewIndicadorTitle_idObjetivoEstrategico}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="IndicadorViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="../../resources/plantilla/AdminPlantilla.xhtml">
+        <p:growl id="growl" showDetail="true" life="2000"/>
+        <ui:define name="content">
+            <p:toolbar styleClass="btn-toolbar" >
+
+                    <f:facet name="left">
+                        
+
+                        <p:selectOneMenu id="selectOE" value="#{indicadorController.selectedd}" effect="blind" >
+                            <f:selectItem noSelectionOption="false"/>
+                            <f:selectItems value="#{objetivoEstrategicoController.itemsAvailableSelectMany}"
+                                           var="itemOE"
+                                           itemValue="#{itemOE}"
+                                           itemLabel="#{itemOE.objetivo}"/>
+                            <f:converter binding="#{objetivoEstrategicoConverter}"/>
+                            <p:ajax event="change"  
+                                    listener="#{objetivoEstrategicoController.faceUpdateAll()}"
+                                    update="IndicadorListForm"
+                                    />
+                        </p:selectOneMenu></f:facet>
+                </p:toolbar>
+            <h:form id="IndicadorListForm">
+                <p:panel header="#{bundle.ListIndicadorTitle}">
+                    <p:dataTable id="datalist" value="#{indicadorController.items}" var="item"
+                                 selectionMode="single" selection="#{indicadorController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.idIndicador}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton editButton deleteButton"/>
+
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListIndicadorTitle_nombreIndicador}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombreIndicador}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListIndicadorTitle_unidades}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.unidades}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListIndicadorTitle_formula}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.formula}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListIndicadorTitle_periodicidad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.periodicidad}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListIndicadorTitle_estadoActual}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.estadoActual}"/>
+                        </p:column>
+                        <p:column>
+                            <h:panelGrid columns="3" cellpadding="10">
+                                <p:outputPanel >
+                                    <p:outputLabel value="Min" for="idBajoMinText" style="color: #FF0000"/>
+                                    <p:inputText id="idBajoMinText"
+                                                 style="background-color: #ebcccc; size: auto"
+                                                 value="#{item.bajoMinimo}"
+                                                 title="Minimo"
+                                                 placeholder="Valor minimo"/>
+                                </p:outputPanel>
+                                <p:graphicImage value="../../resources/img/rojo.png" width="40" height="40" /> 
+                                <p:outputPanel >
+                                    <p:outputLabel value="Max" for="idBajoMaxText" style="color: #FF0000"/>
+                                    <p:inputText id="idBajoMaxText"
+                                                 style="background-color: #ebcccc; size: auto"
+                                                 value="#{item.altoMinimo}"
+                                                 title="Maximo"
+                                                 placeholder="Valor maximo"/>
+                                </p:outputPanel>
+                                <p:outputPanel >
+                                    <p:outputLabel value="Min" for="idMedioMinText" style="color: #FFCC00"/>
+                                    <p:inputText id="idMedioMinText"
+                                                 style="background-color: #EAEA95; size: auto"
+                                                 value="#{item.medioMinimo}"
+                                                 title="Minimo"
+                                                 placeholder="Valor minimo"/>
+                                </p:outputPanel>
+                                <p:graphicImage value="../../resources/img/amarillo.png" width="40" height="40" /> 
+                                <p:outputPanel >
+                                    <p:outputLabel value="Max" for="idMedioMaxText" style="color: #FFCC00"/>
+                                    <p:inputText id="idMedioMaxText"
+                                                 style="background-color: #EAEA95; size: auto"
+                                                 value="#{item.medioMaximo}"
+                                                 title="Maximo"
+                                                 placeholder="Valor maximo"/>
+                                </p:outputPanel>
+                                <p:outputPanel >
+                                    <p:outputLabel value="Min" for="idAltoMinText" style="color: #009933"/>
+                                    <p:inputText id="idAltoMinText"
+                                                 style="background-color: #6ADA6A; size: auto"
+                                                 value="#{item.bajoMaximo}"
+                                                 title="Minimo"
+                                                 placeholder="Valor minimo"/>
+                                </p:outputPanel>
+                                <p:graphicImage value="../../resources/img/verde.png" width="40" height="40" /> 
+                                <p:outputPanel >
+                                    <p:outputLabel value="Max" for="idAltoMaxText" style="color: #009933"/>
+                                    <p:inputText id="idAltoMaxText"
+                                                 style="background-color: #6ADA6A; size: auto"
+                                                 value="#{item.altoMaximo}"
+                                                 title="Maximo"
+                                                 placeholder="Valor maximo"/>
+                                </p:outputPanel>
+                            </h:panelGrid>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{indicadorController.prepareCreate}" update=":IndicadorCreateForm" oncomplete="PF('IndicadorCreateDialog').show()"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" rendered="false" value="#{bundle.Edit}" update=":IndicadorEditForm" oncomplete="PF('IndicadorEditDialog').show()" disabled="#{empty indicadorController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  rendered="false" value="#{bundle.Delete}" actionListener="#{indicadorController.destroy}" update="datalist" disabled="#{empty indicadorController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>
