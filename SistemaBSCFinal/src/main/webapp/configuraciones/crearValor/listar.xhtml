@@ -22,9 +22,6 @@
                              rowsPerPageTemplate="10,20,30,40,50"
                              filteredValue="#{cabeceraValorController.filtroCabeceras}"
                              >
-                    <f:facet name="footer">
-                        <p:commandButton id="createButton" action="http://localhost:8080/SistemaBSCFinal/faces/configuraciones/crearValor/inicio.xhtml" icon="ui-icon-arrowrefresh-1-e"   value="Actualizar" update=":CabeceraValorCreateForm"/>
-                    </f:facet>
                     <p:column sortBy="#{item.idIndicador.nombreIndicador}" filterBy="#{item.idIndicador.nombreIndicador}" filterMatchMode="contains">
                         <f:facet name="header">
                             <h:outputText value="Nombre Indicador"/>
