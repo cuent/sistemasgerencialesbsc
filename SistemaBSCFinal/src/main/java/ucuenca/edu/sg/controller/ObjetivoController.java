@@ -470,9 +470,9 @@ public class ObjetivoController implements Serializable {
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
-        //createResponsable();
-        //createMeta();
-        //createIndicador();
+        createResponsable();
+        createMeta();
+       // createIndicador();
         //createComponenteFormula();
     }
 
