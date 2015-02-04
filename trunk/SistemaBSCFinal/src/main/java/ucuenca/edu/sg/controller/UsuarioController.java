@@ -55,7 +55,21 @@ public class UsuarioController extends AbstractController<Usuario> implements Se
     public boolean permisos() {
         System.out.println(ConnectUsuario.getTipoUsuario());
         return ConnectUsuario.getTipoUsuario() == 'A';
-
+    }
+    
+    public boolean permisosIngreso() {
+        System.out.println(ConnectUsuario.getTipoUsuario());
+        if(ConnectUsuario.getTipoUsuario() == 'I' || ConnectUsuario.getTipoUsuario() == 'A'){
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean permisosConsulta() {
+        if(ConnectUsuario.getTipoUsuario() == 'C' || ConnectUsuario.getTipoUsuario() == 'A'){
+            return true;
+        }
+        return false;            
     }
 
     public void validarMail() {
@@ -79,9 +93,8 @@ public class UsuarioController extends AbstractController<Usuario> implements Se
                 getSelected().setContrasena(null);
                 contrasena = null;
             } else {
-                System.out.println("Pass correcto");
+                System.out.println("Pass correcto: "+contrasena);
                 Mensaje.addSatisfactorio("Pass correcto");
-
             }
             confirmaContrasena = null;
         }
@@ -89,6 +102,7 @@ public class UsuarioController extends AbstractController<Usuario> implements Se
 
     public void validarConfirmacionContrasena() {
         if (contrasena != null) {
+            System.out.println(confirmaContrasena);
             if (confirmaContrasena != null) {
                 if (!contrasena.equals(confirmaContrasena)) {
                     System.out.println("no coinciden las pass");

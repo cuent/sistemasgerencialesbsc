@@ -55,7 +55,7 @@
                             <p:outputLabel value="Reingrese Contrasena" for="recontrasena" />
                             <p:inputText id="recontrasena" 
                                          type="password" 
-                                         value="#{usuarioController.selected.contrasena}" 
+                                         value="#{usuarioController.confirmaContrasena}"
                                          title="#{bundle.CreateUsuarioTitle_contrasena}" 
                                          required="true" 
                                          requiredMessage="#{bundle.CreateUsuarioRequiredMessage_contrasena}">
@@ -74,7 +74,8 @@
                                              value="#{usuarioController.selected.tipoUsuario}"
                                              required="true" >
                                 <f:selectItem itemLabel="Administrador" itemValue="A" />  
-                                <f:selectItem itemLabel="Cliente" itemValue="C" /> 
+                                <f:selectItem itemLabel="Usuario de Consulta" itemValue="C" /> 
+                                <f:selectItem itemLabel="Usuario de Ingreso de Valores" itemValue="I" /> 
                             </p:selectOneMenu>
 
                         </h:panelGrid>

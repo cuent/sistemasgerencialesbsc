@@ -51,22 +51,22 @@
                 <p:panel header="Menu" style="border: 0px;">
                     <h:form>
                         <p:menu style="width: 280px; margin-left: 0px; border: 0px;"  >
-                            <p:submenu label="Registros" rendered="#{usuarioController.permisos()}">                                
-                                <p:menuitem value="Perspectivas" url="http://localhost:8080/SistemaBSCFinal/faces/configuraciones/perspectiva/inicio.xhtml"  icon="ui-icon-disk" />                                
-                                <p:menuitem value="Estrategias Globales" url="http://localhost:8080/SistemaBSCFinal/faces/configuraciones/estrategiasGlobales/inicio.xhtml"  icon="ui-icon-disk" />
-                                <p:menuitem value="Objetivo Estrategico" url="http://localhost:8080/SistemaBSCFinal/faces/configuraciones/objetivoEstrategico/Inicio.xhtml"  icon="ui-icon-disk" />                                
-                                <p:menuitem value="Registro de Usuarios" url="http://localhost:8080/SistemaBSCFinal/faces/configuraciones/usuario/inicio.xhtml"  icon="ui-icon-person" />
-                                <p:menuitem value="Actividades" url="http://localhost:8080/SistemaBSCFinal/faces/configuraciones/actividades/inicio.xhtml"  icon="ui-icon-disk" />
+                            <p:submenu label="Registros">                                
+                                <p:menuitem rendered="#{usuarioController.permisos()}" value="Perspectivas" url="http://localhost:8080/SistemaBSCFinal/faces/configuraciones/perspectiva/inicio.xhtml"  icon="ui-icon-disk" />                                
+                                <p:menuitem rendered="#{usuarioController.permisos()}" value="Estrategias Globales" url="http://localhost:8080/SistemaBSCFinal/faces/configuraciones/estrategiasGlobales/inicio.xhtml"  icon="ui-icon-disk" />
+                                <p:menuitem rendered="#{usuarioController.permisos()}" value="Objetivo Estrategico" url="http://localhost:8080/SistemaBSCFinal/faces/configuraciones/objetivoEstrategico/Inicio.xhtml"  icon="ui-icon-disk" />                                
+                                <p:menuitem rendered="#{usuarioController.permisos()}" value="Registro de Usuarios" url="http://localhost:8080/SistemaBSCFinal/faces/configuraciones/usuario/inicio.xhtml"  icon="ui-icon-person" />
+                                <p:menuitem rendered="#{usuarioController.permisos()}" value="Actividades" url="http://localhost:8080/SistemaBSCFinal/faces/configuraciones/actividades/inicio.xhtml"  icon="ui-icon-disk" />
+                                <p:menuitem rendered="#{usuarioController.permisosIngreso()}" value="Valor actual" url="http://localhost:8080/SistemaBSCFinal/faces/configuraciones/crearValor/inicio.xhtml" ajax="false" icon="ui-icon-note"/>
                             </p:submenu>
                             <p:submenu label="Consultas">
-                                <p:menuitem value="Reportes" url="http://localhost:8080/SistemaBSCFinal/faces/configuraciones/reporte/inicio.xhtml" ajax="false" icon="ui-icon-note"/>
-                                <p:menuitem value="Indicadores" url="http://localhost:8080/SistemaBSCFinal/faces/configuraciones/consultasIndicador/inicio.xhtml" ajax="false" icon="ui-icon-note"/>                                
-                                <p:menuitem value="Matriz BSC" url="http://localhost:8080/SistemaBSCFinal/faces/configuraciones/matrizBSC/inicio.xhtml" ajax="false" icon="ui-icon-note"/>
-                                <p:menuitem value="Valor actual" url="http://localhost:8080/SistemaBSCFinal/faces/configuraciones/crearValor/inicio.xhtml" ajax="false" icon="ui-icon-note"/>
-                                
+                                <p:menuitem rendered="#{usuarioController.permisosConsulta()}" value="Reportes" url="http://localhost:8080/SistemaBSCFinal/faces/configuraciones/reporte/inicio.xhtml" ajax="false" icon="ui-icon-note"/>
+                                <p:menuitem rendered="#{usuarioController.permisosConsulta()}" value="Indicadores" url="http://localhost:8080/SistemaBSCFinal/faces/configuraciones/consultasIndicador/inicio.xhtml" ajax="false" icon="ui-icon-note"/>                                
+                                <p:menuitem rendered="#{usuarioController.permisosConsulta()}" value="Matriz BSC" url="http://localhost:8080/SistemaBSCFinal/faces/configuraciones/matrizBSC/inicio.xhtml" ajax="false" icon="ui-icon-note"/>
+                                                                
                             </p:submenu>
                             <p:submenu label="Mapa Estrategico">
-                                <p:menuitem value="Mapa Estrategico" url="http://localhost:8080/SistemaBSCFinal/faces/configuraciones/mapaEstrategico/inicio.xhtml" />                                
+                                <p:menuitem rendered="#{usuarioController.permisosConsulta()}" value="Mapa Estrategico" url="http://localhost:8080/SistemaBSCFinal/faces/configuraciones/mapaEstrategico/inicio.xhtml" />                                
                             </p:submenu>
                         </p:menu>
                     </h:form>
