@@ -85,7 +85,7 @@ public class ObjetivoController implements Serializable {
             itemsIndicador = new ArrayList<>();
             itemsComponenteFormula = new ArrayList<>();
 
-            this.setSelected(new ObjetivoEstrategico());
+            selected = new ObjetivoEstrategico();
             usuario = new Usuario();
 
             componenteFormula = new ComponenteFormula();
@@ -125,21 +125,33 @@ public class ObjetivoController implements Serializable {
 
             switchIndicador = true;
         }
-        itemsRealIndicador = new ArrayList<>();
         itemsRealComponenteFormula = new ArrayList<>();
-
+        JsfUtil.addSuccessMessage("Indicadores: REAL:" + itemsRealIndicador.size() + "MEMORIA: " + itemsIndicador.size());
     }
 
     public void addResponsable() {
         JsfUtil.addSuccessMessage("Si ingreeso a addResponsable()");
         if (itemsResponsable != null) {
+            for (Usuario item : itemsResponsable) {
+                if (item.getEmail().equals(usuario.getEmail())) {
+                    JsfUtil.addSuccessMessage("Responsables: REAL:" + itemsRealResponsable.size() + "MEMORIA: " + itemsResponsable.size());
+                    return;
+                }
+            }
             itemsResponsable.add(usuario);
         }
+        JsfUtil.addSuccessMessage("Responsables: REAL:" + itemsRealResponsable.size() + "MEMORIA: " + itemsResponsable.size());
     }
 
     public void addMeta() {
         JsfUtil.addSuccessMessage("Si ingreeso a addMeta()");
         if (itemsMeta != null && meta != null && meta.getDescripcion() != null) {
+            for (Meta item : itemsMeta) {
+                if (item.getDescripcion().equals(meta.getDescripcion())) {
+                    JsfUtil.addSuccessMessage("Meta: REAL:" + itemsRealMeta.size() + "MEMORIA: " + itemsMeta.size());
+                    return;
+                }
+            }
             itemsMeta.add(meta);
         }
         meta = new Meta();
@@ -147,14 +159,25 @@ public class ObjetivoController implements Serializable {
 
     public void addIndicador() {
         JsfUtil.addSuccessMessage("Si ingreeso a addIndicador()");
-        System.out.println("indicador: " + indicador.getIdIndicador());
+        JsfUtil.addSuccessMessage("Datos: id  " + indicador.getIdIndicador() + " nom:" + indicador.getNombreIndicador());
         if (itemsIndicador != null && indicador != null
                 && indicador.getNombreIndicador() != null
                 && indicador.getIdIndicador() == null) {
             itemsIndicador.add(indicador);
             System.out.println("Si es nuevo");
+        } else if (itemsIndicador != null && indicador != null
+                && indicador.getNombreIndicador() != null
+                && indicador.getIdIndicador() != null) {
+            for (Indicador item : itemsIndicador) {
+                if (item.getIdIndicador().equals(indicador.getIdIndicador())) {
+                    itemsIndicador.remove(item);
+                    itemsIndicador.add(indicador);
+                    break;
+                }
+            }
         }
         indicador = new Indicador();
+        JsfUtil.addSuccessMessage("Indicadores: REAL:" + itemsRealIndicador.size() + "MEMORIA: " + itemsIndicador.size());
     }
 
     public void addComponenteFormula() {
@@ -170,6 +193,7 @@ public class ObjetivoController implements Serializable {
         System.out.println("oe: " + this.getSelected().getIdObjetivoEstrategico());
         //System.out.println("Tamano: "+ejbResponsableObjetivoFacade.getitemsObjetivoResponsable(this.getSelected().getIdObjetivoEstrategico()));
         itemsResponsable.addAll(ejbResponsableObjetivoFacade.getitemsObjetivoResponsable(this.getSelected().getIdObjetivoEstrategico()));
+
     }
 
     public void updateItemsMeta() {
@@ -185,6 +209,7 @@ public class ObjetivoController implements Serializable {
         if (indicador.getIdIndicador() != null) {
             itemsComponenteFormula.addAll(ejbComponenteFormulaFacade.getitemsComponenteFormula(indicador.getIdIndicador()));
         }
+        JsfUtil.addSuccessMessage("Indicadores: REAL:" + itemsRealIndicador.size() + "MEMORIA: " + itemsIndicador.size());
     }
 
     public void updateItemsIndicador() {
@@ -210,16 +235,17 @@ public class ObjetivoController implements Serializable {
         itemsMeta.remove(meta);
     }
 
-    private Integer idOE = 0;
+    //private Integer idOE = 0;
 
     public void faceUpdateAll() {
+        ObjetivoEstrategico oe = new ObjetivoEstrategico();
         boolean llave = switchObjetivo;
         boolean llave1 = switchIndicador;
         JsfUtil.addSuccessMessage("faceUpdateAll()");
-        idOE = selected.getIdObjetivoEstrategico();
+        oe = selected;
         this.init();
-        System.out.println("clave: " + idOE);
-        this.setSelected(ejbFacade.find(idOE));
+        System.out.println("clave: " + oe);
+       selected= oe;
 
         updateItemsResponsable();
         updateItemsMeta();
@@ -277,6 +303,10 @@ public class ObjetivoController implements Serializable {
                 ejbResponsableObjetivoFacade.remove(pob);
             }
         }
+        for (Usuario actualizar : itemsResponsable) {
+            ResponsableObjetivo pob = ejbResponsableObjetivoFacade.getObjetivoEstrategicoResponsable(actualizar.getIdUsuario(), this.getSelected().getIdObjetivoEstrategico());
+            ejbResponsableObjetivoFacade.edit(pob);
+        }
 //        if (!JsfUtil.isValidationFailed()) {
 //            items = null;    // Invalidate list of items to trigger re-query.
 //        }
@@ -310,6 +340,10 @@ public class ObjetivoController implements Serializable {
                 ejbMetaFacade.remove(eliminar);
             }
         }
+        for (Meta actualizar : itemsMeta) {
+            actualizar.setIdObjetivoEstrategico(this.getSelected());
+            ejbMetaFacade.edit(actualizar);
+        }
 //        if (!JsfUtil.isValidationFailed()) {
 //            items = null;    // Invalidate list of items to trigger re-query.
 //        }
@@ -318,6 +352,9 @@ public class ObjetivoController implements Serializable {
     public void createIndicador() {
 
         JsfUtil.addSuccessMessage("createIndicador()");
+        for (Indicador i : itemsIndicador) {
+            System.out.println("Indicado: " + i.toString());
+        }
         if ((itemsRealIndicador == null || itemsRealIndicador.isEmpty()) && itemsIndicador != null) {
             for (Indicador crear : itemsIndicador) {
                 crear.setIdObjetivoEstrategico(this.getSelected());
@@ -465,14 +502,21 @@ public class ObjetivoController implements Serializable {
 
     public void create() {
         JsfUtil.addSuccessMessage("create()");
-
+       if(ejbFacade.getObjetivoEstrategico(selected.getIdObjetivoEstrategico())!=null){
+           System.out.println("Es nulo" + selected);
+           return;
+       }
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ObjetivoEstrategicoCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
-        createResponsable();
-        createMeta();
-       // createIndicador();
+        selected = ejbFacade.getObjetivoEstrategico(selected.getObjetivo());
+        System.out.println("ANTES");
+        this.createResponsable();
+        System.out.println("INTERMEDIO");
+        this.createMeta();
+        System.out.println("FINAL");
+        // createIndicador();
         //createComponenteFormula();
     }
 
