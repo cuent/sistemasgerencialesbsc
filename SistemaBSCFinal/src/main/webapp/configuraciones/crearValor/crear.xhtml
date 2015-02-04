@@ -53,12 +53,16 @@
                         </p:dataTable>
 
                     </p:panelGrid>
-                    <p:commandButton value="Guardar" id="guardar" actionListener="#{cabeceraValorController.create}" update="display,growl,:CabeceraValorListForm:datalist" icon="ui-icon-circle-check" />
-                    
-                    <p:commandButton id="createButton" icon="ui-icon-arrowrefresh-1-e"   value="Nuevo" update=":CabeceraValorCreateForm"/>
-                    
+                    <p:commandButton value="Guardar" id="guardar" actionListener="#{cabeceraValorController.create}" update="display,growl,:CabeceraValorListForm:datalist,:graficarForm:graficoLinea" icon="ui-icon-circle-check" />
+
+
                 </h:panelGroup>
             </h:form>
+            <p:dialog id="cvcDlg" widgetVar="cvcDialog" resizable="false" appendTo="@(body)" header="Crear">
+                <h:form id="cvcForm">
+                    <p:commandButton id="createButton" icon="ui-icon-arrowrefresh-1-e"   value="Nuevo" update=":CabeceraValorCreateForm"/>
+                </h:form>
+            </p:dialog>
         </p:panel>
     </ui:composition>
 </html>

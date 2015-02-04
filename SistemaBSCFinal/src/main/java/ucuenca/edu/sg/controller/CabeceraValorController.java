@@ -3,6 +3,7 @@ package ucuenca.edu.sg.controller;
 import ucuenca.edu.sg.modelo.CabeceraValor;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -28,6 +29,7 @@ import org.primefaces.model.chart.CartesianChartModel;
 import org.primefaces.model.chart.CategoryAxis;
 import org.primefaces.model.chart.LineChartModel;
 import org.primefaces.model.chart.ChartSeries;
+import org.primefaces.model.chart.DateAxis;
 import org.primefaces.model.chart.LineChartSeries;
 import ucuenca.edu.sg.formula.Formula;
 import ucuenca.edu.sg.formula.Variable;
@@ -205,14 +207,24 @@ public class CabeceraValorController extends AbstractController<CabeceraValor> i
 
     private void createLineModels() {
         lineModel2 = initCategoryModel();
-        lineModel2.setTitle("Grafica");
+        lineModel2.setTitle("Grafica Valor Actual por Día");
         lineModel2.setLegendPosition("e");
+        lineModel2.setZoom(true);
         lineModel2.setShowPointLabels(true);
-        lineModel2.getAxes().put(AxisType.X, new CategoryAxis("Fechas"));
-        Axis yAxis = lineModel2.getAxis(AxisType.Y);
-        yAxis.setLabel("Valor Total");
-        yAxis.setMin(0);
-        yAxis.setMax(200);
+        //lineModel2.getAxes().put(AxisType.X, new CategoryAxis("Dia"));
+        lineModel2.getAxis(AxisType.Y).setLabel("Valores");
+        //Eje X
+        DateAxis axis = new DateAxis("Día");
+        axis.setTickAngle(-50);
+        //axis.setMax("2015-08-01");
+        axis.setTickFormat("%#d %b, %y");
+        lineModel2.getAxes().put(AxisType.X, axis);
+
+        //Eje Y
+//        Axis yAxis = lineModel2.getAxis(AxisType.Y);
+//        yAxis.setLabel("Valor Total");
+//        yAxis.setMin(0);
+//        yAxis.setMax(200);
     }
 
     private LineChartModel initCategoryModel() {
@@ -226,30 +238,25 @@ public class CabeceraValorController extends AbstractController<CabeceraValor> i
         LineChartModel model = new LineChartModel();
         Iterator it = hm.entrySet().iterator();
 
-//        ChartSeries boys = new ChartSeries();
-//        boys.setLabel("Boys");
-//        boys.set("2004", 120);
-//        boys.set("2005", 100);
-//        boys.set("2006", 44);
-//        boys.set("2007", 150);
-//        boys.set("2008", 25);
         while (it.hasNext()) {
             Map.Entry e = (Map.Entry) it.next();
             System.out.println(e.getKey() + " " + e.getValue());
-            ChartSeries cs = new ChartSeries();
+            LineChartSeries cs = new LineChartSeries();
             cs.setLabel(e.getKey() + "");
             for (CabeceraValor l1 : l) {
                 if (e.getKey().equals(l1.getIdIndicador().getNombreIndicador())) {
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTime(l1.getFecha());
+                    //SimpleDateFormat format1 = new SimpleDateFormat("EEE, dd MMM YYYY");
+                    SimpleDateFormat format1 = new SimpleDateFormat("YYYY-MM-dd");
+                    String conFormato = format1.format(calendar.getTime());
                     String mes_ = (calendar.get(Calendar.MONTH) + 1) + "";
                     String min = (calendar.get(Calendar.DAY_OF_MONTH) + 1) + "";
-                    cs.set(Integer.parseInt(min), l1.getValorTotal());
+                    cs.set(conFormato, l1.getValorTotal());
                 }
             }
             model.addSeries(cs);
         }
-        //model.addSeries(boys);
         return model;
     }
 
