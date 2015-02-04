@@ -30,7 +30,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <h:outputScript library="js" name="megamenu.js"/> 
 
 
-            <script>$(document).ready(function () {
+            <script>$(document).ready(function() {
                     $(".megamenu").megamenu();
                 });</script>
             <h:outputScript library="js" name="menu_jquery.js"/> 
@@ -38,7 +38,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <h:outputScript library="js" name="jquery.etalage.min.js"/> 
 
             <script>
-                jQuery(document).ready(function ($) {
+                jQuery(document).ready(function($) {
 
                     $('#etalage').etalage({
                         thumb_image_width: 300,
@@ -46,7 +46,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         source_image_width: 800,
                         source_image_height: 1000,
                         show_hint: true,
-                        click_callback: function (image_anchor, instance_id) {
+                        click_callback: function(image_anchor, instance_id) {
                             alert('Callback example:\nYou clicked on an image with the anchor: "' + image_anchor + '"\n(in Etalage instance: "' + instance_id + '")');
                         }
                     });
@@ -59,7 +59,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <script src="resources/js/menu_jquery.js"></script>
         </h:head>
         <h:body>
-             
+
             <!-- header <p:growl id="mensaje" showDetail="true" life="2000"/>-->
             <div class="header">
                 <div class="top_bg">
@@ -93,7 +93,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                                     </p:inputText>
                                                 </div>
                                             </fieldset>
-                                            
+
                                             <p:inputText id="login"
                                                          type="submit"
                                                          value="Sign in"
@@ -128,8 +128,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             </div>
             <!-- script-for-nav -->
             <script>
-                $("span.menu").click(function () {
-                    $(".head-nav ul").slideToggle(300, function () {
+                $("span.menu").click(function() {
+                    $(".head-nav ul").slideToggle(300, function() {
                         // Animation complete.
                     });
                 });
@@ -140,8 +140,34 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <div class="col-md-6">
                     </div>
                     <div class="col-md-6 banner-info">
-                        <h1>Golden Bridge</h1>
-                        <p style="text-align: justify;">Es una empresa que brinda capacitación y formación en el área de inglés a todo tipo de estudiantes,  la que cuenta con un programa de Ingles presencial dinámico de fácil asimilación, que adapta técnicas de aprendizaje a las necesidades en cuanto a tiempo, espacio, nivel de conocimiento presupuesto y metodología.</p> 
+                        <h1>Integrantes</h1>
+                        <p><b>Jorge Esteban Crespo Donoso</b></p>
+                        <ul>
+                            <li>jorge.crespod@ucuenca.ec</li>
+                        </ul>                        
+
+                        <p><b>Juan Pablo Japa Loja</b></p>
+                        <ul>
+                            <li>juan.japal@ucuenca.ec</li>
+                        </ul>                        
+                        
+
+                        <p><b>Miguel Alberto Saca Sinchi</b></p>
+                        <ul>
+                            <li>miguel.sacas@ucuenca.ec</li>
+                        </ul>                        
+
+                        <p><b>Francisco Xavier Sumba Toral</b></p>
+                        <ul>
+                            <li>xavier.sumba93@ucuneca.ec</li>
+                        </ul>                        
+
+                        <p><b>Christian Damian Vanegas Ortiz</b></p>
+                        <ul>
+                            <li>christan.vanegaso@ucuenca.ec</li>
+                        </ul>                        
+                        
+
                     </div>
                     <div class="clearfix"> </div>
                 </div>
