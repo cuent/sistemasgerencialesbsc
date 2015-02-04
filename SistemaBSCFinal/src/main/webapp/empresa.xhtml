@@ -30,7 +30,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <h:outputScript library="js" name="megamenu.js"/> 
 
 
-            <script>$(document).ready(function () {
+            <script>$(document).ready(function() {
                     $(".megamenu").megamenu();
                 });</script>
             <h:outputScript library="js" name="menu_jquery.js"/> 
@@ -38,7 +38,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <h:outputScript library="js" name="jquery.etalage.min.js"/> 
 
             <script>
-                jQuery(document).ready(function ($) {
+                jQuery(document).ready(function($) {
 
                     $('#etalage').etalage({
                         thumb_image_width: 300,
@@ -46,7 +46,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         source_image_width: 800,
                         source_image_height: 1000,
                         show_hint: true,
-                        click_callback: function (image_anchor, instance_id) {
+                        click_callback: function(image_anchor, instance_id) {
                             alert('Callback example:\nYou clicked on an image with the anchor: "' + image_anchor + '"\n(in Etalage instance: "' + instance_id + '")');
                         }
                     });
@@ -59,7 +59,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <script src="resources/js/menu_jquery.js"></script>
         </h:head>
         <h:body>
-             
+
             <!-- header <p:growl id="mensaje" showDetail="true" life="2000"/>-->
             <div class="header">
                 <div class="top_bg">
@@ -93,7 +93,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                                     </p:inputText>
                                                 </div>
                                             </fieldset>
-                                            
+
                                             <p:inputText id="login"
                                                          type="submit"
                                                          value="Sign in"
@@ -128,8 +128,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             </div>
             <!-- script-for-nav -->
             <script>
-                $("span.menu").click(function () {
-                    $(".head-nav ul").slideToggle(300, function () {
+                $("span.menu").click(function() {
+                    $(".head-nav ul").slideToggle(300, function() {
                         // Animation complete.
                     });
                 });
@@ -141,7 +141,18 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     </div>
                     <div class="col-md-6 banner-info">
                         <h1>Golden Bridge</h1>
-                        <p style="text-align: justify;">Es una empresa que brinda capacitación y formación en el área de inglés a todo tipo de estudiantes,  la que cuenta con un programa de Ingles presencial dinámico de fácil asimilación, que adapta técnicas de aprendizaje a las necesidades en cuanto a tiempo, espacio, nivel de conocimiento presupuesto y metodología.</p> 
+                        <h3>Misión</h3>
+                        <p style="text-align: justify;">Nuestra razón de ser y existir, son las personas.</p>
+                        <p style="text-align: justify;">Somos la organización  que se debe a ellas y trabaja por ellas imparten cursos del idioma inglés, brindándoles oportunidades de crecimiento y desarrollo a través de una filosofía de servicio competitiva con altos estándares de calidad.</p> 
+                        <h3>Visión</h3>
+                        <p style="text-align: justify;">En 5 años nuestra organización se convertirá en la opción más consolidada del mercado para la enseñanza de idiomas foráneos abarcando todo el Ecuador en relación directa con nuestras posibilidades humanas y tecnológicas.</p>
+                        <h3>Valores</h3>
+                        <ul>
+                            <li><b>Transparencia:</b> permitir que los demás entiendan claramente el mensaje que les estamos proporcionando y perciban un mensaje que exprese lo que realmente deseamos o sentimos.</li>
+                            <li><b>Sensibilidad:</b> no es hacer parte del problema de otros, o quedarnos llorando por una tragedia que pasa otro, sino idear y ayudar a la solución de la situación de otros</li>
+                            <li><b>Innovación:</b> consiste en crear cosas nuevas con la mentalidad de aprovechar la ventaja del pionero que obtendrás con ellos durante un tiempo corto y limitado</li>
+                            <li><b>Fe:</b> es saber y estar seguro de lo que vendrá, de lo que llegará a nuestra vida y nuestra empresa</li>
+                        </ul>
                     </div>
                     <div class="clearfix"> </div>
                 </div>
