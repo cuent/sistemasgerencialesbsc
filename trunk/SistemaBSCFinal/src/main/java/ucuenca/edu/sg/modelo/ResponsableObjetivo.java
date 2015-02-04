@@ -25,10 +25,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "ResponsableObjetivo.findAll", query = "SELECT r FROM ResponsableObjetivo r"),
     @NamedQuery(name = "ResponsableObjetivo.findByIdResponsable", query = "SELECT r FROM ResponsableObjetivo r WHERE r.responsableObjetivoPK.idResponsable = :idResponsable"),
-    @NamedQuery(name = "ResponsableObjetivo.findByIdObjetivoEstrategico", query = "SELECT r FROM ResponsableObjetivo r WHERE r.responsableObjetivoPK.idObjetivoEstrategico = :idObjetivoEstrategico"),
-    @NamedQuery(name = "ResponsableObjetivo.findByIdUsuario", query = "SELECT r FROM ResponsableObjetivo r WHERE r.responsableObjetivoPK.idUsuario = :idUsuario")})
+    @NamedQuery(name = "ResponsableObjetivo.findByIdObjetivoEstrategico", query = "SELECT r.usuario FROM ResponsableObjetivo r WHERE r.responsableObjetivoPK.idObjetivoEstrategico = :idObjetivoEstrategico"),
+    @NamedQuery(name = "ResponsableObjetivo.findByIdUsuario", query = "SELECT r FROM ResponsableObjetivo r WHERE r.responsableObjetivoPK.idUsuario = :idUsuario"),
+@NamedQuery(name = "ResponsableObjetivo.findByIdResponsableidObjetivoEstrategico", query = "SELECT r FROM ResponsableObjetivo r WHERE r.responsableObjetivoPK.idResponsable = :idResponsable AND R.responsableObjetivoPK.idObjetivoEstrategico = :idObjetivoEstrategico")})
 public class ResponsableObjetivo implements Serializable {
     private static final long serialVersionUID = 1L;
+    public static final String findByIdResponsableidObjetivoEstrategico ="ResponsableObjetivo.findByIdResponsableidObjetivoEstrategico";
+    public static final String findByIdObjetivoEstrategico ="ResponsableObjetivo.findByIdObjetivoEstrategico";
     @EmbeddedId
     protected ResponsableObjetivoPK responsableObjetivoPK;
     @JoinColumn(name = "ID_OBJETIVO_ESTRATEGICO", referencedColumnName = "ID_OBJETIVO_ESTRATEGICO", nullable = false, insertable = false, updatable = false)

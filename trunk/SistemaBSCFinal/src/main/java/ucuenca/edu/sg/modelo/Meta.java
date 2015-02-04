@@ -30,9 +30,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Meta.findAll", query = "SELECT m FROM Meta m"),
     @NamedQuery(name = "Meta.findByIdMeta", query = "SELECT m FROM Meta m WHERE m.idMeta = :idMeta"),
-    @NamedQuery(name = "Meta.findByDescripcion", query = "SELECT m FROM Meta m WHERE m.descripcion = :descripcion")})
+    @NamedQuery(name = "Meta.findByDescripcion", query = "SELECT m FROM Meta m WHERE m.descripcion = :descripcion"),
+    @NamedQuery(name = "Meta.findByidObjetivoEstrategico", query = "SELECT m FROM Meta m WHERE m.idObjetivoEstrategico.idObjetivoEstrategico = :idObjetivoEstrategico")})
 public class Meta implements Serializable {
+
     private static final long serialVersionUID = 1L;
+    public static final String findByidObjetivoEstrategico = "Meta.findByidObjetivoEstrategico";
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -100,5 +103,5 @@ public class Meta implements Serializable {
     public String toString() {
         return "ucuenca.edu.sg.modelo.Meta[ idMeta=" + idMeta + " ]";
     }
-    
+
 }
