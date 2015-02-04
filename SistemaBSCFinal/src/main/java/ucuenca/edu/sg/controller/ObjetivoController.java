@@ -236,7 +236,6 @@ public class ObjetivoController implements Serializable {
     }
 
     //private Integer idOE = 0;
-
     public void faceUpdateAll() {
         ObjetivoEstrategico oe = new ObjetivoEstrategico();
         boolean llave = switchObjetivo;
@@ -245,7 +244,7 @@ public class ObjetivoController implements Serializable {
         oe = selected;
         this.init();
         System.out.println("clave: " + oe);
-       selected= oe;
+        selected = oe;
 
         updateItemsResponsable();
         updateItemsMeta();
@@ -502,10 +501,12 @@ public class ObjetivoController implements Serializable {
 
     public void create() {
         JsfUtil.addSuccessMessage("create()");
-       if(ejbFacade.getObjetivoEstrategico(selected.getIdObjetivoEstrategico())!=null){
-           System.out.println("Es nulo" + selected);
-           return;
-       }
+        if (ejbFacade.getObjetivoEstrategico(selected.getIdObjetivoEstrategico()) != null) {
+            System.out.println("Es nulo" + selected);
+            if (!switchObjetivo) {
+                return;
+            }
+        }
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ObjetivoEstrategicoCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
