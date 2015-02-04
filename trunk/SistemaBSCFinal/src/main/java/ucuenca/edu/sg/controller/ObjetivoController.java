@@ -63,8 +63,8 @@ public class ObjetivoController implements Serializable {
     private ComponenteFormula componenteFormula;
 
     ///Varibles de Control de vistas
-    private boolean switchObjetivo = true;
-
+    private boolean switchObjetivo = false;
+    private boolean switchIndicador = true;
     ///Datos filtrados
     private List<Usuario> filterListResponsable = null;
     private List<Meta> filterListMeta = null;
@@ -77,6 +77,7 @@ public class ObjetivoController implements Serializable {
 
         this.setSelected(null);
         meta = new Meta();
+
         if (switchObjetivo) {
             items = new ArrayList<>();
             itemsResponsable = new ArrayList<>();
@@ -86,8 +87,7 @@ public class ObjetivoController implements Serializable {
 
             this.setSelected(new ObjetivoEstrategico());
             usuario = new Usuario();
-            
-            indicador = new Indicador();
+
             componenteFormula = new ComponenteFormula();
 
             switchObjetivo = false;
@@ -95,21 +95,39 @@ public class ObjetivoController implements Serializable {
             items = null;
             itemsResponsable = null;
             itemsMeta = null;
-            itemsIndicador = null;
+
             itemsComponenteFormula = null;
 
             this.setSelected(null);
             usuario = null;
-            
-            indicador = null;
-            componenteFormula = null;
 
             switchObjetivo = true;
         }
+        indicador = new Indicador();
+        itemsIndicador = new ArrayList<>();
+
         itemsRealResponsable = new ArrayList<>();
         itemsRealMeta = new ArrayList<>();
         itemsRealIndicador = new ArrayList<>();
         itemsRealComponenteFormula = new ArrayList<>();
+    }
+
+    public void initIndicador() {
+        if (switchIndicador) {
+            itemsIndicador = new ArrayList<>();
+            itemsComponenteFormula = new ArrayList<>();
+
+            indicador = new Indicador();
+            componenteFormula = new ComponenteFormula();
+            switchIndicador = false;
+        } else {
+            itemsComponenteFormula = null;
+
+            switchIndicador = true;
+        }
+        itemsRealIndicador = new ArrayList<>();
+        itemsRealComponenteFormula = new ArrayList<>();
+
     }
 
     public void addResponsable() {
@@ -118,13 +136,35 @@ public class ObjetivoController implements Serializable {
             itemsResponsable.add(usuario);
         }
     }
+
     public void addMeta() {
         JsfUtil.addSuccessMessage("Si ingreeso a addMeta()");
-        if (itemsMeta != null && meta!=null && meta.getDescripcion()!=null) {
+        if (itemsMeta != null && meta != null && meta.getDescripcion() != null) {
             itemsMeta.add(meta);
         }
         meta = new Meta();
     }
+
+    public void addIndicador() {
+        JsfUtil.addSuccessMessage("Si ingreeso a addIndicador()");
+        System.out.println("indicador: " + indicador.getIdIndicador());
+        if (itemsIndicador != null && indicador != null
+                && indicador.getNombreIndicador() != null
+                && indicador.getIdIndicador() == null) {
+            itemsIndicador.add(indicador);
+            System.out.println("Si es nuevo");
+        }
+        indicador = new Indicador();
+    }
+
+    public void addComponenteFormula() {
+        JsfUtil.addSuccessMessage("Si ingreeso a addComponenteFormula()");
+        if (itemsComponenteFormula != null && componenteFormula != null && componenteFormula.getFormula() != null) {
+            itemsComponenteFormula.add(componenteFormula);
+        }
+        componenteFormula = new ComponenteFormula();
+    }
+
     public void updateItemsResponsable() {
         itemsResponsable = new ArrayList<>();
         System.out.println("oe: " + this.getSelected().getIdObjetivoEstrategico());
@@ -139,18 +179,42 @@ public class ObjetivoController implements Serializable {
         itemsMeta.addAll(ejbMetaFacade.getitemsMeta(this.getSelected().getIdObjetivoEstrategico()));
     }
 
+    public void updateItemsComponenteFormula() {
+        itemsComponenteFormula = new ArrayList<>();
+        //System.out.println("Tamano: "+ejbResponsableObjetivoFacade.getitemsObjetivoResponsable(this.getSelected().getIdObjetivoEstrategico()));
+        if (indicador.getIdIndicador() != null) {
+            itemsComponenteFormula.addAll(ejbComponenteFormulaFacade.getitemsComponenteFormula(indicador.getIdIndicador()));
+        }
+    }
+
+    public void updateItemsIndicador() {
+        itemsIndicador = new ArrayList<>();
+        System.out.println("oe: " + this.getSelected().getIdObjetivoEstrategico());
+        //System.out.println("Tamano: "+ejbResponsableObjetivoFacade.getitemsObjetivoResponsable(this.getSelected().getIdObjetivoEstrategico()));
+        itemsIndicador.addAll(ejbIndicadorFacade.getitemsIndicador(this.getSelected().getIdObjetivoEstrategico()));
+        System.out.println("listaIndicador: " + itemsIndicador.size());
+    }
+
     public void deleteItemsResponsable(Usuario user) {
         System.out.println("Si valio...");
         itemsResponsable.remove(user);
     }
+
+    public void deleteItemsComponenteFormula(ComponenteFormula formula) {
+        System.out.println("Si valio...");
+        itemsComponenteFormula.remove(formula);
+    }
+
     public void deleteItemsMeta(Meta meta) {
         System.out.println("Si valio...");
         itemsMeta.remove(meta);
     }
-    private Integer idOE = new Integer(0);
+
+    private Integer idOE = 0;
 
     public void faceUpdateAll() {
         boolean llave = switchObjetivo;
+        boolean llave1 = switchIndicador;
         JsfUtil.addSuccessMessage("faceUpdateAll()");
         idOE = selected.getIdObjetivoEstrategico();
         this.init();
@@ -159,7 +223,10 @@ public class ObjetivoController implements Serializable {
 
         updateItemsResponsable();
         updateItemsMeta();
+        updateItemsIndicador();
+
         switchObjetivo = llave;
+        switchIndicador = llave1;
         itemsRealResponsable = new ArrayList<>();
         itemsRealMeta = new ArrayList<>();
         if (itemsResponsable != null) {
@@ -167,6 +234,9 @@ public class ObjetivoController implements Serializable {
         }
         if (itemsRealMeta != null) {
             itemsRealMeta.addAll(itemsMeta);
+        }
+        if (itemsIndicador != null) {
+            itemsRealIndicador.addAll(itemsIndicador);
         }
     }
 
@@ -248,7 +318,32 @@ public class ObjetivoController implements Serializable {
     public void createIndicador() {
 
         JsfUtil.addSuccessMessage("createIndicador()");
+        if ((itemsRealIndicador == null || itemsRealIndicador.isEmpty()) && itemsIndicador != null) {
+            for (Indicador crear : itemsIndicador) {
+                crear.setIdObjetivoEstrategico(this.getSelected());
+                ejbIndicadorFacade.create(crear);
+            }
+            return;
+        }
+        if ((itemsIndicador == null || itemsIndicador.isEmpty()) && itemsRealIndicador != null) {
+            for (Indicador eliminar : itemsRealIndicador) {
+                ejbIndicadorFacade.remove(eliminar);
 
+            }
+            return;
+        }
+
+        for (Indicador crear : itemsIndicador) {
+            if (!itemsRealIndicador.contains(crear)) {
+                crear.setIdObjetivoEstrategico(this.getSelected());
+                ejbIndicadorFacade.create(crear);
+            }
+        }
+        for (Indicador eliminar : itemsRealIndicador) {
+            if (!itemsIndicador.contains(eliminar)) {
+                ejbIndicadorFacade.remove(eliminar);
+            }
+        }
 //        if (!JsfUtil.isValidationFailed()) {
 //            items = null;    // Invalidate list of items to trigger re-query.
 //        }
@@ -256,7 +351,33 @@ public class ObjetivoController implements Serializable {
 
     public void createComponenteFormula() {
         JsfUtil.addSuccessMessage("createComponenteFormula()");
+        Indicador indi = itemsIndicador.get(0);
+        if ((itemsRealComponenteFormula == null || itemsRealComponenteFormula.isEmpty()) && itemsComponenteFormula != null) {
+            for (ComponenteFormula crear : itemsComponenteFormula) {
+                crear.setIdIndicador(indi);
+                ejbComponenteFormulaFacade.create(crear);
+            }
+            return;
+        }
+        if ((itemsComponenteFormula == null || itemsComponenteFormula.isEmpty()) && itemsRealComponenteFormula != null) {
+            for (ComponenteFormula eliminar : itemsRealComponenteFormula) {
+                ejbComponenteFormulaFacade.remove(eliminar);
 
+            }
+            return;
+        }
+
+        for (ComponenteFormula crear : itemsComponenteFormula) {
+            if (!itemsRealComponenteFormula.contains(crear)) {
+                crear.setIdIndicador(indi);
+                ejbComponenteFormulaFacade.create(crear);
+            }
+        }
+        for (ComponenteFormula eliminar : itemsRealComponenteFormula) {
+            if (!itemsComponenteFormula.contains(eliminar)) {
+                ejbComponenteFormulaFacade.remove(eliminar);
+            }
+        }
 //        if (!JsfUtil.isValidationFailed()) {
 //            items = null;    // Invalidate list of items to trigger re-query.
 //        }
@@ -349,6 +470,10 @@ public class ObjetivoController implements Serializable {
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
+        //createResponsable();
+        //createMeta();
+        //createIndicador();
+        //createComponenteFormula();
     }
 
     public void update() {
@@ -585,6 +710,20 @@ public class ObjetivoController implements Serializable {
      */
     public void setFilterListMeta(List<Meta> filterListMeta) {
         this.filterListMeta = filterListMeta;
+    }
+
+    /**
+     * @return the switchIndicador
+     */
+    public boolean isSwitchIndicador() {
+        return switchIndicador;
+    }
+
+    /**
+     * @param switchIndicador the switchIndicador to set
+     */
+    public void setSwitchIndicador(boolean switchIndicador) {
+        this.switchIndicador = switchIndicador;
     }
 
     @FacesConverter(forClass = ObjetivoEstrategico.class)
