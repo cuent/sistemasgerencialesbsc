@@ -1,0 +1,1 @@
+sistema de control de mando integral
